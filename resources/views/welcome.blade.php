@@ -7,6 +7,6 @@
 </head>
 <body class="antialiased">
 <h1>Techdiary API V3</h1>
-<a href="{{ env('') }}">{{ env('CLIENT_URL') }}</a>
+<a href="{{ env('CLIENT_URL') }}">{{ env('CLIENT_URL') }}</a>
 </body>
 </html>
