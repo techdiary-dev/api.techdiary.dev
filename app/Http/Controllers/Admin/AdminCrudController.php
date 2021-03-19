@@ -32,23 +32,12 @@ class AdminCrudController extends \Backpack\PermissionManager\app\Http\Controlle
         CRUD::setEntityNameStrings('admin', 'admins');
     }
 
-    /**
-     * Handle password input fields.
-     */
-    protected function handlePasswordInput($request)
+    public function update()
     {
-        // Remove fields not present on the user.
-//        $request->request->remove('password_confirmation');
-//        $request->request->remove('roles_show');
-//        $request->request->remove('permissions_show');
-//
-//        // Encrypt password if specified.
-//        if ($request->input('password')) {
-//            $request->request->set('password', Hash::make($request->input('password')));
-//        } else {
-//            $request->request->remove('password');
-//        }
-//
-//        return $request;
+        $this->crud->setRequest($this->crud->validateRequest());
+        $this->crud->setRequest($this->handlePasswordInput($this->crud->getRequest()));
+        $this->crud->unsetValidation(); // validation has already been run
+        return $this->traitUpdate();
     }
+    
 }
