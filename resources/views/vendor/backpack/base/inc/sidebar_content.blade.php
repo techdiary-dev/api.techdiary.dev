@@ -8,21 +8,19 @@
     </a>
 </li>
 
-
-<li class='nav-item'>
-    <a class='nav-link' href='{{ backpack_url('tag') }}'>
-        <i class='nav-icon la la-question'></i>
-        Tags
-    </a>
-</li>
-
 <li class='nav-item'>
     <a class='nav-link' href='{{ backpack_url('article') }}'>
-        <i class='nav-icon la la-question'></i>
+        <i class='nav-icon la la-book'></i>
         Articles
     </a>
 </li>
 
+<li class='nav-item'>
+    <a class='nav-link' href='{{ backpack_url('tag') }}'>
+        <i class='nav-icon la la-tags'></i>
+        Tags
+    </a>
+</li>
 
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-group"></i> Authentication</a>

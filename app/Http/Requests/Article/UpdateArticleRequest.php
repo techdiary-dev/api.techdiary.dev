@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Article;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateArticleRequest extends FormRequest
 {
@@ -30,7 +29,7 @@ class UpdateArticleRequest extends FormRequest
             'isPublished' => ['nullable', 'boolean'],
             'seriesName' => ['nullable', 'min:5'],
             'thumbnail' => ['nullable', 'url'],
-            'body' => ['required', 'array'],
+            'body' => ['required'],
             'tags' => ['array'],
         ];
     }
