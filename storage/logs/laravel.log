@@ -3466,3 +3466,18 @@ Did you mean one of these?
 #85 /home/rayhan/code/techdiary-v3/techdiary-api/server.php(21): require_once('...')
 #86 {main}
 "} 
+[2021-03-19 00:29:52] local.ERROR: Class "DOMDocument" not found {"exception":"[object] (Error(code: 0): Class \"DOMDocument\" not found at /home/rayhan/code/techdiary-v3/techdiary-api/vendor/symfony/console/Descriptor/XmlDescriptor.php:78)
+[stacktrace]
+#0 /home/rayhan/code/techdiary-v3/techdiary-api/vendor/symfony/console/Descriptor/XmlDescriptor.php(154): Symfony\\Component\\Console\\Descriptor\\XmlDescriptor->getApplicationDocument()
+#1 /home/rayhan/code/techdiary-v3/techdiary-api/vendor/symfony/console/Descriptor/Descriptor.php(55): Symfony\\Component\\Console\\Descriptor\\XmlDescriptor->describeApplication()
+#2 /home/rayhan/code/techdiary-v3/techdiary-api/vendor/symfony/console/Helper/DescriptorHelper.php(65): Symfony\\Component\\Console\\Descriptor\\Descriptor->describe()
+#3 /home/rayhan/code/techdiary-v3/techdiary-api/vendor/symfony/console/Command/ListCommand.php(70): Symfony\\Component\\Console\\Helper\\DescriptorHelper->describe()
+#4 /home/rayhan/code/techdiary-v3/techdiary-api/vendor/symfony/console/Command/Command.php(255): Symfony\\Component\\Console\\Command\\ListCommand->execute()
+#5 /home/rayhan/code/techdiary-v3/techdiary-api/vendor/symfony/console/Application.php(971): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /home/rayhan/code/techdiary-v3/techdiary-api/vendor/symfony/console/Application.php(290): Symfony\\Component\\Console\\Application->doRunCommand()
+#7 /home/rayhan/code/techdiary-v3/techdiary-api/vendor/symfony/console/Application.php(166): Symfony\\Component\\Console\\Application->doRun()
+#8 /home/rayhan/code/techdiary-v3/techdiary-api/vendor/laravel/framework/src/Illuminate/Console/Application.php(93): Symfony\\Component\\Console\\Application->run()
+#9 /home/rayhan/code/techdiary-v3/techdiary-api/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(129): Illuminate\\Console\\Application->run()
+#10 /home/rayhan/code/techdiary-v3/techdiary-api/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 {main}
+"} 
