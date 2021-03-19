@@ -69,6 +69,11 @@ return [
          */
 
         'role_has_permissions' => 'role_has_permissions',
+
+        /**
+         * permission user table
+         */
+        'users' => 'admins'
     ],
 
     'column_names' => [

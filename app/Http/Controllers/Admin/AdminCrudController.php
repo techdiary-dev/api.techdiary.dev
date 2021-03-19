@@ -33,53 +33,22 @@ class AdminCrudController extends \Backpack\PermissionManager\app\Http\Controlle
     }
 
     /**
-     * Define what happens when the List operation is loaded.
-     *
-     * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
-     * @return void
+     * Handle password input fields.
      */
-//    protected function setupListOperation()
-//    {
-//        CRUD::column('name');
-//        CRUD::column('email');
-//        CRUD::column('password');
+    protected function handlePasswordInput($request)
+    {
+        // Remove fields not present on the user.
+//        $request->request->remove('password_confirmation');
+//        $request->request->remove('roles_show');
+//        $request->request->remove('permissions_show');
 //
-//        /**
-//         * Columns can be defined using the fluent syntax or array syntax:
-//         * - CRUD::column('price')->type('number');
-//         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-//         */
-//    }
+//        // Encrypt password if specified.
+//        if ($request->input('password')) {
+//            $request->request->set('password', Hash::make($request->input('password')));
+//        } else {
+//            $request->request->remove('password');
+//        }
 //
-//    /**
-//     * Define what happens when the Create operation is loaded.
-//     *
-//     * @see https://backpackforlaravel.com/docs/crud-operation-create
-//     * @return void
-//     */
-//    protected function setupCreateOperation()
-//    {
-//        CRUD::setValidation(AdminRequest::class);
-//
-//        CRUD::field('name');
-//        CRUD::field('email');
-//        CRUD::field('password');
-//
-//        /**
-//         * Fields can be defined using the fluent syntax or array syntax:
-//         * - CRUD::field('price')->type('number');
-//         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
-//         */
-//    }
-//
-//    /**
-//     * Define what happens when the Update operation is loaded.
-//     *
-//     * @see https://backpackforlaravel.com/docs/crud-operation-update
-//     * @return void
-//     */
-//    protected function setupUpdateOperation()
-//    {
-//        $this->setupCreateOperation();
-//    }
+//        return $request;
+    }
 }
