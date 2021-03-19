@@ -14,6 +14,7 @@ use Laravel\Scout\Searchable;
 
 class Article extends Model implements ReactableInterface
 {
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory, CanBeScoped, Searchable, ReactionableModel, NestableComments;
 
     protected $guarded = ['isApproved'];
