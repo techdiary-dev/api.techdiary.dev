@@ -15,10 +15,6 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
 
-//        $this->app->bind(
-//            \Backpack\PermissionManager\app\Http\Controllers\UserCrudController::class, //this is package controller
-//            \App\Http\Controllers\Admin\UserCrudController::class //this should be your own controller
-//        );
 
         /**
          * Enable Laravel Telescope only for dev environment
@@ -38,7 +34,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(UrlGenerator $url)
     {
 
-
+        $this->app->bind(
+            \Backpack\PermissionManager\app\Http\Controllers\UserCrudController::class, //this is package controller
+            \App\Http\Controllers\Admin\AdminCrudController::class //this should be your own controller
+        );
         /**
          * Enable https
          */

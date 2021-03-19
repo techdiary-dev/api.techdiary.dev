@@ -36,11 +36,6 @@
                 <span>Social Providers</span>
             </a>
         </li>
-
-        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i
-                    class="nav-icon la la-id-badge"></i> <span>Roles</span></a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('permission') }}"><i
-                    class="nav-icon la la-key"></i> <span>Permissions</span></a></li>
     </ul>
 </li>
 
@@ -49,3 +44,7 @@
         <i class='nav-icon la la-question'></i> Admins
     </a>
 </li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i
+            class="nav-icon la la-id-badge"></i> <span>Roles</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('permission') }}"><i
+            class="nav-icon la la-key"></i> <span>Permissions</span></a></li>
