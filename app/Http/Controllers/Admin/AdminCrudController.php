@@ -32,6 +32,14 @@ class AdminCrudController extends \Backpack\PermissionManager\app\Http\Controlle
         CRUD::setEntityNameStrings('admin', 'admins');
     }
 
+    public function update()
+    {
+        $this->crud->setRequest($this->crud->validateRequest());
+        $this->crud->setRequest($this->handlePasswordInput($this->crud->getRequest()));
+        $this->crud->unsetValidation(); // validation has already been run
+        return $this->traitUpdate();
+    }
+
     /**
      * Define what happens when the List operation is loaded.
      *

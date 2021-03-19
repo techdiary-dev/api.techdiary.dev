@@ -46,9 +46,9 @@ class Admin extends Authenticatable
      * Hash password
      * @param $password
      */
-    protected function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = bcrypt($password);
-    }
+    // protected function setPasswordAttribute($password)
+    // {
+    //     $this->attributes['password'] = bcrypt($password);
+    // }
 
 }
