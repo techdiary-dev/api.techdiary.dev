@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\Article\CreateArticleRequest;
+use App\Http\Requests\Article\UpdateArticleRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -40,8 +41,32 @@ class ArticleCrudController extends CrudController
     protected function setupListOperation()
     {
 
-//        CRUD::column('created_at');
-//        CRUD::column('updated_at');
+        $this->crud->addFilter([
+            'type' => 'select2',
+            'label' => 'Publish status',
+            'name' => 'isPublished'
+        ], function () {
+            return [
+                true => 'Published',
+                false => 'Drafted',
+            ];
+        }, function ($value) {
+            $this->crud->addClause('where', 'isPublished', $value);
+        });
+
+        $this->crud->addFilter([
+            'type' => 'select2',
+            'label' => 'Approval status',
+            'name' => 'isApproved'
+        ], function () {
+            return [
+                true => 'Published',
+                false => 'Drafted',
+            ];
+        }, function ($value) {
+            $this->crud->addClause('where', 'isApproved', $value);
+        });
+
 
         $this->crud->column('title');
         $this->crud->column('thumbnail')->type('image');
@@ -50,17 +75,34 @@ class ArticleCrudController extends CrudController
         $this->crud->column('created_at');
         $this->crud->column('updated_at');
 
-//        $this->crud->addColumn([
-//            'name' => 'user',
-//            'type' => 'relationship'
-//        ]);
-
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
+    }
+
+
+    public function crudOperation()
+    {
+        CRUD::field('title');
+        CRUD::field('slug');
+        CRUD::field('thumbnail');
+        CRUD::field('tags');
+
+        $this->crud->addField([
+            "name" => "body",
+            "type" => "editorjs"
+        ]);
+
+
+        CRUD::field('excerpt');
+        CRUD::field('isPublished');
+        CRUD::field('isApproved');
+        CRUD::field('user');
+        CRUD::field('created_at');
+        CRUD::field('updated_at');
     }
 
     /**
@@ -71,21 +113,8 @@ class ArticleCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(ArticleRequest::class);
-
-        CRUD::field('title');
-        CRUD::field('slug');
-        CRUD::field('thumbnail');
-        CRUD::field('tags');
-        CRUD::field('seriesName');
-        CRUD::field('body');
-        CRUD::field('excerpt');
-        CRUD::field('isPublished');
-        CRUD::field('isApproved');
-        CRUD::field('user');
-        CRUD::field('created_at');
-        CRUD::field('updated_at');
-
+        CRUD::setValidation(CreateArticleRequest::class);
+        $this->crudOperation();
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
@@ -101,6 +130,7 @@ class ArticleCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(UpdateArticleRequest::class);
+        $this->crudOperation();
     }
 }
