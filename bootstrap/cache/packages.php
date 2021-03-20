@@ -18,6 +18,13 @@
       0 => 'Backpack\\Generators\\GeneratorsServiceProvider',
     ),
   ),
+  'backpack/permissionmanager' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Backpack\\PermissionManager\\PermissionManagerServiceProvider',
+    ),
+  ),
   'creativeorange/gravatar' => 
   array (
     'providers' => 
@@ -134,6 +141,13 @@
     'aliases' => 
     array (
       'Alert' => 'Prologue\\Alerts\\Facades\\Alert',
+    ),
+  ),
+  'spatie/laravel-permission' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\Permission\\PermissionServiceProvider',
     ),
   ),
 );

@@ -1,5 +1,5 @@
 @php
-    $blocks = old($field['name']) ? json_encode(old($field['name'])) : (isset($field['value']) ? json_encode($field['value']) : (isset($field['default']) ? json_encode($field['default']) : '' ));
+    $blocks = old($field['name']) ? json_encode(old($field['name'])) : (isset($field['value']) ? json_encode($field['value']) : (isset($field['default']) ? json_encode($field['default']) : json_encode([]) ));
 @endphp
 
 
