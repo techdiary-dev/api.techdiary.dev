@@ -43,7 +43,7 @@ class UserCrudController extends CrudController
         CRUD::column('name');
         CRUD::column('username');
         CRUD::column('email');
-        CRUD::column('profilePhoto');
+        CRUD::column('profilePhoto')->type('image');
         CRUD::column('education');
         CRUD::column('designation');
         CRUD::column('bio');
