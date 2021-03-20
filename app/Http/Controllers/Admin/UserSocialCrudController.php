@@ -28,7 +28,7 @@ class UserSocialCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\UserSocial::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/usersocial');
-        CRUD::setEntityNameStrings('usersocial', 'user_socials');
+        CRUD::setEntityNameStrings('Social provider', 'Social providers');
     }
 
     /**

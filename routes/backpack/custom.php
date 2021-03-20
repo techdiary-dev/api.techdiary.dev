@@ -19,4 +19,6 @@ Route::group([
     Route::crud('user', 'UserCrudController');
     Route::crud('usersocial', 'UserSocialCrudController');
     Route::crud('admin', 'AdminCrudController');
+    Route::get('charts/latest-user', 'Charts\LatestUserChartController@response')->name('charts.latest-user.index');
+    Route::get('charts/latest-articles', 'Charts\LatestArticlesChartController@response')->name('charts.latest-articles.index');
 }); // this should be the absolute last line of this file

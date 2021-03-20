@@ -25,6 +25,13 @@
       0 => 'Backpack\\PermissionManager\\PermissionManagerServiceProvider',
     ),
   ),
+  'consoletvs/charts' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'ConsoleTVs\\Charts\\ChartsServiceProvider',
+    ),
+  ),
   'creativeorange/gravatar' => 
   array (
     'providers' => 
