@@ -32,6 +32,11 @@ class AdminCrudController extends \Backpack\PermissionManager\app\Http\Controlle
         CRUD::setEntityNameStrings('admin', 'admins');
     }
 
+    /**
+     * Update the specified resource in the database.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update()
     {
         $this->crud->setRequest($this->crud->validateRequest());
@@ -39,5 +44,20 @@ class AdminCrudController extends \Backpack\PermissionManager\app\Http\Controlle
         $this->crud->unsetValidation(); // validation has already been run
         return $this->traitUpdate();
     }
-    
+
+
+    /**
+     * Store a newly created resource in the database.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store()
+    {
+        $this->crud->setRequest($this->crud->validateRequest());
+        $this->crud->setRequest($this->handlePasswordInput($this->crud->getRequest()));
+        $this->crud->unsetValidation(); // validation has already been run
+
+        return $this->traitStore();
+    }
+
 }
