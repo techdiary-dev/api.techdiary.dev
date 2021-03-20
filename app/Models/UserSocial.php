@@ -20,4 +20,6 @@ class UserSocial extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public $identifiableAttribute = 'service_uid';
 }

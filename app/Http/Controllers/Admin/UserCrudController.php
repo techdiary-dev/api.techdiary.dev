@@ -57,6 +57,9 @@ class UserCrudController extends CrudController
         CRUD::column('remember_token');
         CRUD::column('created_at');
         CRUD::column('updated_at');
+        CRUD::column('socialProviders')->label('Github UID');
+
+        $this->crud->enableExportButtons();
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
