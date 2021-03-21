@@ -31,8 +31,7 @@ class UpdateArticleRequest extends FormRequest
             'seriesName' => ['nullable', 'min:5', 'max:255'],
             'thumbnail' => ['nullable', 'url', 'max:255'],
             'body' => ['required'],
-            'tags' => ['array'],
-            'user_id' => ['required']
+            'tags' => ['array']
         ];
     }
 }
