@@ -100,7 +100,7 @@ class ArticleCrudController extends CrudController
         CRUD::field('excerpt');
         CRUD::field('isPublished');
         CRUD::field('isApproved');
-        CRUD::field('user');
+        CRUD::field('user_id');
         CRUD::field('created_at');
         CRUD::field('updated_at');
     }

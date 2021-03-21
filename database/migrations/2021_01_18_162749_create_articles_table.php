@@ -22,7 +22,7 @@ class CreateArticlesTable extends Migration
             $table->json('body');
             $table->string('excerpt')->nullable();
             $table->boolean('isPublished')->default(false);
-            $table->boolean('isApproved')->default(true);
+            $table->boolean('isApproved')->default(false);
 
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
