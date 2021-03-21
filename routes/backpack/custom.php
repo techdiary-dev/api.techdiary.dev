@@ -14,11 +14,20 @@ Route::group([
     ),
     'namespace' => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
+
+    Route::get('dashboard', 'DashboardRootController@dashboard');
+    Route::get('/', 'DashboardRootController@redirect');
+
     Route::crud('tag', 'TagCrudController');
     Route::crud('article', 'ArticleCrudController');
     Route::crud('user', 'UserCrudController');
     Route::crud('usersocial', 'UserSocialCrudController');
     Route::crud('admin', 'AdminCrudController');
+
+
+    /**
+     * Chart api endpoints
+     */
     Route::get('charts/latest-user', 'Charts\LatestUserChartController@response')->name('charts.latest-user.index');
     Route::get('charts/latest-articles', 'Charts\LatestArticlesChartController@response')->name('charts.latest-articles.index');
 }); // this should be the absolute last line of this file

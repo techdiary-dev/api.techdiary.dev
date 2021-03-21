@@ -8,9 +8,11 @@
     <label>{!! $field['label'] !!}</label>
     @include('crud::fields.inc.translatable_icon')
 
-    <div id="editorjs" data-init-function="techdiary__editorjsFunction" style="border: 1px solid #dddddd"></div>
+    <div id="editorjs" style="border: 1px solid #dddddd"></div>
 
-    <input type="hidden" name="{{ $field['name'] }}" id="editorjs-{{$field['name']}}">
+    <textarea class="d-none" name="{{ $field['name'] }}" id="editorjs-{{$field['name']}}">
+        {!! $blocks !!}
+    </textarea>
 
     {{-- HINT --}}
     @if (isset($field['hint']))

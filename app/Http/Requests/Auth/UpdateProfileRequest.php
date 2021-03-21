@@ -26,7 +26,7 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'username' => [Rule::unique('users')->ignore(auth()->id())],
-            'email' => ['email'],
+            'email' => [Rule::unique('email')->ignore(auth()->id())],
             'profilePhoto' => ['url'],
         ];
     }
