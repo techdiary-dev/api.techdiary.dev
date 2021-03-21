@@ -43,11 +43,6 @@ class DashboardRootController extends Controller
             $this->currentMonthStatesChart()
         ]);
 
-        // Third row
-        Widget::add()->to('before_content')->type('div')->class('row')->content([
-            $this->currentMonthStatesChart()
-        ]);
-        
 
         return view(backpack_view('dashboard'), $this->data);
     }
