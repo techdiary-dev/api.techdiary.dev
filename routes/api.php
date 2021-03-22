@@ -46,6 +46,7 @@ Route::get('fetch-url', function () {
 
 Route::group(['prefix' => '/user'], function () {
     Route::get('/', [UserController::class, 'me'])->middleware('auth:sanctum');
+    Route::get('bookmarks', [ArticleController::class, 'myBookmarks']);
     Route::get('/{username}', [UserController::class, 'userDetails']);
 });
 Route::get('/users', [UserController::class, 'users']);
