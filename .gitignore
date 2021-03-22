@@ -7,6 +7,7 @@
 node_modules/
 npm-debug.log
 yarn-error.log
+storage/logs/laravel.log
 
 # Laravel 4 specific
 bootstrap/compiled.php
@@ -21,6 +22,7 @@ public_html/storage
 public_html/hot
 
 storage/*.key
+storage/logs
 .env
 Homestead.yaml
 Homestead.json
