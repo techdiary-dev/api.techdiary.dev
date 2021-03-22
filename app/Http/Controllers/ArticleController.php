@@ -49,7 +49,7 @@ class ArticleController extends Controller
      */
     public function store(CreateArticleRequest $request)
     {
-        $article = auth()->user()->articles()->create($request->except('tags'));
+        $article = auth()->user()->articles()->create(array_merge([$request->except('tags'), 'isApproved' => true]));
 
         if ($request->tags) {
             $tags = collect($request->tags)->pluck('id');
