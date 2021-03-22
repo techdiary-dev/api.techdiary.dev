@@ -40,7 +40,15 @@ class TagCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->crud->column('name');
-
+        $this->crud->column('icon')->type('image');
+        $this->crud->column('description');
+        $this->crud->column('color')->type('color');
+        $this->crud->addColumn([
+            'name' => 'articles', // name of relationship method in the model
+            'type' => 'relationship_count',
+            'label' => 'ArticleCount', // Table column heading
+            'orderable' => true
+        ]);
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -58,7 +66,10 @@ class TagCrudController extends CrudController
     {
         CRUD::setValidation(TagRequest::class);
 
-        $this->crud->setFromDb();
+        $this->crud->field('name');
+        $this->crud->field('color')->type('color_picker');
+        $this->crud->field('icon');
+        $this->crud->field('description');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
