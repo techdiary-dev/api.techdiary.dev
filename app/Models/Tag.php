@@ -10,7 +10,7 @@ class Tag extends Model
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $guarded = ['id'];
 
     public function articles()
     {
