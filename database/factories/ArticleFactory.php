@@ -13,7 +13,7 @@ class ArticleFactory extends Factory
 {
 
     protected $commentCount = 10;
-    protected $commentDeptLevel = 4;
+    protected $commentDeptLevel = 3;
 
 
     /**

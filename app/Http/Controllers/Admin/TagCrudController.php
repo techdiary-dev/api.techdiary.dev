@@ -49,6 +49,7 @@ class TagCrudController extends CrudController
             'label' => 'ArticleCount', // Table column heading
             'orderable' => true
         ]);
+
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
