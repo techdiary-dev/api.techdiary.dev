@@ -16,7 +16,7 @@ class User extends Authenticatable
 
     protected $keyType = 'string';
     protected $primaryKey = 'id';
-
+//    public $identifiableAttribute = 'service_uid';
     /**
      * The attributes that are mass assignable.
      *

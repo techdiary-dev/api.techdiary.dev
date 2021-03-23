@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Article\CreateArticleRequest;
 use App\Http\Requests\Article\UpdateArticleRequest;
 use App\Models\Tag;
+use App\Models\User;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -71,7 +72,7 @@ class ArticleCrudController extends CrudController
         $this->crud->addFilter([
             'name' => 'tags',
             'type' => 'select2_multiple',
-            'label' => 'Tags'
+            'label' => 'Filter by tags'
         ], function () { // the options that show up in the select2
             return Tag::all()->pluck('name', 'id')->toArray();
         }, function ($values) { // if the filter is active
@@ -81,13 +82,27 @@ class ArticleCrudController extends CrudController
                 });
             }
         });
-
+        $this->crud->addFilter([
+            'label' => "Filter by User",
+            'type' => 'select2',
+            'name' => 'user_id', // the db column for the foreign key
+            'model' => User::class,
+            'attribute' => 'name',
+            'entity' => 'user',
+        ]);
+        $this->crud->with('tags');
+        $this->crud->with('user');
         $this->crud->column('title');
         $this->crud->column('thumbnail')->type('image');
         $this->crud->column('isPublished')->type('check');
         $this->crud->column('isApproved')->type('check');
-        $this->crud->column('created_at');
-        $this->crud->column('updated_at');
+        $this->crud->column('created_at')->type('datetime');
+        $this->crud->column('updated_at')->type('datetime');
+        $this->crud->addColumn([
+            'name' => 'user',
+            'label' => 'username',
+            'attribute' => 'username'
+        ]);
 
 
         /**
@@ -115,8 +130,8 @@ class ArticleCrudController extends CrudController
         CRUD::field('isPublished');
         CRUD::field('isApproved');
         CRUD::field('user_id');
-        CRUD::field('created_at');
-        CRUD::field('updated_at');
+        CRUD::field('created_at')->type('datetime');
+        CRUD::field('updated_at')->type('datetime');
     }
 
     /**

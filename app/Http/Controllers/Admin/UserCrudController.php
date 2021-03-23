@@ -97,8 +97,8 @@ class UserCrudController extends CrudController
         CRUD::field('password');
         CRUD::field('email_verified_at');
         CRUD::field('remember_token');
-        CRUD::field('created_at');
-        CRUD::field('updated_at');
+        CRUD::field('created_at')->type('datetime');
+        CRUD::field('updated_at')->type('datetime');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
