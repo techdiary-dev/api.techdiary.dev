@@ -12,6 +12,12 @@ class Tag extends Model
 
     protected $guarded = ['id'];
 
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtolower($value);
+
+    }
+
     public function articles()
     {
         return $this->belongsToMany(Article::class);

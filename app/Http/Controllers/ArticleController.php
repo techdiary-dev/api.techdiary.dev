@@ -140,13 +140,23 @@ class ArticleController extends Controller
     public function myBookmarks()
     {
         $article_ids = auth()->guard('sanctum')->user()?->reactions()->where('type', 'BOOKMARK')->where('ReactionAble_type', Article::class)->select('ReactionAble_id')->get()->pluck('ReactionAble_id');
-        if ($article_ids) {
 
+        if ($article_ids) {
             $articles = Article::with('user')->whereIn('id', $article_ids)->latest()->paginate();
             return ArticleList::collection($articles);
         } else {
             abort(401, "Unauthorized activity");
         }
+    }
+
+    public function removeBookmark($articleId)
+    {
+        return auth()
+            ->user()
+            ->reactions()
+            ->where('type', 'BOOKMARK')
+            ->where('ReactionAble_type', Article::class)
+            ->where('ReactionAble_id', $articleId)->delete();
     }
 
     public function myArticles()
