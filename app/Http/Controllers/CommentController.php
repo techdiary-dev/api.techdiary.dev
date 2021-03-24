@@ -19,18 +19,28 @@ class CommentController extends Controller
 
     public function store(Article $article, CommentRequest $request)
     {
-        $article->comments()->create(['body' => $request->body, 'user_id' => auth()->guard('sanctum')->id()]);
-        return response()->noContent();
+        return $article->comments()->create([
+            'body' => $request->body,
+            'user_id' => auth()->guard('sanctum')->id(),
+            'parent_id' => $request->parent_id
+        ]);
     }
 
     public function update(Article $article, Comment $comment, CommentRequest $request)
     {
+        if ($comment->user_id != auth()->guard('sanctum')->id()) {
+            return response('Unauthorized activity', 401);
+        }
         $comment->update(['body' => $request->body]);
         return response()->noContent();
     }
 
     public function destroy(Article $article, Comment $comment)
     {
-
+        if ($comment->user_id != auth()->guard('sanctum')->id()) {
+            return response('Unauthorized activity', 401);
+        }
+        $comment->delete();
+        return response()->noContent();
     }
 }

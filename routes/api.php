@@ -62,6 +62,7 @@ Route::group(['prefix' => 'articles'], function () {
     Route::get('/{article}/comments', [\App\Http\Controllers\CommentController::class, 'index']);
     Route::post('/{article}/comments/', [\App\Http\Controllers\CommentController::class, 'store']);
     Route::patch('/{article}/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'update']);
+    Route::delete('/{article}/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'destroy']);
 });
 
 Route::apiResource('tags', TagController::class);
