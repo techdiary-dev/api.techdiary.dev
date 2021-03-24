@@ -44,6 +44,8 @@ trait NestableComments
             if ($replies = $groupComments->get($comment->id)) {
                 $comment->children = $replies;
                 $this->buildNest($comment->children, $groupComments);
+            } else {
+                $comment->children = [];
             }
         });
     }

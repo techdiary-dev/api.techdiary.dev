@@ -59,6 +59,9 @@ Route::group(['prefix' => 'articles'], function () {
     ]);
     Route::post('/{article}/reaction', [ArticleController::class, 'reaction'])->middleware('auth:sanctum');
     Route::get('/{article}/comments', [\App\Http\Controllers\CommentController::class, 'index']);
+    Route::post('/{article}/comments/', [\App\Http\Controllers\CommentController::class, 'store']);
+    Route::patch('/{article}/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'update']);
+    Route::delete('/{article}/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'destroy']);
 });
 
 Route::apiResource('tags', TagController::class);
