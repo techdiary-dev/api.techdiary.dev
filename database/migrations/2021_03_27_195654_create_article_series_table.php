@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBookmarksTable extends Migration
+class CreateArticleSeriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateBookmarksTable extends Migration
      */
     public function up()
     {
-        Schema::create('bookmarks', function (Blueprint $table) {
+        Schema::create('article_series', function (Blueprint $table) {
             $table->id();
-            $table->uuidMorphs('bookmarkAble');
-            $table->foreignUuid('user_id')
-                ->constrained()
-                ->onDelete('cascade');
-            $table->timestamps();
+            $table->string('name');
+            $table->foreignUuid('series_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('article_id')->nullable()->constrained()->cascadeOnDelete();
         });
     }
 
@@ -30,6 +28,6 @@ class CreateBookmarksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bookmarks');
+        Schema::dropIfExists('article_series');
     }
 }

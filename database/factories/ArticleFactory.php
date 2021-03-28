@@ -33,7 +33,7 @@ class ArticleFactory extends Factory
         $title = $this->faker->sentence;
 
         $body = [
-            ["type" => "paragraph", "data" => ["text" => "Dummy paragraph content"]]
+            ["type" => "paragraph", "data" => ["text" => "টেকডায়েরি  পৃথিবী  শ্রেষ্ঠ ব্লগিং প্লাটফর্ম"]]
         ];
 
         return [
@@ -47,17 +47,24 @@ class ArticleFactory extends Factory
         ];
     }
 
-    public function configure()
-    {
-        return $this->afterCreating(function (Article $article) {
-            $comments = Comment::factory($this->commentCount)->for(
-                $article, 'commentable'
-            )->create()->each(function ($comment) use ($article) {
-                $comment->replies()->saveMany($this->createComments($comment, $article, $this->commentDeptLevel));
-            });
-            $article->comments()->saveMany($comments);
-        });
-    }
+    /**
+     * Generate comment
+     * @param $comment
+     * @param $article
+     * @param int $depth
+     * @param int $currentDepth
+     */
+//    public function configure()
+//    {
+//        return $this->afterCreating(function (Article $article) {
+//            $comments = Comment::factory($this->commentCount)->for(
+//                $article, 'commentable'
+//            )->create()->each(function ($comment) use ($article) {
+//                $comment->replies()->saveMany($this->createComments($comment, $article, $this->commentDeptLevel));
+//            });
+//            $article->comments()->saveMany($comments);
+//        });
+//    }
 
     protected function createComments($comment, $article, $depth = 3, $currentDepth = 0)
     {

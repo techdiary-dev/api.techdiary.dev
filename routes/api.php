@@ -69,6 +69,10 @@ Route::apiResource('tags', TagController::class);
 Route::get('my-articles', [ArticleController::class, 'myArticles']);
 
 
+Route::get('series/my-series', [\App\Http\Controllers\SeriesController::class, 'mySeries']);
+Route::apiResource('series', \App\Http\Controllers\SeriesController::class);
+
+
 /**
  * Authentication
  */
