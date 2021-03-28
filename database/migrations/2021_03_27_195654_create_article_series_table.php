@@ -15,9 +15,10 @@ class CreateArticleSeriesTable extends Migration
     {
         Schema::create('article_series', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->foreignUuid('series_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('article_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->unsignedBigInteger('series_order')->nullable();
         });
     }
 
