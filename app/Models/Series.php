@@ -10,6 +10,9 @@ class Series extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    protected $casts = [
+        'id' => 'string'
+    ];
 
     protected $primaryKey = 'id';
     protected $keyType = 'string';

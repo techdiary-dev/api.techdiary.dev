@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//\Illuminate\Support\Facades\Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
 Route::get('/', function () {
     return view('welcome');
