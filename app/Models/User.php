@@ -66,6 +66,11 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($value);
     }
 
+    public function series()
+    {
+        return $this->hasMany(Series::class);
+    }
+
 //    public function isOnline()
 //    {
 //        return Cache::has('user-is-online-' . $this->id);

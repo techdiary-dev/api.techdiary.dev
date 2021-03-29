@@ -24,12 +24,14 @@
         "laravel/socialite": "^5.1",
         "laravel/telescope": "^4.4",
         "laravel/tinker": "^2.5",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "pusher/pusher-php-server": "^5.0"
     },
     "require-dev": {
         "backpack/generators": "^3.1",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
+        "knuckleswtf/scribe": "^2.5",
         "laracasts/generators": "^2.0",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",

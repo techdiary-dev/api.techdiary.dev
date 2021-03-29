@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//\Illuminate\Support\Facades\Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
 Route::get('/', function () {
     return view('welcome');
@@ -67,6 +68,10 @@ Route::group(['prefix' => 'articles'], function () {
 
 Route::apiResource('tags', TagController::class);
 Route::get('my-articles', [ArticleController::class, 'myArticles']);
+
+
+Route::get('series/my-series', [\App\Http\Controllers\SeriesController::class, 'mySeries']);
+Route::apiResource('series', \App\Http\Controllers\SeriesController::class);
 
 
 /**
