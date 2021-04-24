@@ -65,7 +65,7 @@ class TagCrudController extends CrudController
     public function setupCrudOperation()
     {
         $this->crud->field('name');
-        $this->crud->field('color')->type('color_picker');
+        $this->crud->field('color');
         $this->crud->field('icon');
         $this->crud->field('description');
     }
