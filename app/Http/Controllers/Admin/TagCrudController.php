@@ -44,7 +44,7 @@ class TagCrudController extends CrudController
         $this->crud->column('name');
         $this->crud->column('icon')->type('image');
         $this->crud->column('description');
-        $this->crud->column('color')->type('color');
+        $this->crud->column('color');
         $this->crud->addColumn([
             'name' => 'articles', // name of relationship method in the model
             'type' => 'relationship_count',
