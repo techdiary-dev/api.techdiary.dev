@@ -12,6 +12,11 @@ class Tag extends Model
 
     protected $guarded = ['id'];
 
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
+
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = strtolower($value);

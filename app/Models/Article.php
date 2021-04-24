@@ -17,7 +17,8 @@ class Article extends Model implements ReactableInterface
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory, CanBeScoped, Searchable, ReactionableModel, NestableComments;
 
-    protected $guarded = ['isApproved'];
+//    protected $guarded = ['isApproved'];
+    protected $guarded = [];
     protected $casts = [
         'body' => 'array',
         'id' => 'string'

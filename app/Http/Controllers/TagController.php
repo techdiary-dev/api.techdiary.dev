@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Tag\TagCreateRequest;
+use App\Http\Resources\Tag\TagDetails;
 use App\Http\Resources\TagResource;
 use App\Models\Tag;
-use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
@@ -44,38 +44,9 @@ class TagController extends Controller
         ]);
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Tag $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tag $tag)
+    public function show(Tag $tag)
     {
-        //
+        return new TagDetails($tag);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Tag $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Tag $tag)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Tag $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Tag $tag)
-    {
-        //
-    }
 }

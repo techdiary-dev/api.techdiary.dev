@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Tag\TagAdminCreateRequest;
+use App\Http\Requests\Tag\TagAdminUpdateRequest;
 use App\Http\Requests\TagRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -58,6 +60,17 @@ class TagCrudController extends CrudController
     }
 
     /**
+     * Common crud operation
+     */
+    public function setupCrudOperation()
+    {
+        $this->crud->field('name');
+        $this->crud->field('color')->type('color_picker');
+        $this->crud->field('icon');
+        $this->crud->field('description');
+    }
+
+    /**
      * Define what happens when the Create operation is loaded.
      *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
@@ -65,18 +78,8 @@ class TagCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(TagRequest::class);
-
-        $this->crud->field('name');
-        $this->crud->field('color')->type('color_picker');
-        $this->crud->field('icon');
-        $this->crud->field('description');
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
-         */
+        $this->crud->setValidation(TagAdminCreateRequest::class);
+        $this->setupCrudOperation();
     }
 
     /**
@@ -87,6 +90,7 @@ class TagCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        $this->crud->setValidation(TagAdminUpdateRequest::class);
+        $this->setupCrudOperation();
     }
 }
