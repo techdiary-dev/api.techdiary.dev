@@ -40,7 +40,6 @@ class ArticleController extends Controller
         return new ArticleCollection($articles->paginate(request()->query('limit', 10)));
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -50,7 +49,6 @@ class ArticleController extends Controller
     public function store(CreateArticleRequest $request)
     {
         $article = auth()->user()->articles()->create($request->except('tags'));
-
         $article->isApproved = true;
 
         if ($request->tags) {
@@ -72,7 +70,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return new ArticleDetails($article->load(['tags', 'user', 'comments', 'reactions']));
+        return new ArticleDetails($article->load(['tags', 'user', 'reactions']));
     }
 
     /**
