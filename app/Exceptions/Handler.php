@@ -50,7 +50,6 @@ class Handler extends ExceptionHandler
         if ($e instanceof ModelNotFoundException) {
             abort(404, 'আপনি যা খুঁজছেন তা দুঃখজনক কারনে পাওয়া যায়নি');
         }
-
         return parent::render($request, $e);
     }
 

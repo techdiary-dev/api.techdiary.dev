@@ -11,7 +11,9 @@ use App\Http\Resources\MyTokensResource;
 use App\Models\User;
 use App\Models\UserSocial;
 use App\TechDiary\Authentication;
+use Faker\Factory;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\InvalidStateException;
 
@@ -84,28 +86,30 @@ class AuthController extends Controller
     public function callback($service)
     {
         try {
-
             $serviceUser = Socialite::driver($service)->stateless()->user();
-
-            $user = null;
+            $faker = Factory::create();
             // Check if this service already exists
             $social_user = UserSocial::where([
                 ['service', $service],
                 ['service_uid', $serviceUser->id]
             ])->first();
-
             if ($social_user) $user = $social_user->user;
-            else if (!$user = User::whereEmail($serviceUser->email)->getModel()) {
-                $user = User::create([
-                    'username' => $serviceUser->nickname,
+            else if (!$user = User::whereEmail($serviceUser->email)->first()) {
+
+                $user = new User([
+                    'username' => $serviceUser->nickname ?? $faker->unique()->word . Str::random(4),
                     'name' => $serviceUser->name ?? Str::random(6),
-                    'email' => $serviceUser?->email,
+                    'email' => $serviceUser->email,
                     'profilePhoto' => $serviceUser?->avatar,
-                    'bio' => $serviceUser?->user && $serviceUser?->user['bio'],
-                    'social_links' => [
-                        'github' => 'https://github.com/' . $serviceUser->nickname
-                    ]
+                    'bio' => collect($serviceUser->user)->has('bio') ? $serviceUser->user['bio'] : null,
                 ]);
+
+                if ($service == 'github') {
+                    $user->social_links = [
+                        'github' => 'https://github.com/' . $serviceUser->nickname
+                    ];
+                }
+                $user->save();
             }
 
             if (!$social_user) {
