@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\User\UserDetailsResource;
 use App\Http\Resources\User\UserListResource;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -15,7 +16,7 @@ class UserController extends Controller
 
     public function userDetails($username)
     {
-        $user = User::where('username', $username)->first();
+        $user = User::where(DB::raw('LOWER(username)'), strtolower($username))->first();
         if (!$user) abort(404, 'প্রোফাইল খুঁজে পাওয়া যায়নি ');
 
         return new UserDetailsResource($user);

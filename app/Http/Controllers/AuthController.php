@@ -95,7 +95,7 @@ class AuthController extends Controller
             else if (!$user = User::whereEmail($serviceUser->email)->first()) {
 
                 $user = new User([
-                    'username' => $serviceUser->nickname ?? Str::random(8),
+                    'username' => $serviceUser->nickname ?? strtolower(Str::random(8)),
                     'name' => $serviceUser->name ?? Str::random(6),
                     'email' => $serviceUser->email,
                     'profilePhoto' => $serviceUser?->avatar,
