@@ -11,7 +11,6 @@ use App\Http\Resources\MyTokensResource;
 use App\Models\User;
 use App\Models\UserSocial;
 use App\TechDiary\Authentication;
-use Faker\Factory;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
@@ -87,7 +86,6 @@ class AuthController extends Controller
     {
         try {
             $serviceUser = Socialite::driver($service)->stateless()->user();
-            $faker = Factory::create();
             // Check if this service already exists
             $social_user = UserSocial::where([
                 ['service', $service],
@@ -97,7 +95,7 @@ class AuthController extends Controller
             else if (!$user = User::whereEmail($serviceUser->email)->first()) {
 
                 $user = new User([
-                    'username' => $serviceUser->nickname ?? $faker->unique()->word . Str::random(4),
+                    'username' => $serviceUser->nickname ?? Str::random(8),
                     'name' => $serviceUser->name ?? Str::random(6),
                     'email' => $serviceUser->email,
                     'profilePhoto' => $serviceUser?->avatar,
