@@ -117,7 +117,6 @@ class AuthController extends Controller
             }
 
             $redirect_url = env('CLIENT_URL') . '/social-callback?token=' . Authentication::createToken($user);
-            dd($redirect_url);
             return redirect($redirect_url);
 
         } catch (InvalidStateException $e) {
