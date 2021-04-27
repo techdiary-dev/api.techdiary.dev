@@ -88,7 +88,6 @@ class AuthController extends Controller
             $serviceUser = Socialite::driver($service)->stateless()->user();
 
             $user = null;
-
             // Check if this service already exists
             $social_user = UserSocial::where([
                 ['service', $service],
@@ -96,20 +95,20 @@ class AuthController extends Controller
             ])->first();
 
             if ($social_user) $user = $social_user->user;
-
-
-            if (!$social_user) {
+            else if (!$user = User::whereEmail($serviceUser->email)->getModel()) {
                 $user = User::create([
                     'username' => $serviceUser->nickname,
-                    'name' => $serviceUser->name,
+                    'name' => $serviceUser->name ?? Str::random(6),
                     'email' => $serviceUser?->email,
                     'profilePhoto' => $serviceUser?->avatar,
-                    'bio' => $serviceUser->user['bio'],
+                    'bio' => $serviceUser?->user && $serviceUser?->user['bio'],
                     'social_links' => [
                         'github' => 'https://github.com/' . $serviceUser->nickname
                     ]
                 ]);
+            }
 
+            if (!$social_user) {
                 NewUserCreated::dispatch($user);
                 $user->socialProviders()->create([
                     'service' => $service,
@@ -118,6 +117,7 @@ class AuthController extends Controller
             }
 
             $redirect_url = env('CLIENT_URL') . '/social-callback?token=' . Authentication::createToken($user);
+            dd($redirect_url);
             return redirect($redirect_url);
 
         } catch (InvalidStateException $e) {

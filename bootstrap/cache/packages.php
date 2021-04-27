@@ -25,6 +25,13 @@
       0 => 'Backpack\\PermissionManager\\PermissionManagerServiceProvider',
     ),
   ),
+  'barryvdh/laravel-ide-helper' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
+    ),
+  ),
   'consoletvs/charts' => 
   array (
     'providers' => 
