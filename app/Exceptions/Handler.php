@@ -47,11 +47,19 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e)
     {
-        if($e instanceof ModelNotFoundException)
-        {
+        if ($e instanceof ModelNotFoundException) {
             abort(404, 'আপনি যা খুঁজছেন তা দুঃখজনক কারনে পাওয়া যায়নি');
         }
 
         return parent::render($request, $e);
+    }
+
+    public function report(Throwable $exception)
+    {
+        if (app()->bound('sentry') && $this->shouldReport($exception)) {
+            app('sentry')->captureException($exception);
+        }
+
+        parent::report($exception);
     }
 }
