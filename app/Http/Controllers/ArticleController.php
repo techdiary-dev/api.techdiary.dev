@@ -82,10 +82,9 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-
         $this->authorize('update', $article);
 
-        $article->update($request->all());
+        $article->update($request->except('tags'));
 
         if ($request->tags) {
             $tags = collect($request->tags)->pluck('id');
