@@ -15,6 +15,7 @@ class CreateReactionsTable extends Migration
     {
         Schema::create('reactions', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->default(DB::raw('uuid_generate_v4()'));
+            // $table->uuid('id')->primary()->unique()->default(DB::raw('extensions.uuid_generate_v4()'));
             $table->uuidMorphs('ReactionAble');
 
             $table->string('type');

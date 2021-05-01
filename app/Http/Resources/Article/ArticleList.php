@@ -25,6 +25,7 @@ class ArticleList extends JsonResource
             'thumbnail' => $this->thumbnail,
             'tags' => $this->tags,
             'excerpt' => $this->excerpt,
+            'is_published' => $this->isPublished,
             'user' => new UserListResource($this->user),
             'created_at' => $this->created_at
         ];

@@ -85,7 +85,7 @@ class ArticleController extends Controller
         $this->authorize('update', $article);
 
         $article->update($request->except('tags'));
-
+        
         if ($request->tags) {
             $tags = collect($request->tags)->pluck('id');
             $article->tags()->sync($tags);
