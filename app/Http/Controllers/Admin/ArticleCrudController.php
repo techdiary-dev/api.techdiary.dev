@@ -107,6 +107,8 @@ class ArticleCrudController extends CrudController
             'attribute' => 'username'
         ]);
 
+        $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');
+
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
