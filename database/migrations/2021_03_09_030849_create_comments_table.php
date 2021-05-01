@@ -20,7 +20,6 @@ class CreateCommentsTable extends Migration
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('parent_id')->nullable()
                 ->on('comments')
-//                ->references('id')
                 ->onDelete('cascade');
             $table->timestamps();
         });
