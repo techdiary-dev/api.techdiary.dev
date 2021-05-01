@@ -14,8 +14,8 @@ class CreateArticlesTable extends Migration
     public function up()
     {
         Schema::create('articles', function (Blueprint $table) {
-            $table->uuid('id')->primary()->unique()->default(DB::raw('extensions.uuid_generate_v4()'));
-            // $table->uuid('id')->primary()->unique()->default(DB::raw('uuid_generate_v4()'));
+            // $table->uuid('id')->primary()->unique()->default(DB::raw('extensions.uuid_generate_v4()'));
+            $table->uuid('id')->primary()->unique()->default(DB::raw('uuid_generate_v4()'));
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('thumbnail')->nullable();
