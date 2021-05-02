@@ -23,35 +23,74 @@ Route::get('/', function () {
 });
 
 
-Route::get('fetch-url', function () {
-    try {
-        $res = \Illuminate\Support\Facades\Http::get('https://api.embedly.com/1/oembed', [
-            'key' => '24a49378fc8a4c8bae846af46c472388',
-            'url' => request()->query('url')
-        ]);
-        return response()->json([
-            'success' => 1,
-            'meta' => [
-                "title" => $res->json('title'),
-                "description" => $res->json('description'),
-                "image" => [
-                    "url" => $res->json('thumbnail_url')
-                ]
-            ]
-        ]);
-    } catch (Exception $e) {
-        abort($e->getCode(), $e->getMessage());
-    }
-});
+// Route::get('fetch-url', function () {
+//     try {
+//         $res = \Illuminate\Support\Facades\Http::get('https://api.embedly.com/1/oembed', [
+//             'key' => '24a49378fc8a4c8bae846af46c472388',
+//             'url' => request()->query('url')
+//         ]);
+//         return response()->json([
+//             'success' => 1,
+//             'meta' => [
+//                 "title" => $res->json('title'),
+//                 "description" => $res->json('description'),
+//                 "image" => [
+//                     "url" => $res->json('thumbnail_url')
+//                 ]
+//             ]
+//         ]);
+//     } catch (Exception $e) {
+//         abort($e->getCode(), $e->getMessage());
+//     }
+// });
 
 
+/**
+ * User endpoints
+ * - 
+ */
 Route::group(['prefix' => '/user'], function () {
+    /**
+     * Authenticated user
+     */
     Route::get('/', [UserController::class, 'me'])->middleware('auth:sanctum');
+    
+    /**
+     * Authenticated user's bookmark
+     */
     Route::get('bookmarks', [ArticleController::class, 'myBookmarks']);
+    
+    /**
+     * Delete bookmark
+     */
     Route::delete('bookmarks/{id}', [ArticleController::class, 'removeBookmark'])->middleware('auth:sanctum');
+    
+    /**
+     * User details 
+     */
     Route::get('/{username}', [UserController::class, 'userDetails']);
 });
+
+/**
+ * User list
+ */
 Route::get('/users', [UserController::class, 'users']);
+
+/**
+ * Authentication
+ */
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('update-profile', [AuthController::class, 'updateProfile'])->middleware('auth:sanctum');
+    Route::post('update-profile-basic-settings', [AuthController::class, 'updateBasicProfileSettings'])->middleware('auth:sanctum');
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::get('login/{service}', [AuthController::class, 'redirect']);
+    Route::get('login/{service}/callback', [AuthController::class, 'callback']);
+    Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+    Route::get('my-tokens', [AuthController::class, 'myTokens'])->middleware('auth:sanctum');
+    Route::delete('revoke-token/{id}', [AuthController::class, 'revokeToken'])->middleware('auth:sanctum');
+});
+
 
 Route::group(['prefix' => 'articles'], function () {
     Route::apiResource('', ArticleController::class, [
@@ -68,23 +107,3 @@ Route::group(['prefix' => 'articles'], function () {
 
 Route::apiResource('tags', TagController::class);
 Route::get('my-articles', [ArticleController::class, 'myArticles']);
-
-
-Route::get('series/my-series', [\App\Http\Controllers\SeriesController::class, 'mySeries']);
-Route::apiResource('series', \App\Http\Controllers\SeriesController::class);
-
-
-/**
- * Authentication
- */
-Route::group(['prefix' => 'auth'], function () {
-    Route::post('update-profile', [AuthController::class, 'updateProfile'])->middleware('auth:sanctum');
-    Route::post('update-profile-basic-settings', [AuthController::class, 'updateBasicProfileSettings'])->middleware('auth:sanctum');
-    Route::post('register', [AuthController::class, 'register']);
-    Route::post('login', [AuthController::class, 'login']);
-    Route::get('login/{service}', [AuthController::class, 'redirect']);
-    Route::get('login/{service}/callback', [AuthController::class, 'callback']);
-    Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
-    Route::get('my-tokens', [AuthController::class, 'myTokens'])->middleware('auth:sanctum');
-    Route::delete('revoke-token/{id}', [AuthController::class, 'revokeToken'])->middleware('auth:sanctum');
-});

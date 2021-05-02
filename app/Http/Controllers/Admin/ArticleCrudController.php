@@ -43,6 +43,7 @@ class ArticleCrudController extends CrudController
     protected function setupListOperation()
     {
 
+        $this->crud->orderBy('created_at', 'DESC');
         $this->crud->addFilter([
             'type' => 'select2',
             'label' => 'Publish status',
@@ -82,14 +83,16 @@ class ArticleCrudController extends CrudController
                 });
             }
         });
+
         $this->crud->addFilter([
             'label' => "Filter by User",
             'type' => 'select2',
             'name' => 'user_id', // the db column for the foreign key
             'model' => User::class,
-            'attribute' => 'name',
+            'attribute' => 'username',
             'entity' => 'user',
         ]);
+
         $this->crud->with('tags');
         $this->crud->with('user');
         $this->crud->column('title');
@@ -103,6 +106,8 @@ class ArticleCrudController extends CrudController
             'label' => 'username',
             'attribute' => 'username'
         ]);
+
+        $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning');
 
 
         /**

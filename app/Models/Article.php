@@ -116,4 +116,9 @@ class Article extends Model implements ReactableInterface
     {
         return $this->isPublished;
     }
+
+    public function openGoogle($crud = false)
+    {
+        return "<a href=" . env('CLIENT_URL') . "/" . $this->user->username . "/" . $this->slug . ">Read</a>";
+    }
 }
