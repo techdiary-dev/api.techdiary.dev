@@ -112,12 +112,6 @@ class User extends Authenticatable
         return $this->hasMany(UserSocial::class);
     }
 
-    public function bookmarkedArticles()
-    {
-        return $this->hasMany(Bookmark::class)
-            ->where('bookmarkAble_type', Article::class);
-    }
-
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
