@@ -56,6 +56,7 @@ class ArticleController extends Controller
             $article->tags()->sync($tags);
         }
 
+        $article->save();
         return response()->json([
             'message' => 'Article saved successfully',
             'data' => $article
@@ -85,7 +86,7 @@ class ArticleController extends Controller
         $this->authorize('update', $article);
 
         $article->update($request->except('tags'));
-        
+
         if ($request->tags) {
             $tags = collect($request->tags)->pluck('id');
             $article->tags()->sync($tags);
