@@ -5,7 +5,7 @@ trait NestableComments
 {
     public function getIdsFromRoot($grouped, $page, $perPage)
     {
-        $root = $grouped->get(null)->forPage($page, $perPage);
+        $root = $grouped->get(null)?->forPage($page, $perPage);
         return $this->buildIdNest($root, $grouped);
     }
 
