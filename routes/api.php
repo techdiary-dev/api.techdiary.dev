@@ -47,26 +47,26 @@ Route::get('/', function () {
 
 /**
  * User endpoints
- * - 
+ * -
  */
 Route::group(['prefix' => '/user'], function () {
     /**
      * Authenticated user
      */
     Route::get('/', [UserController::class, 'me'])->middleware('auth:sanctum');
-    
+
     /**
      * Authenticated user's bookmark
      */
     Route::get('bookmarks', [ArticleController::class, 'myBookmarks']);
-    
+
     /**
      * Delete bookmark
      */
     Route::delete('bookmarks/{id}', [ArticleController::class, 'removeBookmark'])->middleware('auth:sanctum');
-    
+
     /**
-     * User details 
+     * User details
      */
     Route::get('/{username}', [UserController::class, 'userDetails']);
 });
@@ -91,6 +91,10 @@ Route::group(['prefix' => 'auth'], function () {
     Route::delete('revoke-token/{id}', [AuthController::class, 'revokeToken'])->middleware('auth:sanctum');
 });
 
+
+Route::get('articles-dump', function () {
+    return \App\Models\Article::all();
+});
 
 Route::group(['prefix' => 'articles'], function () {
     Route::apiResource('', ArticleController::class, [
