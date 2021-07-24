@@ -10,7 +10,6 @@ use App\Traits\NestableComments;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Laravel\Scout\Searchable;
 
 /**
  * App\Models\Article
@@ -56,8 +55,9 @@ use Laravel\Scout\Searchable;
 class Article extends Model implements ReactableInterface
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
-    use HasFactory, CanBeScoped, Searchable, ReactionableModel, NestableComments;
+    use HasFactory, CanBeScoped, ReactionableModel, NestableComments;
 
+//    use Searchable;
 //    protected $guarded = ['isApproved'];
     protected $guarded = [];
     protected $casts = [

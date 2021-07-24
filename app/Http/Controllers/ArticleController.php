@@ -29,6 +29,7 @@ class ArticleController extends Controller
      * Display a listing of the resource.
      *
      * @return ArticleCollection
+     * @throws \Exception
      */
     public function index()
     {
@@ -37,7 +38,10 @@ class ArticleController extends Controller
             'isApproved' => true
         ])->with(['tags', 'user', 'reactions'])->latest()->withScopes($this->scopes());
 
-        return new ArticleCollection($articles->paginate(request()->query('limit', 10)));
+        return cache()->remember('articles', now()->addSeconds(30), function () use ($articles) {
+            return new ArticleCollection($articles->paginate(request()->query('limit', 10)));
+        });
+//        return new ArticleCollection($articles->paginate(request()->query('limit', 10)));
     }
 
     /**
@@ -71,7 +75,9 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return new ArticleDetails($article->load(['tags', 'user', 'reactions']));
+        return cache()->remember("articles." . $article->id, now()->addHour(), function () use ($article) {
+            return new ArticleDetails($article->load(['tags', 'user', 'reactions']));
+        });
     }
 
     /**
@@ -83,6 +89,9 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
+
+//        cache()->flush();
+        
         $this->authorize('update', $article);
 
         $article->update($request->except('tags'));
