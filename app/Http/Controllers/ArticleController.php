@@ -24,7 +24,6 @@ class ArticleController extends Controller
         $this->middleware('auth:sanctum')->only(['store', 'destroy', 'update', 'myArticles']);
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -91,9 +90,6 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-
-//        cache()->flush();
-
         $this->authorize('update', $article);
 
         $article->update($request->except('tags'));

@@ -100,6 +100,13 @@
       0 => 'Laracasts\\Generators\\GeneratorsServiceProvider',
     ),
   ),
+  'laravel/fortify' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Fortify\\FortifyServiceProvider',
+    ),
+  ),
   'laravel/sail' => 
   array (
     'providers' => 
