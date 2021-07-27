@@ -112,10 +112,10 @@ class User extends Authenticatable
         return $this->hasMany(UserSocial::class);
     }
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
+//    public function setPasswordAttribute($value)
+//    {
+//        $this->attributes['password'] = bcrypt($value);
+//    }
 
     public function setUsernameAttribute($value)
     {

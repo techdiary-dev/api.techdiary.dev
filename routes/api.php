@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -55,17 +56,26 @@ Route::get('/users', [UserController::class, 'users']);
 /**
  * Authentication
  */
-//Route::group(['prefix' => 'auth'], function () {
-////    Route::post('update-profile', [AuthController::class, 'updateProfile'])->middleware('auth:sanctum');
-////    Route::post('update-profile-basic-settings', [AuthController::class, 'updateBasicProfileSettings'])->middleware('auth:sanctum');
-////    Route::post('register', [AuthController::class, 'register']);
-////    Route::post('login', [AuthController::class, 'login']);
-////    Route::get('login/{service}', [AuthController::class, 'redirect']);
-////    Route::get('login/{service}/callback', [AuthController::class, 'callback']);
-////    Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
-////    Route::get('my-tokens', [AuthController::class, 'myTokens'])->middleware('auth:sanctum');
-////    Route::delete('revoke-token/{id}', [AuthController::class, 'revokeToken'])->middleware('auth:sanctum');
-//});
+Route::group(['prefix' => 'auth'], function () {
+
+    Route::post('oauth/signed-login', [AuthController::class, 'oauthSignedLogin'])
+        ->name('oauth-signed-login')
+        ->middleware('signed');
+
+    Route::get('oauth/{service}', [AuthController::class, 'oauthRedirect']);
+    Route::get('oauth/{service}/callback', [AuthController::class, 'oauthCallback']);
+
+
+//    Route::post('update-profile', [AuthController::class, 'updateProfile'])->middleware('auth:sanctum');
+//    Route::post('update-profile-basic-settings', [AuthController::class, 'updateBasicProfileSettings'])->middleware('auth:sanctum');
+//    Route::post('register', [AuthController::class, 'register']);
+//    Route::post('login', [AuthController::class, 'login']);
+//    Route::get('login/{service}', [AuthController::class, 'redirect']);
+//    Route::get('login/{service}/callback', [AuthController::class, 'callback']);
+//    Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+//    Route::get('my-tokens', [AuthController::class, 'myTokens'])->middleware('auth:sanctum');
+//    Route::delete('revoke-token/{id}', [AuthController::class, 'revokeToken'])->middleware('auth:sanctum');
+});
 
 
 Route::get('articles-dump', function () {
