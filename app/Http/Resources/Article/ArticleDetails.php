@@ -26,7 +26,7 @@ class ArticleDetails extends JsonResource
         ];
 
         return array_merge(parent::toArray($request), [
-            "body_html" => Parser::parse(json_encode($blocks))->toHtml(),
+//            "body_html" => Parser::parse(json_encode($blocks))->toHtml(),
             'tags' => TagResource::collection($this->tags),
             'user' => new UserListResource($this->user),
             'reactions' => new ReactionCollection($this->reactions),
