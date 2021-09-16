@@ -19,11 +19,11 @@ class ArticleDetails extends JsonResource
     public function toArray($request)
     {
 
-        $blocks = [
-            "time" => now(),
-            "version" => "2.16.1",
-            "blocks" => $this->body
-        ];
+//        $blocks = [
+//            "time" => now(),
+//            "version" => "2.16.1",
+//            "blocks" => $this->body
+//        ];
 
         return array_merge(parent::toArray($request), [
 //            "body_html" => Parser::parse(json_encode($blocks))->toHtml(),
