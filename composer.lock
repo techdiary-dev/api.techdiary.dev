@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7b7379e54476523d18a4c196828572c",
+    "content-hash": "e776f0fa9a384aa153f428be6761025e",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1223,6 +1223,44 @@
                 }
             ],
             "time": "2020-11-24T19:55:57+00:00"
+        },
+        {
+            "name": "durlecode/editorjs-simple-html-parser",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Durlecode/editorjs-simple-html-parser.git",
+                "reference": "e3063a02d6f88f6863b4edaab09b42a43ae5a618"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Durlecode/editorjs-simple-html-parser/zipball/e3063a02d6f88f6863b4edaab09b42a43ae5a618",
+                "reference": "e3063a02d6f88f6863b4edaab09b42a43ae5a618",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-json": "*",
+                "masterminds/html5": "^2.7@dev",
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Durlecode\\EJSParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A simple Json to Html parser for EditorJS library",
+            "support": {
+                "issues": "https://github.com/Durlecode/editorjs-simple-html-parser/issues",
+                "source": "https://github.com/Durlecode/editorjs-simple-html-parser/tree/master"
+            },
+            "time": "2020-03-29T13:44:52+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -2762,6 +2800,75 @@
                 "source": "https://github.com/thephpleague/oauth1-client/tree/v1.9.0"
             },
             "time": "2021-01-20T01:40:53+00:00"
+        },
+        {
+            "name": "masterminds/html5",
+            "version": "2.7.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Masterminds/html5-php.git",
+                "reference": "f640ac1bdddff06ea333a920c95bbad8872429ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/f640ac1bdddff06ea333a920c95bbad8872429ab",
+                "reference": "f640ac1bdddff06ea333a920c95bbad8872429ab",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-dom": "*",
+                "ext-libxml": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35 || ^5.7.21 || ^6 || ^7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Masterminds\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matt Butcher",
+                    "email": "technosophos@gmail.com"
+                },
+                {
+                    "name": "Matt Farina",
+                    "email": "matt@mattfarina.com"
+                },
+                {
+                    "name": "Asmir Mustafic",
+                    "email": "goetas@gmail.com"
+                }
+            ],
+            "description": "An HTML5 parser and serializer.",
+            "homepage": "http://masterminds.github.io/html5-php",
+            "keywords": [
+                "HTML5",
+                "dom",
+                "html",
+                "parser",
+                "querypath",
+                "serializer",
+                "xml"
+            ],
+            "support": {
+                "issues": "https://github.com/Masterminds/html5-php/issues",
+                "source": "https://github.com/Masterminds/html5-php/tree/2.7.5"
+            },
+            "time": "2021-07-01T14:25:37+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -11641,7 +11748,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "durlecode/editorjs-simple-html-parser": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
@@ -11649,5 +11758,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
