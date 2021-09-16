@@ -20,7 +20,7 @@ class ArticleDetails extends JsonResource
     {
 
         $blocks = [
-            "time" => 1583848289745,
+            "time" => now(),
             "version" => "2.16.1",
             "blocks" => $this->body
         ];
