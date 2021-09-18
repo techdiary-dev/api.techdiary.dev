@@ -5,7 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,6 +22,12 @@ Route::get('/', function () {
 });
 
 
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+
+
 /**
  * User endpoints
  * -
@@ -30,7 +36,8 @@ Route::group(['prefix' => '/user'], function () {
     /**
      * Authenticated user
      */
-    Route::get('/', [UserController::class, 'me'])->middleware('auth:sanctum');
+//    Route::get('/', [UserController::class, 'me'])
+//        ->middleware('auth:sanctum');
 
     /**
      * Authenticated user's bookmark
@@ -64,6 +71,7 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('oauth/{service}', [AuthController::class, 'oauthRedirect']);
     Route::get('oauth/{service}/callback', [AuthController::class, 'oauthCallback']);
+
 
 
 //    Route::post('update-profile', [AuthController::class, 'updateProfile'])->middleware('auth:sanctum');

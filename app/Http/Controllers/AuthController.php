@@ -90,9 +90,7 @@ class AuthController extends Controller
     public function oauthCallback($service)
     {
 
-
         try {
-
             $socialServiceUser = Socialite::driver($service)->stateless()->user();
 
             $social_user = UserSocial::where([
@@ -127,7 +125,7 @@ class AuthController extends Controller
                 ]);
             }
 
-            $signedRoute = URL::temporarySignedRoute('oauth-signed-login', now()->addMinute(), [
+            $signedRoute = URL::temporarySignedRoute('oauth-signed-login', now()->addSeconds(30), [
                 'user_id' => $user->id,
             ]);
             $signedToken = explode('?', $signedRoute)[1];
@@ -140,10 +138,15 @@ class AuthController extends Controller
         }
     }
 
+
     public function oauthSignedLogin(\Illuminate\Http\Request $request)
     {
-        auth()->loginUsingId($request->get('user_id'));
-        return response()->noContent();
+        $userId = $request->get('user_id');
+        auth()->loginUsingId($userId);
+
+        return response()->json([
+           'message' => 'Successfully logged in through cookie'
+        ]);
     }
 
     public function updateProfile(UpdateProfileRequest $request)
