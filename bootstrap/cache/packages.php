@@ -32,6 +32,17 @@
       0 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
     ),
   ),
+  'cloudinary-labs/cloudinary-laravel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'CloudinaryLabs\\CloudinaryLaravel\\CloudinaryServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Cloudinary' => 'CloudinaryLabs\\CloudinaryLaravel\\Facades\\Cloudinary',
+    ),
+  ),
   'consoletvs/charts' => 
   array (
     'providers' => 

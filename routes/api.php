@@ -6,6 +6,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,7 +28,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-
 /**
  * User endpoints
  * -
@@ -47,7 +47,8 @@ Route::group(['prefix' => '/user'], function () {
     /**
      * Delete bookmark
      */
-    Route::delete('bookmarks/{id}', [ArticleController::class, 'removeBookmark'])->middleware('auth:sanctum');
+    Route::delete('bookmarks/{id}', [ArticleController::class, 'removeBookmark'])
+        ->middleware('auth:sanctum');
 
     /**
      * User details
@@ -79,7 +80,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('update-profile-basic-settings', [AuthController::class, 'updateBasicProfileSettings'])
         ->middleware('auth:sanctum');
 
-    //    Route::post('register', [AuthController::class, 'register']);
+//    Route::post('register', [AuthController::class, 'register']);
 //    Route::post('login', [AuthController::class, 'login']);
 //    Route::get('login/{service}', [AuthController::class, 'redirect']);
 //    Route::get('login/{service}/callback', [AuthController::class, 'callback']);
@@ -104,6 +105,18 @@ Route::group(['prefix' => 'articles'], function () {
     Route::post('/{article}/comments/', [\App\Http\Controllers\CommentController::class, 'store']);
     Route::patch('/{article}/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'update']);
     Route::delete('/{article}/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'destroy']);
+});
+
+
+/**
+ * Handle file upload and delete
+ */
+Route::group(['prefix' => 'files'], function () {
+    Route::post('/', [\App\Http\Controllers\FileUploadController::class, 'upload'])
+        ->middleware('auth:sanctum');
+
+    Route::delete('/', [\App\Http\Controllers\FileUploadController::class, 'destroy'])
+        ->middleware('auth:sanctum');
 });
 
 Route::apiResource('tags', TagController::class);
