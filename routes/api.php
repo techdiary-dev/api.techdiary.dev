@@ -73,10 +73,13 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('oauth/{service}/callback', [AuthController::class, 'oauthCallback']);
 
 
+    Route::post('update-profile', [AuthController::class, 'updateProfile'])
+        ->middleware('auth:sanctum');
 
-//    Route::post('update-profile', [AuthController::class, 'updateProfile'])->middleware('auth:sanctum');
-//    Route::post('update-profile-basic-settings', [AuthController::class, 'updateBasicProfileSettings'])->middleware('auth:sanctum');
-//    Route::post('register', [AuthController::class, 'register']);
+    Route::post('update-profile-basic-settings', [AuthController::class, 'updateBasicProfileSettings'])
+        ->middleware('auth:sanctum');
+
+    //    Route::post('register', [AuthController::class, 'register']);
 //    Route::post('login', [AuthController::class, 'login']);
 //    Route::get('login/{service}', [AuthController::class, 'redirect']);
 //    Route::get('login/{service}/callback', [AuthController::class, 'callback']);
