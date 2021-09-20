@@ -33,7 +33,7 @@ class FileUploadController extends Controller
 
 
         return response()->json([
-            'message' => 'Deleted successfully',
+            'message' => 'File uploaded successfully',
             'url' => explode("?", $url)[0]
         ]);
     }
@@ -53,7 +53,7 @@ class FileUploadController extends Controller
 
 
         return response()->json([
-            'message' => 'Uploaded successfully',
+            'message' => 'File deleted successfully',
             "deleted" => $deleted
         ]);
     }
