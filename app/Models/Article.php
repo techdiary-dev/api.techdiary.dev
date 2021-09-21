@@ -88,6 +88,17 @@ class Article extends Model implements ReactableInterface
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    public function meta()
+    {
+        return $this->morphMany(Meta::class, 'metable');
+    }
+
+
+    public function seoMeta()
+    {
+        return $this->meta()->where('key', 'seo')->first()?->value;
+    }
+
     public static function boot()
     {
         parent::boot();

@@ -80,6 +80,9 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('update-profile-basic-settings', [AuthController::class, 'updateBasicProfileSettings'])
         ->middleware('auth:sanctum');
 
+
+    Route::get('articles', [ArticleController::class, 'myArticles']);
+
 //    Route::post('register', [AuthController::class, 'register']);
 //    Route::post('login', [AuthController::class, 'login']);
 //    Route::get('login/{service}', [AuthController::class, 'redirect']);
@@ -90,27 +93,41 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 
-Route::get('articles-dump', function () {
-    return \App\Models\Article::all();
-});
+
 
 Route::group(['prefix' => 'articles'], function () {
+    Route::get('dump', function () {
+        return \App\Models\Article::all();
+    });
     Route::apiResource('', ArticleController::class, [
         'parameters' => [
             '' => 'article'
         ]
     ]);
-    Route::post('/{article}/reaction', [ArticleController::class, 'reaction'])->middleware('auth:sanctum');
-    Route::get('/{article}/comments', [\App\Http\Controllers\CommentController::class, 'index']);
-    Route::post('/{article}/comments/', [\App\Http\Controllers\CommentController::class, 'store']);
-    Route::patch('/{article}/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'update']);
-    Route::delete('/{article}/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'destroy']);
+
+    Route::get('', [ArticleController::class, 'index']);
+    Route::post('', [ArticleController::class, 'index'])->middleware('auth:sanctum');
+    Route::get('/uuid/{article:id}', [ArticleController::class, 'show']);
+    Route::get('/slug/{article:slug}', [ArticleController::class, 'show']);
+    Route::put('/uuid/{article:id}', [ArticleController::class, 'update'])->middleware('auth:sanctum');
+    Route::put('/slug/{article:slug}', [ArticleController::class, 'update'])->middleware('auth:sanctum');
+    Route::delete('/uuid/{article:id}', [ArticleController::class, 'destroy'])->middleware('auth:sanctum');
+
+    /**
+     * Generate a blank article
+     */
+    Route::post('spark', [ArticleController::class, 'spark'])
+        ->middleware('auth:sanctum');
+
+//    Route::post('/{article}/reaction', [ArticleController::class, 'reaction'])->middleware('auth:sanctum');
+//    Route::get('/{article}/comments', [\App\Http\Controllers\CommentController::class, 'index']);
+//    Route::post('/{article}/comments/', [\App\Http\Controllers\CommentController::class, 'store']);
+//    Route::patch('/{article}/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'update']);
+//    Route::delete('/{article}/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'destroy']);
 });
 
 
-/**
- * Handle file upload and delete
- */
+
 Route::group(['prefix' => 'files'], function () {
     Route::post('/', [\App\Http\Controllers\FileUploadController::class, 'upload'])
         ->middleware('auth:sanctum');
@@ -120,4 +137,4 @@ Route::group(['prefix' => 'files'], function () {
 });
 
 Route::apiResource('tags', TagController::class);
-Route::get('my-articles', [ArticleController::class, 'myArticles']);
+

@@ -30,7 +30,13 @@ class CreateArticleRequest extends FormRequest
             'seriesName' => ['nullable', 'min:5', 'max:255'],
             'thumbnail' => ['nullable', 'url', 'max:255'],
             'body' => ['required'],
-            'tags' => ['array']
+            'tags' => ['array'],
+
+            "meta.og_image" => ['nullable', 'url'],
+            "meta.seo_title" => ['nullable', 'string', 'max:255'],
+            "meta.seo_description" => ['nullable', 'string', 'max:255'],
+            "meta.canonical_url" => ['nullable', 'url', 'max:255'],
+            "meta.disabled_comments" => ['nullable', 'boolean', 'max:255'],
         ];
     }
 

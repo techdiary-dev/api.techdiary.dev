@@ -33,10 +33,4 @@ return [
     |
     */
     'cloud_url' => env('CLOUDINARY_URL'),
-
-    /**
-     * Upload Preset From Cloudinary Dashboard
-     *
-     */
-//    'upload_preset' => 'techdiary-article-assets'
 ];

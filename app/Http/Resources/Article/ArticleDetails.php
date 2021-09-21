@@ -21,6 +21,9 @@ class ArticleDetails extends JsonResource
             'tags' => TagResource::collection($this->tags),
             'user' => new UserListResource($this->user),
             'reactions' => new ReactionCollection($this->reactions),
+            'meta' => [
+                "seo" => $this->seoMeta(),
+            ]
         ]);
     }
 }

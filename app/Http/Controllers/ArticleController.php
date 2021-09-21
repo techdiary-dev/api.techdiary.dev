@@ -12,6 +12,7 @@ use App\Models\Article;
 use App\Scoping\Scopes\ArticlesByTagName;
 use App\Scoping\Scopes\UserScope;
 use App\TechDiary\Reaction\Resources\ReactionCollection;
+use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
@@ -21,7 +22,7 @@ class ArticleController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->only(['store', 'destroy', 'update', 'myArticles']);
+//        $this->middleware('auth:sanctum')->only(['store', 'destroy', 'update', 'myArticles']);
     }
 
     /**
@@ -37,9 +38,6 @@ class ArticleController extends Controller
             'isApproved' => true
         ])->with(['tags', 'user', 'reactions'])->latest()->withScopes($this->scopes());
 
-//        return cache()->remember('articles', now()->addSeconds(30), function () use ($articles) {
-//
-//        });
         return new ArticleCollection($articles->paginate(request()->query('limit', 10)));
     }
 
@@ -51,7 +49,11 @@ class ArticleController extends Controller
      */
     public function store(CreateArticleRequest $request)
     {
-        $article = auth()->user()->articles()->create($request->except('tags'));
+        $article = auth()
+            ->user()
+            ->articles()
+            ->create($request->except('tags', 'meta'));
+
         $article->isApproved = true;
 
         if ($request->tags) {
@@ -59,10 +61,32 @@ class ArticleController extends Controller
             $article->tags()->sync($tags);
         }
 
+        if ($request->meta) {
+            $article->meta()->create([
+                'key' => 'seo',
+                'value' => $request->only('meta.og_image', 'meta.seo_title', 'meta.seo_description', 'meta.disabled_comments')['meta']
+            ]);
+        }
+
         $article->save();
+
         return response()->json([
             'message' => 'Article saved successfully',
             'data' => $article
+        ]);
+    }
+
+
+    public function spark(Request $request)
+    {
+        $article = auth()
+            ->user()
+            ->articles()
+            ->create();
+
+        return response()->json([
+            "message" => "New diary generated",
+            "uuid" => $article->id
         ]);
     }
 
@@ -74,11 +98,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-//        return cache()->remember("articles." . $article->id, now()->addHour(), function () use ($article) {
-//
-//        });
-
-        return new ArticleDetails($article->load(['tags', 'user', 'reactions']));
+        return new ArticleDetails($article->load(['tags', 'user', 'reactions', 'meta']));
     }
 
     /**
@@ -92,16 +112,22 @@ class ArticleController extends Controller
     {
         $this->authorize('update', $article);
 
-        $article->update($request->except('tags'));
+        $article->update($request->except('tags', 'meta'));
 
         if ($request->tags) {
             $tags = collect($request->tags)->pluck('id');
             $article->tags()->sync($tags);
         }
 
+        if ($request->meta) {
+            $article->meta()->updateOrCreate(
+                ['key' => 'seo'],
+                ['value' => $request->only('meta.og_image', 'meta.seo_title', 'meta.seo_description', 'meta.disabled_comments')['meta']],
+            );
+        }
+
         return response()->json([
-            'message' => 'Article updated successfully',
-            'data' => $article
+            'message' => 'Article updated successfully'
         ]);
     }
 
