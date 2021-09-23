@@ -115,12 +115,9 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        $article = auth()
-            ->user()
-            ->articles()
-            ->create($request->except('tags', 'seo', 'settings'));
+        $this->authorize('update', $article);
 
-        $article->isApproved = true;
+        $article->update($request->except('tags', 'seo', 'settings'));
 
         if ($request->tags) {
             $tags = collect($request->tags)->pluck('id');

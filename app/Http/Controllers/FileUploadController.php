@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FileDeleteRequest;
-use App\Http\Requests\FileUploadRequest;
+use App\Http\Requests\File\FileDeleteRequest;
+use App\Http\Requests\File\FileUploadRequest;
 use Cloudinary\Api\Admin\AdminApi;
 use Cloudinary\Cloudinary;
 use Cloudinary\Transformation\Delivery;

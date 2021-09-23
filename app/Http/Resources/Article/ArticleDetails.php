@@ -7,9 +7,11 @@ use App\Http\Resources\User\UserListResource;
 use App\TechDiary\TDMarkdown;
 use App\TechDiary\Reaction\Resources\ReactionCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
-use League\CommonMark\GithubFlavoredMarkdownConverter;
-use Parsedown;
-use ParsedownExtra;
+use League\CommonMark\CommonMarkConverter;
+use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
+use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkRenderer;
+use League\CommonMark\Extension\Table\TableExtension;
+use Torchlight\Commonmark\V2\TorchlightExtension;
 
 class ArticleDetails extends JsonResource
 {
@@ -22,6 +24,7 @@ class ArticleDetails extends JsonResource
      */
     public function toArray($request)
     {
+
         $md = new TDMarkdown($this->body);
 
         return array_merge([
@@ -30,7 +33,7 @@ class ArticleDetails extends JsonResource
             'thumbnail' => $this->thumbnail,
             'body' => [
                 'html' => $md->toHTML(),
-                "markdown" => $this->body
+                "markdown" => $this->body ?: ""
             ],
             'excerpt' => $this->excerpt,
             'isPublished' => $this->isPublished,

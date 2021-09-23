@@ -31,6 +31,8 @@ class TDMarkdown
      */
     public function toHTML()
     {
+
+
         $config = [
             'heading_permalink' => [
                 'html_class' => 'heading-permalink',
@@ -43,16 +45,12 @@ class TDMarkdown
                 'symbol' => HeadingPermalinkRenderer::DEFAULT_SYMBOL
             ],
         ];
-
-
-
-
         $converter = new CommonMarkConverter($config);
-        $converter->getEnvironment()->addExtension(new HeadingPermalinkExtension);
-        $converter->getEnvironment()->addExtension(new TableExtension);
+        $converter->getEnvironment()->addExtension(new HeadingPermalinkExtension());
+        $converter->getEnvironment()->addExtension(new TableExtension());
 //        $converter->getEnvironment()->addExtension(new TorchlightExtension);
 
-        return $converter->convertToHtml($this->markdown);
+        return (string) $converter->convertToHtml($this->markdown ?: "");
     }
 
 }
