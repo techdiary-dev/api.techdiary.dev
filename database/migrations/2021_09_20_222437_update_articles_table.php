@@ -14,10 +14,10 @@ class UpdateArticlesTable extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table){
-            $table->string('title')->default('শিরোনামহীন ডায়েরি')->change();
-            $table->string('slug')->nullable()->change();
-            $table->text('body')->nullable()->change();
-            $table->timestamp('published_at')->nullable();
+//            $table->string('title')->default('শিরোনামহীন ডায়েরি')->change();
+//            $table->string('slug')->nullable()->change();
+//            $table->text('body')->nullable()->change();
+//            $table->timestamp('published_at')->nullable();
         });
     }
 

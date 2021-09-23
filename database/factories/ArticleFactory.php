@@ -308,16 +308,16 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
 //        });
 //    }
 
-    protected function createComments($comment, $article, $depth = 3, $currentDepth = 0)
-    {
-        if ($currentDepth === $depth) {
-            return;
-        }
-        return $comment->replies()->saveMany(Comment::factory(3)->for(
-            $article, 'commentable'
-        )->create()->each(function ($reply) use ($depth, $article, $currentDepth) {
-            $article->comments()->save($reply);
-            $this->createComments($reply, $article, $depth, ++$currentDepth);
-        }));
-    }
+//    protected function createComments($comment, $article, $depth = 3, $currentDepth = 0)
+//    {
+//        if ($currentDepth === $depth) {
+//            return;
+//        }
+//        return $comment->replies()->saveMany(Comment::factory(3)->for(
+//            $article, 'commentable'
+//        )->create()->each(function ($reply) use ($depth, $article, $currentDepth) {
+//            $article->comments()->save($reply);
+//            $this->createComments($reply, $article, $depth, ++$currentDepth);
+//        }));
+//    }
 }

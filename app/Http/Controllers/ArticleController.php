@@ -52,28 +52,31 @@ class ArticleController extends Controller
         $article = auth()
             ->user()
             ->articles()
-            ->create($request->except('tags', 'meta'));
+            ->create($request->except('tags', 'seo', 'settings'));
 
-        $article->isApproved = true;
+        return $article;
+//        $article->isApproved = true;
 
-        if ($request->tags) {
-            $tags = collect($request->tags)->pluck('id');
-            $article->tags()->sync($tags);
-        }
-
-        if ($request->meta) {
-            $article->meta()->create([
-                'key' => 'seo',
-                'value' => $request->only('meta.og_image', 'meta.seo_title', 'meta.seo_description', 'meta.disabled_comments')['meta']
-            ]);
-        }
-
-        $article->save();
-
-        return response()->json([
-            'message' => 'Article saved successfully',
-            'data' => $article
-        ]);
+//        if ($request->tags) {
+//            $tags = collect($request->tags)->pluck('id');
+//            $article->tags()->sync($tags);
+//        }
+//
+//        if ($request->seo) {
+//            $article->setMetaJSON("seo", $request->only('seo.og_image', 'seo.seo_title', 'seo.seo_description', 'seo.disabled_comments')['seo']);
+//        }
+//
+//        if ($request->settings)
+//        {
+//            $article->setMetaValue("settings.disabled_comments", $request->get('settings.disabled_comments'));
+//        }
+//
+//        $article->save();
+//
+//        return response()->json([
+//            'message' => 'Article saved successfully',
+//            'data' => $article
+//        ]);
     }
 
 
@@ -83,6 +86,8 @@ class ArticleController extends Controller
             ->user()
             ->articles()
             ->create();
+
+        $article->update(["slug" => $article->id]);
 
         return response()->json([
             "message" => "New diary generated",
@@ -110,24 +115,33 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        $this->authorize('update', $article);
+        $article = auth()
+            ->user()
+            ->articles()
+            ->create($request->except('tags', 'seo', 'settings'));
 
-        $article->update($request->except('tags', 'meta'));
+        $article->isApproved = true;
 
         if ($request->tags) {
             $tags = collect($request->tags)->pluck('id');
             $article->tags()->sync($tags);
         }
 
-        if ($request->meta) {
-            $article->meta()->updateOrCreate(
-                ['key' => 'seo'],
-                ['value' => $request->only('meta.og_image', 'meta.seo_title', 'meta.seo_description', 'meta.disabled_comments')['meta']],
+        if ($request->seo) {
+            $article->setMetaJSON("seo", $request->only('seo.og_image', 'seo.seo_title', 'seo.seo_description', 'seo.disabled_comments')['seo']);
+        }
+
+        if ($request->settings)
+        {
+            $article->setMetaValue("disabled_comments",
+                $request->only('settings.disabled_comments')['settings']['disabled_comments']
             );
         }
 
+
+        $article->save();
         return response()->json([
-            'message' => 'Article updated successfully'
+            'message' => 'Article saved successfully'
         ]);
     }
 
@@ -157,12 +171,14 @@ class ArticleController extends Controller
      *
      * @param \App\Models\Article $article
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Article $article)
     {
         $this->authorize('delete', $article);
 
         $article->delete();
+
         return response()->json([
             'message' => 'Deleted successfully'
         ]);

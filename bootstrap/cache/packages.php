@@ -201,4 +201,11 @@
       0 => 'Spatie\\Permission\\PermissionServiceProvider',
     ),
   ),
+  'torchlight/torchlight-laravel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Torchlight\\TorchlightServiceProvider',
+    ),
+  ),
 );

@@ -17,7 +17,7 @@ class CreateArticlesTable extends Migration
             $table->uuid('id')->primary()->unique()->default(DB::raw('uuid_generate_v4()'));
 
 //          $table->string('title');
-            $table->string('title')->default('শিরোনামহীন ডায়েরি')->change();
+            $table->string('title')->default('শিরোনামহীন ডায়েরি');
 
 //          $table->string('slug')->unique();
             $table->string('slug')->nullable();
