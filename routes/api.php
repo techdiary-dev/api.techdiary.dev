@@ -139,3 +139,8 @@ Route::group(['prefix' => 'files'], function () {
 });
 
 Route::apiResource('tags', TagController::class);
+
+
+Route::get('/test', function (Request $request){
+    return $request->only('isPublished');
+});

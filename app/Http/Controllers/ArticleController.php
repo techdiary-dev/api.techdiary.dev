@@ -121,8 +121,7 @@ class ArticleController extends Controller
             $article->setMetaJSON("seo", $request->only('seo.og_image', 'seo.seo_title', 'seo.seo_description', 'seo.disabled_comments')['seo']);
         }
 
-        if ($request->settings)
-        {
+        if ($request->settings) {
             $article->setMetaValue("disabled_comments",
                 $request->only('settings.disabled_comments')['settings']['disabled_comments']
             );
@@ -198,19 +197,15 @@ class ArticleController extends Controller
 
     public function myArticles(Request $request)
     {
+        $published_count = auth()->user()->articles()->where('isPublished', true)->count();
+        $draft_count = auth()->user()->articles()->where('isPublished', false)->count();
 
-        $auth_articles = auth()->user()->articles();
-
-        $published_count = $auth_articles->where('isPublished', true)->count();
-        $draft_count = $auth_articles->where('isPublished', false)->count();
-
-        $articles = auth()->user()->articles()->latest()->paginate();
-
-
-
-//        $auth_articles->where()->latest()->paginate();
-
-
+        $articles = auth()
+            ->user()
+            ->articles()
+            ->where($request->only('isPublished'))
+            ->latest()
+            ->paginate();
 
 
         return AuthArticleList::collection($articles)->additional([

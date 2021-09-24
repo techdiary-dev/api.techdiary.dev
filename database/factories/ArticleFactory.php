@@ -283,6 +283,7 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
             'slug' => Str::slug($title) . '-' . Str::random(6),
             'thumbnail' => $this->faker->imageUrl(700, 450),
             'body' => $body,
+            'excerpt' => $this->faker->paragraph(2),
             'isPublished' => $this->faker->boolean,
             'isApproved' => true,
             'user_id' => User::all()->random()->id
