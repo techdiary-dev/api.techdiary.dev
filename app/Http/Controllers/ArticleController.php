@@ -8,6 +8,7 @@ use App\Http\Requests\Article\UpdateArticleRequest;
 use App\Http\Resources\Article\ArticleCollection;
 use App\Http\Resources\Article\ArticleDetails;
 use App\Http\Resources\Article\ArticleList;
+use App\Http\Resources\Article\AuthArticleList;
 use App\Models\Article;
 use App\Scoping\Scopes\ArticlesByTagName;
 use App\Scoping\Scopes\UserScope;
@@ -16,14 +17,6 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    /**
-     * ArticleController constructor.
-     */
-
-    public function __construct()
-    {
-//        $this->middleware('auth:sanctum')->only(['store', 'destroy', 'update', 'myArticles']);
-    }
 
     /**
      * Display a listing of the resource.
@@ -203,10 +196,31 @@ class ArticleController extends Controller
             ->where('ReactionAble_id', $articleId)->delete();
     }
 
-    public function myArticles()
+    public function myArticles(Request $request)
     {
-        $articles = auth()->user()->articles()->with('user')->latest()->paginate();
-        return ArticleList::collection($articles);
+
+        $auth_articles = auth()->user()->articles();
+
+        $published_count = $auth_articles->where('isPublished', true)->count();
+        $draft_count = $auth_articles->where('isPublished', false)->count();
+
+        $articles = auth()->user()->articles()->latest()->paginate();
+
+
+
+//        $auth_articles->where()->latest()->paginate();
+
+
+
+
+        return AuthArticleList::collection($articles)->additional([
+            'meta' => [
+                "counts" => [
+                    "published" => $published_count,
+                    "draft" => $draft_count
+                ]
+            ]
+        ]);
     }
 
     protected function scopes()

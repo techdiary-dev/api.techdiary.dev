@@ -48,7 +48,6 @@ class TDMarkdown
         $converter = new CommonMarkConverter($config);
         $converter->getEnvironment()->addExtension(new HeadingPermalinkExtension());
         $converter->getEnvironment()->addExtension(new TableExtension());
-//        $converter->getEnvironment()->addExtension(new TorchlightExtension);
 
         return (string) $converter->convertToHtml($this->markdown ?: "");
     }
