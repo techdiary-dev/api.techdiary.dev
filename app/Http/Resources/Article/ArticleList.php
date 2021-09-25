@@ -7,6 +7,7 @@ use App\Http\Resources\VoteCollection;
 use App\Http\Resources\VoteResource;
 use App\TechDiary\Reaction\Resources\ReactionCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
+use phpDocumentor\Reflection\Types\Parent_;
 
 class ArticleList extends JsonResource
 {
@@ -24,6 +25,7 @@ class ArticleList extends JsonResource
             'title' => $this->title,
             'slug' => $this->slug,
             'votes' => new VoteCollection($this->reactions),
+            'comments_count' => $this->comments_count,
             'thumbnail' => $this->thumbnail,
             'tags' => $this->tags,
             'excerpt' => $this->excerpt,

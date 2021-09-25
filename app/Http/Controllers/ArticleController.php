@@ -30,7 +30,11 @@ class ArticleController extends Controller
         $articles = Article::where([
             'isPublished' => true,
             'isApproved' => true
-        ])->with(['tags', 'user', 'reactions'])->latest()->withScopes($this->scopes());
+        ])->with(['tags', 'user', 'reactions'])->withCount('comments')->latest()->withScopes($this->scopes());
+
+
+//        dd($articles->paginate());
+
 
         return new ArticleCollection($articles->paginate(request()->query('limit', 10)));
     }

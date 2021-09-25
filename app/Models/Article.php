@@ -54,6 +54,8 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|Article withScopes($scopes = [])
  * @mixin \Eloquent
  */
+
+
 class Article extends Model implements ReactableInterface
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -113,19 +115,25 @@ Route::group(['prefix' => 'articles'], function () {
     Route::post('/{article:id}/vote', [ArticleController::class, 'vote'])
         ->middleware('auth:sanctum');
 
-//    Route::get('/{article}/comments', [\App\Http\Controllers\CommentController::class, 'index']);
-//    Route::post('/{article}/comments/', [\App\Http\Controllers\CommentController::class, 'store']);
-//    Route::patch('/{article}/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'update']);
-//    Route::delete('/{article}/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'destroy']);
+});
+
+Route::group(['prefix' => 'comments'], function (){
+    Route::get('{article:id}', [CommentController::class, 'index']);
+
+    Route::post('{article:id}', [CommentController::class, 'store'])
+        ->middleware('auth:sanctum');
+
+    Route::delete('/{article:id}/comments/{comment}', [CommentController::class, 'destroy'])
+        ->middleware('auth:sanctum');
 });
 
 
 
 Route::group(['prefix' => 'files'], function () {
-    Route::post('/', [\App\Http\Controllers\FileController::class, 'upload'])
+    Route::post('/', [FileController::class, 'upload'])
         ->middleware('auth:sanctum');
 
-    Route::delete('/', [\App\Http\Controllers\FileController::class, 'destroy'])
+    Route::delete('/', [FileController::class, 'destroy'])
         ->middleware('auth:sanctum');
 });
 

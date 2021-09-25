@@ -19,10 +19,14 @@ class CommentController extends Controller
 
     public function store(Article $article, CommentRequest $request)
     {
-        return $article->comments()->create([
+        $article->comments()->create([
             'body' => $request->body,
             'user_id' => auth()->guard('sanctum')->id(),
             'parent_id' => $request->parent_id
+        ]);
+
+        return response()->json([
+           'message' => 'Comment created successfully'
         ]);
     }
 
