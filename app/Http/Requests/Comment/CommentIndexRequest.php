@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Comment;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class CommentRequest extends FormRequest
+class CommentIndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class CommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->guard('sanctum')->check();
+        return true;
     }
 
     /**
@@ -23,9 +24,12 @@ class CommentRequest extends FormRequest
      */
     public function rules()
     {
+        $models = [
+            'ARTICLE'
+        ];
         return [
-            'body' => ['required'],
-            'parent_id' => ['nullable']
+            'model_name' => ['required', Rule::in($models)],
+            'model_id' => ['required'],
         ];
     }
 }

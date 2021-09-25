@@ -118,12 +118,15 @@ Route::group(['prefix' => 'articles'], function () {
 });
 
 Route::group(['prefix' => 'comments'], function (){
-    Route::get('{article:id}', [CommentController::class, 'index']);
+    Route::get('', [CommentController::class, 'index']);
 
-    Route::post('{article:id}', [CommentController::class, 'store'])
+    Route::post('', [CommentController::class, 'store'])
         ->middleware('auth:sanctum');
 
-    Route::delete('/{article:id}/comments/{comment}', [CommentController::class, 'destroy'])
+    Route::put('{comment:id}', [CommentController::class, 'update'])
+        ->middleware('auth:sanctum');
+
+    Route::delete('{comment:id}', [CommentController::class, 'destroy'])
         ->middleware('auth:sanctum');
 });
 

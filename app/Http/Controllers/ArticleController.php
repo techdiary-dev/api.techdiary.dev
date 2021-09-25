@@ -32,10 +32,6 @@ class ArticleController extends Controller
             'isApproved' => true
         ])->with(['tags', 'user', 'reactions'])->withCount('comments')->latest()->withScopes($this->scopes());
 
-
-//        dd($articles->paginate());
-
-
         return new ArticleCollection($articles->paginate(request()->query('limit', 10)));
     }
 

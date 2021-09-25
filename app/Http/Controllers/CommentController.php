@@ -2,24 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CommentRequest;
+use App\Http\Requests\Comment\CommentIndexRequest;
+use App\Http\Requests\Comment\CommentStoreRequest;
 use App\Models\Article;
 use App\Models\Comment;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Validation\Rule;
 
 class CommentController extends Controller
 {
-    public function index(Article $article)
+
+    protected $commendableModels = [
+        'ARTICLE' => 'App\\Models\\Article'
+    ];
+
+    public function index(CommentIndexRequest $request)
     {
+        $model = $this->commendableModels[$request->model_name]::find($request->model_id);
+
         $perPage = 10;
         $page = request()->query('page', 1);
-        $comments = $article->nestedComments($page, $perPage);
-        return new LengthAwarePaginator($comments, $article->comments->where('parent_id', null)->count(), $perPage, $page);
+        $comments = $model->nestedComments($page, $perPage);
+        return new LengthAwarePaginator($comments, $model->comments->where('parent_id', null)->count(), $perPage, $page);
     }
 
-    public function store(Article $article, CommentRequest $request)
+    public function store(CommentStoreRequest $request)
     {
-        $article->comments()->create([
+        Comment::create([
+            'commentable_type' => $this->commendableModels[$request->model_name],
+            'commentable_id' => $request->model_id,
             'body' => $request->body,
             'user_id' => auth()->guard('sanctum')->id(),
             'parent_id' => $request->parent_id
@@ -30,20 +42,31 @@ class CommentController extends Controller
         ]);
     }
 
-    public function update(Article $article, Comment $comment, CommentRequest $request)
+    /**
+     * Update comment
+     * @param Comment $comment
+     * @param CommentStoreRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function update(Comment $comment, Request $request)
     {
-        if ($comment->user_id != auth()->guard('sanctum')->id()) {
-            return response('Unauthorized activity', 401);
-        }
-        $comment->update(['body' => $request->body]);
-        return response()->noContent();
+        $this->authorize('update', $comment);
+
+        $request->validate([
+           'body' => ['nullable']
+        ]);
+
+        $comment->update($request->only('body'));
+
+        return response()->json([
+           "message" => "Comment updated"
+        ]);
     }
 
     public function destroy(Article $article, Comment $comment)
     {
-        if ($comment->user_id != auth()->guard('sanctum')->id()) {
-            return response('Unauthorized activity', 401);
-        }
+        $this->authorize('delete', $comment);
         $comment->delete();
         return response()->noContent();
     }
