@@ -9,9 +9,8 @@ use Cloudinary\Cloudinary;
 use Cloudinary\Transformation\Delivery;
 use Cloudinary\Transformation\Format;
 use Cloudinary\Transformation\Quality;
-use Illuminate\Http\Request;
 
-class FileUploadController extends Controller
+class FileController extends Controller
 {
     public function upload(FileUploadRequest $request)
     {

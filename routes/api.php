@@ -25,11 +25,6 @@ Route::get('/', function () {
 });
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-
 /**
  * User endpoints
  * -
@@ -38,13 +33,12 @@ Route::group(['prefix' => '/user'], function () {
     /**
      * Authenticated user
      */
-//    Route::get('/', [UserController::class, 'me'])
-//        ->middleware('auth:sanctum');
+    Route::get('/', [UserController::class, 'me'])->middleware('auth:sanctum');
 
     /**
      * Authenticated user's bookmark
      */
-    Route::get('bookmarks', [ArticleController::class, 'myBookmarks']);
+    Route::get('bookmarks', [ArticleController::class, 'myBookmarks'])->middleware('auth:sanctum');
 
     /**
      * Delete bookmark
@@ -101,11 +95,6 @@ Route::group(['prefix' => 'articles'], function () {
     Route::get('dump', function () {
         return \App\Models\Article::all();
     });
-    Route::apiResource('', ArticleController::class, [
-        'parameters' => [
-            '' => 'article'
-        ]
-    ]);
 
     Route::get('', [ArticleController::class, 'index']);
     Route::post('', [ArticleController::class, 'index'])->middleware('auth:sanctum');
@@ -121,7 +110,9 @@ Route::group(['prefix' => 'articles'], function () {
     Route::post('spark', [ArticleController::class, 'spark'])
         ->middleware('auth:sanctum');
 
-//    Route::post('/{article}/reaction', [ArticleController::class, 'reaction'])->middleware('auth:sanctum');
+    Route::post('/{article:id}/vote', [ArticleController::class, 'vote'])
+        ->middleware('auth:sanctum');
+
 //    Route::get('/{article}/comments', [\App\Http\Controllers\CommentController::class, 'index']);
 //    Route::post('/{article}/comments/', [\App\Http\Controllers\CommentController::class, 'store']);
 //    Route::patch('/{article}/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'update']);
@@ -131,16 +122,12 @@ Route::group(['prefix' => 'articles'], function () {
 
 
 Route::group(['prefix' => 'files'], function () {
-    Route::post('/', [\App\Http\Controllers\FileUploadController::class, 'upload'])
+    Route::post('/', [\App\Http\Controllers\FileController::class, 'upload'])
         ->middleware('auth:sanctum');
 
-    Route::delete('/', [\App\Http\Controllers\FileUploadController::class, 'destroy'])
+    Route::delete('/', [\App\Http\Controllers\FileController::class, 'destroy'])
         ->middleware('auth:sanctum');
 });
 
 Route::apiResource('tags', TagController::class);
 
-
-Route::get('/test', function (Request $request){
-    return $request->only('isPublished');
-});

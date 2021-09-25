@@ -4,6 +4,7 @@ namespace App\Http\Resources\Article;
 
 use App\Http\Resources\TagResource;
 use App\Http\Resources\User\UserListResource;
+use App\Http\Resources\VoteCollection;
 use App\TechDiary\TDMarkdown;
 use App\TechDiary\Reaction\Resources\ReactionCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -35,12 +36,12 @@ class ArticleDetails extends JsonResource
                 'html' => $md->toHTML(),
                 "markdown" => $this->body ?: ""
             ],
+            "votes" => new VoteCollection($this->reactions),
             'excerpt' => $this->excerpt,
             'isPublished' => $this->isPublished,
             'isApproved' => $this->isPublished,
             'tags' => TagResource::collection($this->tags),
             'user' => new UserListResource($this->user),
-            'reactions' => new ReactionCollection($this->reactions),
             'seo' => $this->getMetaJSON('seo'),
             'settings' => [
                 "disabled_comments" => $this->getMetaValue('disabled_comments'),

@@ -89,6 +89,44 @@ trait ReactionableModel
     }
 
     /**
+     * Get Reaction
+     * @param $reactionType
+     * @param null $user
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Relations\MorphMany|object|null
+     */
+    public function getReaction($user = null)
+    {
+        if ($user == null) $user = auth()->user();
+
+        return $this->reactions()->where([
+            'user_id' => $user->getKey()
+        ])->first();
+    }
+
+    /**
+     * Remove reaction
+     * @param $reactionType
+     * @param null $user
+     * @return false
+     */
+    public function removeReaction($reactionType, $user = null)
+    {
+        $reaction = $this->reactions()->where([
+            "user_id" => $user->getKey(),
+            "type" => $reactionType
+        ])->first();
+
+        if($reaction)
+        {
+            $reaction->delete();
+            return true;
+        }
+
+        return false;
+
+    }
+
+    /**
      * Get user model.
      *
      * @param mixed $user

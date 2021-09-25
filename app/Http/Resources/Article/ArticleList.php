@@ -3,6 +3,8 @@
 namespace App\Http\Resources\Article;
 
 use App\Http\Resources\User\UserListResource;
+use App\Http\Resources\VoteCollection;
+use App\Http\Resources\VoteResource;
 use App\TechDiary\Reaction\Resources\ReactionCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,7 +23,7 @@ class ArticleList extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'reactions' => new ReactionCollection($this->reactions),
+            'votes' => new VoteCollection($this->reactions),
             'thumbnail' => $this->thumbnail,
             'tags' => $this->tags,
             'excerpt' => $this->excerpt,

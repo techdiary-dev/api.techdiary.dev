@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Article\ArticleReactionRequest;
 use App\Http\Requests\Article\CreateArticleRequest;
 use App\Http\Requests\Article\UpdateArticleRequest;
+use App\Http\Requests\VoteRequest;
 use App\Http\Resources\Article\ArticleCollection;
 use App\Http\Resources\Article\ArticleDetails;
 use App\Http\Resources\Article\ArticleList;
@@ -140,20 +141,50 @@ class ArticleController extends Controller
      * @param Article $article
      * @return array
      */
-    public function reaction(ArticleReactionRequest $request, Article $article)
+    public function doReaction(ArticleReactionRequest $request, Article $article)
     {
-        $article->react($request->reaction_type);
-        $reactions = $article->reactions()->get();
-        if ($reactions->isNotEmpty()) {
-            $reactions = new ReactionCollection($reactions);
-        } else {
-            $reactions = null;
+//        $article->react($request->reaction_type);
+//
+//        $reactions = $article->reactions()->get();
+//        if ($reactions->isNotEmpty()) {
+//            $reactions = new ReactionCollection($reactions);
+//        } else {
+//            $reactions = null;
+//        }
+//
+//        return [
+//            "reactions" => $reactions
+//        ];
+    }
+
+    public function vote(VoteRequest $request, Article $article)
+    {
+        $types = [
+            "UP_VOTE",
+            "DOWN_VOTE"
+        ];
+
+        $requested_vote = $request->vote == 'UP_VOTE' ? 0 : 1;
+
+        if (auth()->user()->isReactedOn($article)) // vote exists
+        {
+            $current_vote = $article->getReaction()->type == 'UP_VOTE' ? 0 : 1;
+
+            if($current_vote == $requested_vote)
+            {
+                $article->removeReaction($request->vote, auth()->user());
+            }
+            else{
+                $article->removeReaction($types[$current_vote], auth()->user());
+                $article->react($types[!$current_vote], auth()->user());
+            }
+        } else { // no vote
+            $article->react($request->vote, auth()->user());
         }
 
-        return [
-            "reactions" => $reactions
-        ];
+        return $article->reactionSummary();
     }
+
 
     /**
      * Remove the specified resource from storage.
