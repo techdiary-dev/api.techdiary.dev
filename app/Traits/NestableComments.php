@@ -22,6 +22,8 @@ trait NestableComments
         $grouped = $comments->whereIn('id', $ids)->with(['user' => function ($q) {
             $q->select('username', 'name', 'id', 'profilePhoto');
         }])->get()->groupBy('parent_id');
+
+
         $root = $grouped->get(null);
 
         return $this->buildNest($root, $grouped);

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\TagController;
@@ -31,33 +32,21 @@ Route::get('/', function () {
  * User endpoints
  * -
  */
-Route::group(['prefix' => '/user'], function () {
-    /**
-     * Authenticated user
-     */
-    Route::get('/', [UserController::class, 'me'])->middleware('auth:sanctum');
+Route::get('user', [UserController::class, 'me'])->middleware('auth:sanctum');
 
+Route::group(['prefix' => 'users'], function () {
     /**
-     * Authenticated user's bookmark
+     * User list
      */
-    Route::get('bookmarks', [ArticleController::class, 'myBookmarks'])->middleware('auth:sanctum');
-
-    /**
-     * Delete bookmark
-     */
-    Route::delete('bookmarks/{id}', [ArticleController::class, 'removeBookmark'])
-        ->middleware('auth:sanctum');
+    Route::get('', [UserController::class, 'users']);
 
     /**
      * User details
      */
-    Route::get('/{username}', [UserController::class, 'userDetails']);
+    Route::get('{username}', [UserController::class, 'userDetails']);
 });
 
-/**
- * User list
- */
-Route::get('/users', [UserController::class, 'users']);
+
 
 /**
  * Authentication
@@ -94,10 +83,6 @@ Route::group(['prefix' => 'auth'], function () {
 
 
 Route::group(['prefix' => 'articles'], function () {
-    Route::get('dump', function () {
-        return \App\Models\Article::all();
-    });
-
     Route::get('', [ArticleController::class, 'index']);
     Route::post('', [ArticleController::class, 'index'])->middleware('auth:sanctum');
     Route::get('/uuid/{article:id}', [ArticleController::class, 'show']);
@@ -112,9 +97,18 @@ Route::group(['prefix' => 'articles'], function () {
     Route::post('spark', [ArticleController::class, 'spark'])
         ->middleware('auth:sanctum');
 
-    Route::post('/{article:id}/vote', [ArticleController::class, 'vote'])
+});
+
+Route::group(['prefix' => 'bookmarks'], function (){
+    Route::get('', [BookmarkController::class, 'getBookmarks'])
         ->middleware('auth:sanctum');
 
+    Route::post('', [BookmarkController::class, 'doBookmark'])
+        ->middleware('auth:sanctum');
+});
+
+Route::group(['prefix' => 'vote'], function (){
+    Route::post('', \App\Http\Controllers\VoteController::class)->middleware('auth:sanctum');
 });
 
 Route::group(['prefix' => 'comments'], function (){
@@ -123,10 +117,10 @@ Route::group(['prefix' => 'comments'], function (){
     Route::post('', [CommentController::class, 'store'])
         ->middleware('auth:sanctum');
 
-    Route::put('{comment:id}', [CommentController::class, 'update'])
+    Route::put('{comment:uuid}', [CommentController::class, 'update'])
         ->middleware('auth:sanctum');
 
-    Route::delete('{comment:id}', [CommentController::class, 'destroy'])
+    Route::delete('{comment:uuid}', [CommentController::class, 'destroy'])
         ->middleware('auth:sanctum');
 });
 

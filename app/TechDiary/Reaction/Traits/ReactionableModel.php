@@ -3,6 +3,8 @@
 
 namespace App\TechDiary\Reaction\Traits;
 
+use App\Models\User;
+use App\TechDiary\Reaction\Contracts\ReactorUserInterface;
 use App\TechDiary\Reaction\Model\Reaction;
 use App\TechDiary\Reaction\Resources\ReactionCollection;
 
@@ -21,6 +23,36 @@ trait ReactionableModel
     }
 
     /**
+     * Store reaction for model
+     * @param $type
+     * @param ReactorUserInterface $user
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function storeReaction($type, ReactorUserInterface $user)
+    {
+        return $this->reactions()->create([
+            'type' => $type,
+            'user_id' => $user->getKey()
+        ]);
+    }
+
+    public function toggleReaction($type, ReactorUserInterface $user)
+    {
+        $reaction = $this->reactions()->where([
+            'user_id' => $user->getKey(),
+            'type' => $type
+        ])->first();
+
+        if (!$reaction) {
+            $this->storeReaction($type, $user);
+            return true;
+        }else{
+            $this->removeReaction($type, $user);
+            return false;
+        }
+    }
+
+    /**
      * Get collection of users who reacted on reactable model.
      *
      * @return \Illuminate\Support\Collection
@@ -31,6 +63,7 @@ trait ReactionableModel
         return $userModel::whereKey($this->reactorIds())->get();
     }
 
+
     /**
      * Reactors user ids
      */
@@ -38,7 +71,6 @@ trait ReactionableModel
     {
         return $this->reactions->pluck('user_id');
     }
-
 
     /**
      * Reaction summary.
@@ -48,6 +80,7 @@ trait ReactionableModel
     public function reactionSummary()
     {
         $reactions = $this->reactions()->get();
+
         if ($reactions->isNotEmpty()) {
             return new ReactionCollection($reactions);
         }
@@ -59,55 +92,26 @@ trait ReactionableModel
      * @param mixed $user
      * @return bool
      */
-    public function isReactBy($user = null, $type = null)
+    public function isReactBy(ReactorUserInterface $user, $type = null)
     {
-        $user = $this->getUser($user);
+        $reacted = $this->reactions()->where([
+            'user_id' => $user->getKey(),
+        ]);
 
-        if ($user) {
-            return $user->isReactedOn($this, $type);
+        if ($type) {
+            $reacted->where([
+                'type' => $type,
+            ]);
         }
 
-        return false;
-    }
-
-    /**
-     * Add reaction.
-     *
-     * @param mixed $reactionType
-     * @param mixed $user
-     * @return Reaction|bool
-     */
-    public function react($reactionType, $user = null)
-    {
-        $user = $this->getUser($user);
-
-        if ($user) {
-            return $user->reactTo($this, $reactionType);
-        }
-
-        return false;
-    }
-
-    /**
-     * Get Reaction
-     * @param $reactionType
-     * @param null $user
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Relations\MorphMany|object|null
-     */
-    public function getReaction($user = null)
-    {
-        if ($user == null) $user = auth()->user();
-
-        return $this->reactions()->where([
-            'user_id' => $user->getKey()
-        ])->first();
+        return $reacted->exists();
     }
 
     /**
      * Remove reaction
      * @param $reactionType
      * @param null $user
-     * @return false
+     * @return bool
      */
     public function removeReaction($reactionType, $user = null)
     {
@@ -116,27 +120,13 @@ trait ReactionableModel
             "type" => $reactionType
         ])->first();
 
-        if($reaction)
-        {
+        if ($reaction) {
             $reaction->delete();
             return true;
         }
 
         return false;
 
-    }
-
-    /**
-     * Get user model.
-     *
-     * @param mixed $user
-     * @return false
-     *
-     * @throw \Qirolab\Laravel\Reactions\Exceptions\InvalidReactionUser
-     */
-    private function getUser($user = null)
-    {
-        return auth()->guard('sanctum')?->user();
     }
 
 
@@ -149,5 +139,6 @@ trait ReactionableModel
     {
         return config('auth.providers.users.model');
     }
+
 }
 

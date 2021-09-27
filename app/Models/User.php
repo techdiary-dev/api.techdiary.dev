@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\TechDiary\Reaction\Contracts\ReactableInterface;
+use App\TechDiary\Reaction\Contracts\ReactorUserInterface;
+use App\TechDiary\Reaction\Model\Reaction;
 use App\TechDiary\Reaction\Traits\ReactorUserModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -65,11 +68,11 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereWebsiteUrl($value)
  * @mixin \Eloquent
  */
-class User extends Authenticatable
+class User extends Authenticatable implements ReactorUserInterface
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
 
-    use HasFactory, Notifiable, HasApiTokens, ReactorUserModel;
+    use HasFactory, Notifiable, HasApiTokens;
 
     protected $keyType = 'string';
     protected $primaryKey = 'id';
@@ -122,13 +125,16 @@ class User extends Authenticatable
         $this->attributes['username'] = strtolower($value);
     }
 
-    public function series()
-    {
-        return $this->hasMany(Series::class);
-    }
-
-//    public function isOnline()
+//    public function series()
 //    {
-//        return Cache::has('user-is-online-' . $this->id);
+//        return $this->hasMany(Series::class);
 //    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function reactions()
+    {
+        return $this->hasMany(Reaction::class);
+    }
 }
