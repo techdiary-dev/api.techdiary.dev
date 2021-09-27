@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\TechDiary\HasUUIDColumn;
+use App\TechDiary\Reaction\Traits\ReactionableModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,7 +35,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
-    use HasFactory;
+    use HasFactory, ReactionableModel;
 
     protected $casts = [
         'id' => 'string'

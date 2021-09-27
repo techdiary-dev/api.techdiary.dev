@@ -72,7 +72,7 @@ class User extends Authenticatable implements ReactorUserInterface
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
 
-    use HasFactory, Notifiable, HasApiTokens, ReactorUserModel;
+    use HasFactory, Notifiable, HasApiTokens;
 
     protected $keyType = 'string';
     protected $primaryKey = 'id';

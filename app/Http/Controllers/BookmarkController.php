@@ -7,6 +7,7 @@ use App\Http\Requests\Bookmark\BookmarkRequest;
 use App\Http\Resources\Article\AuthArticleList;
 use App\Models\Article;
 use App\Models\Comment;
+use App\Models\Tag;
 use App\TechDiary\Reaction\Model\Reaction;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,7 @@ class BookmarkController extends Controller
     protected $bookmarkableModels = [
         'ARTICLE' => Article::class,
         'COMMENT' => Comment::class,
+        'TAG' => Tag::class,
     ];
 
     public function getBookmarks(BookmarkListRequest $request)
@@ -25,34 +27,17 @@ class BookmarkController extends Controller
             ->where('ReactionAble_type', $model)
             ->where('type', 'BOOKMARK')
             ->get()->pluck('ReactionAble_id');
-
-
-        return $model::whereIn('id', $bookmark_ids)->get();
-//        return AuthArticleList::collection($bookmarkeds);
-
+        return $model::whereIn('id', $bookmark_ids)->paginate();
     }
 
 
     public function doBookmark(BookmarkRequest $request)
     {
         $model = $this->bookmarkableModels[$request->model_name]::find($request->model_id);
-
-        $result = null;
-
-        $model->isReactBy(auth()->user(), 'BOOKMARK');
-
-//        return $model->isReactBy(auth()->user(), 'BOOKMARK');
-        if($model->isReactBy(auth()->user(), 'BOOKMARK'))
-        {
-            $model->removeReaction('BOOKMARK', auth()->user());
-            $result = false;
-        }else{
-            $model->react('BOOKMARK', auth()->user());
-            $result = true;
-        }
+        $bookmarked = $model->toggleReaction('BOOKMARK', auth()->user());
 
         return response()->json([
-            'bookmarked' => $result
+            'bookmarked' => $bookmarked
         ]);
     }
 }

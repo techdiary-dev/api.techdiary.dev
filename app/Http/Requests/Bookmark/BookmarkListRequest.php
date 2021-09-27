@@ -26,7 +26,8 @@ class BookmarkListRequest extends FormRequest
     {
         $models = [
             'ARTICLE',
-            'COMMENT'
+            'COMMENT',
+            'TAG',
         ];
 
         return [
