@@ -29,7 +29,7 @@ class ArticleController extends Controller
     {
         $articles = Article::where([
             'isPublished' => true,
-            'isApproved' => true
+//            'isApproved' => true
         ])->with(['tags', 'user', 'reactions'])->withCount('comments')->latest()->withScopes($this->scopes());
 
         return new ArticleCollection($articles->paginate(request()->query('limit', 10)));
@@ -48,29 +48,28 @@ class ArticleController extends Controller
             ->articles()
             ->create($request->except('tags', 'seo', 'settings'));
 
-        return $article;
-//        $article->isApproved = true;
+        $article->isApproved = true;
 
-//        if ($request->tags) {
-//            $tags = collect($request->tags)->pluck('id');
-//            $article->tags()->sync($tags);
-//        }
-//
-//        if ($request->seo) {
-//            $article->setMetaJSON("seo", $request->only('seo.og_image', 'seo.seo_title', 'seo.seo_description', 'seo.disabled_comments')['seo']);
-//        }
-//
-//        if ($request->settings)
-//        {
-//            $article->setMetaValue("settings.disabled_comments", $request->get('settings.disabled_comments'));
-//        }
-//
-//        $article->save();
-//
-//        return response()->json([
-//            'message' => 'Article saved successfully',
-//            'data' => $article
-//        ]);
+        if ($request->tags) {
+            $tags = collect($request->tags)->pluck('id');
+            $article->tags()->sync($tags);
+        }
+
+        if ($request->seo) {
+            $article->setMetaJSON("seo", $request->only('seo.og_image', 'seo.seo_title', 'seo.seo_description', 'seo.disabled_comments')['seo']);
+        }
+
+        if ($request->settings)
+        {
+            $article->setMetaValue("settings.disabled_comments", $request->get('settings.disabled_comments'));
+        }
+
+        $article->save();
+
+        return response()->json([
+            'message' => 'Article saved successfully',
+            'data' => $article
+        ]);
     }
 
 
@@ -119,72 +118,18 @@ class ArticleController extends Controller
         }
 
         if ($request->seo) {
-            $article->setMetaJSON("seo", $request->only('seo.og_image', 'seo.seo_title', 'seo.seo_description', 'seo.disabled_comments')['seo']);
+            $article->setMetaJSON("seo", $request->only('seo.og_image', 'seo.seo_title', 'seo.seo_description', 'seo.canonical_url')['seo']);
         }
 
         if ($request->settings) {
-            $article->setMetaValue("disabled_comments",
-                $request->only('settings.disabled_comments')['settings']['disabled_comments']
-            );
+            $article->setMetaJSON("settings", $request->only('settings.disabled_comments')['settings']);
         }
-
 
         $article->save();
         return response()->json([
             'message' => 'Article saved successfully'
         ]);
     }
-
-    /**
-     * Article React
-     * @param ArticleReactionRequest $request
-     * @param Article $article
-     * @return array
-     */
-    public function doReaction(ArticleReactionRequest $request, Article $article)
-    {
-//        $article->react($request->reaction_type);
-//
-//        $reactions = $article->reactions()->get();
-//        if ($reactions->isNotEmpty()) {
-//            $reactions = new ReactionCollection($reactions);
-//        } else {
-//            $reactions = null;
-//        }
-//
-//        return [
-//            "reactions" => $reactions
-//        ];
-    }
-
-    public function vote(VoteRequest $request, Article $article)
-    {
-        $types = [
-            "UP_VOTE",
-            "DOWN_VOTE"
-        ];
-
-        $requested_vote = $request->vote == 'UP_VOTE' ? 0 : 1;
-
-        if (auth()->user()->isReactedOn($article)) // vote exists
-        {
-            $current_vote = $article->getReaction()->type == 'UP_VOTE' ? 0 : 1;
-
-            if($current_vote == $requested_vote)
-            {
-                $article->removeReaction($request->vote, auth()->user());
-            }
-            else{
-                $article->removeReaction($types[$current_vote], auth()->user());
-                $article->react($types[!$current_vote], auth()->user());
-            }
-        } else { // no vote
-            $article->react($request->vote, auth()->user());
-        }
-
-        return $article->reactionSummary();
-    }
-
 
     /**
      * Remove the specified resource from storage.
@@ -202,28 +147,6 @@ class ArticleController extends Controller
         return response()->json([
             'message' => 'Deleted successfully'
         ]);
-    }
-
-    public function myBookmarks()
-    {
-        $article_ids = auth()->guard('sanctum')->user()?->reactions()->where('type', 'BOOKMARK')->where('ReactionAble_type', Article::class)->select('ReactionAble_id')->get()->pluck('ReactionAble_id');
-
-        if ($article_ids) {
-            $articles = Article::with('user')->whereIn('id', $article_ids)->latest()->paginate();
-            return ArticleList::collection($articles);
-        } else {
-            abort(401, "Unauthorized activity");
-        }
-    }
-
-    public function removeBookmark($articleId)
-    {
-        return auth()
-            ->user()
-            ->reactions()
-            ->where('type', 'BOOKMARK')
-            ->where('ReactionAble_type', Article::class)
-            ->where('ReactionAble_id', $articleId)->delete();
     }
 
     public function myArticles(Request $request)

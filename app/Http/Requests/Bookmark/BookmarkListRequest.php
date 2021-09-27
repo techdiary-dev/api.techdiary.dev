@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Bookmark;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class VoteRequest extends FormRequest
+class BookmarkListRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,8 +31,6 @@ class VoteRequest extends FormRequest
 
         return [
             'model_name' => ['required', Rule::in($models)],
-            'model_id' => ['required'],
-            'vote' => ['required', Rule::in(['UP_VOTE', 'DOWN_VOTE'])]
         ];
     }
 }

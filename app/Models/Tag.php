@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\TechDiary\HasUUIDColumn;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,6 +35,12 @@ class Tag extends Model
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
+
+    protected $casts = [
+        'id' => 'string'
+    ];
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
 
     protected $guarded = ['id'];
 

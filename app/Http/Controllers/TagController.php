@@ -9,6 +9,10 @@ use App\Models\Tag;
 
 class TagController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->only('store');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +20,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        return TagResource::collection(Tag::all());
+        return TagResource::collection(Tag::latest()->paginate());
     }
 
     /**

@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\TechDiary\Reaction\Model\Reaction;
+use App\TechDiary\Reaction\Traits\ReactionableModel;
+use App\TechDiary\Votable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,7 +40,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Comment extends Model
 {
-    use HasFactory;
+    use HasFactory, ReactionableModel, Votable;
+
+    protected $casts = [
+        'id' => 'string'
+    ];
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
 
     protected $guarded = [];
 

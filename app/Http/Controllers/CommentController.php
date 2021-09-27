@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Comment\CommentIndexRequest;
 use App\Http\Requests\Comment\CommentStoreRequest;
+use App\Http\Resources\Comment\CommentResource;
 use App\Models\Article;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -12,9 +13,8 @@ use Illuminate\Validation\Rule;
 
 class CommentController extends Controller
 {
-
     protected $commendableModels = [
-        'ARTICLE' => 'App\\Models\\Article'
+        'ARTICLE' => Article::class
     ];
 
     public function index(CommentIndexRequest $request)
@@ -23,8 +23,10 @@ class CommentController extends Controller
 
         $perPage = 10;
         $page = request()->query('page', 1);
-        $comments = $model->nestedComments($page, $perPage);
-        return new LengthAwarePaginator($comments, $model->comments->where('parent_id', null)->count(), $perPage, $page);
+        $comments = $model->nestedComments($page, $perPage) ?: [];
+
+
+        return new LengthAwarePaginator(CommentResource::collection($comments), $model->comments->where('parent_id', null)->count(), $perPage, $page);
     }
 
     public function store(CommentStoreRequest $request)

@@ -4,9 +4,8 @@ namespace App\Http\Resources\Article;
 
 use App\Http\Resources\TagResource;
 use App\Http\Resources\User\UserListResource;
-use App\Http\Resources\VoteCollection;
-use App\TechDiary\TDMarkdown;
 use App\TechDiary\Reaction\Resources\ReactionCollection;
+use App\TechDiary\TDMarkdown;
 use Illuminate\Http\Resources\Json\JsonResource;
 use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
@@ -36,7 +35,8 @@ class ArticleDetails extends JsonResource
                 'html' => $md->toHTML(),
                 "markdown" => $this->body ?: ""
             ],
-            "votes" => new VoteCollection($this->reactions),
+            'reactions' => new ReactionCollection($this->reactions),
+            'comments_count' => $this->comments_count,
             'excerpt' => $this->excerpt,
             'isPublished' => $this->isPublished,
             'isApproved' => $this->isPublished,
