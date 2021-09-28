@@ -21,25 +21,29 @@ trait VotableModel
 
             if ($isAlreadyUpvotted && $vote_type == 'UP_VOTE') {
                 $this->removeReaction('UP_VOTE', $user);
+                return 'up_vote removed';
             }
 
             else if ($isAlreadyDownvotted && $vote_type == 'DOWN_VOTE') {
                 $this->removeReaction('DOWN_VOTE', $user);
+                return 'down_vote removed';
             }
 
             else if($isAlreadyDownvotted && $vote_type == 'UP_VOTE')
             {
                 $this->removeReaction('DOWN_VOTE', $user);
                 $this->storeReaction('UP_VOTE', $user);
+                return 'down_vote removed and up_vote added';
             }
             else if($isAlreadyUpvotted && $vote_type == 'DOWN_VOTE')
             {
                 $this->removeReaction('UP_VOTE', $user);
                 $this->storeReaction('DOWN_VOTE', $user);
+                return 'up_vote removed and down_vote added';
             }
-        } else {
-            $this->storeReaction($vote_type, $user);
         }
 
+        $this->storeReaction($vote_type, $user);
+        return $vote_type . ' added';
     }
 }

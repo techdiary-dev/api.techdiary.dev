@@ -23,10 +23,5 @@ class ReactionCollection extends ResourceCollection
         });
 
         return $summery;
-
-//        return [
-//            "summery" => $summery,
-//            "vote_score" => $this->collection->where('type', 'UP_VOTE')->count() - $this->collection->where('type', 'DOWN_VOTE')->count()
-//        ];
     }
 }

@@ -1,22 +1,20 @@
 <?php
 
-namespace App\Http\Resources\Vote;
+namespace App\Http\Resources\Bookmark;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class VoteSummeryResource extends ResourceCollection
+class BookmarkCollection extends ResourceCollection
 {
     /**
-     * Transform the resource into an array.
+     * Transform the resource collection into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
     {
-        return [
-            'dd' => "ddd"
-        ];
+        $bookmarks = $this->collection->where('type', 'BOOKMARK')->pluck('user_id');
+        return $bookmarks;
     }
 }

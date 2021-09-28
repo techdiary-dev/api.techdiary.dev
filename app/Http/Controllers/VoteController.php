@@ -16,6 +16,9 @@ class VoteController extends Controller
     public function __invoke(VoteRequest $request)
     {
         $model = $this->voteableModels[$request->model_name]::find($request->model_id);
-        return $model->vote($request->vote, auth()->user());
+
+        return response()->json([
+            'message' => $model->vote($request->vote, auth()->user()),
+        ]);
     }
 }

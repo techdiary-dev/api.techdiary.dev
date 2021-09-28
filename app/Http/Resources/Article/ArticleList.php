@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources\Article;
 
+use App\Http\Resources\Bookmark\BookmarkCollection;
 use App\Http\Resources\TagResource;
 use App\Http\Resources\User\UserListResource;
-use App\Http\Resources\Vote\VoteSummeryResource;
+use App\Http\Resources\Vote\VoteSummeryCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ArticleList extends JsonResource
@@ -19,12 +20,17 @@ class ArticleList extends JsonResource
     // $this->reactionSummary()
     public function toArray($request)
     {
+        $votes = collect($this->reactionSummary())->map(function ($reaction){
+            return $reaction['reactors'];
+        });
+
+
         return [
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'votes' => $this->reactionSummary(),
-//            'reactions' => new ReactionCollection($this->reactions),
+            'votes' => new VoteSummeryCollection($this->reactions),
+            'bookmarked_users' => new BookmarkCollection($this->reactions),
             'comments_count' => $this->comments_count,
             'thumbnail' => $this->thumbnail,
             'tags' => TagResource::collection($this->tags),

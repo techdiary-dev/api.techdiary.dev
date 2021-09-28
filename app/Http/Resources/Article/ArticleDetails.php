@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources\Article;
 
+use App\Http\Resources\Bookmark\BookmarkCollection;
 use App\Http\Resources\TagResource;
 use App\Http\Resources\User\UserListResource;
+use App\Http\Resources\Vote\VoteSummeryCollection;
 use App\TechDiary\Reaction\Resources\ReactionCollection;
 use App\TechDiary\TDMarkdown;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -28,6 +30,7 @@ class ArticleDetails extends JsonResource
         $md = new TDMarkdown($this->body);
 
         return array_merge([
+            'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
             'thumbnail' => $this->thumbnail,
@@ -35,7 +38,8 @@ class ArticleDetails extends JsonResource
                 'html' => $md->toHTML(),
                 "markdown" => $this->body ?: ""
             ],
-            'reactions' => new ReactionCollection($this->reactions),
+            'votes' => new VoteSummeryCollection($this->reactions),
+            'bookmarked_users' => new BookmarkCollection($this->reactions),
             'comments_count' => $this->comments_count,
             'excerpt' => $this->excerpt,
             'isPublished' => $this->isPublished,
