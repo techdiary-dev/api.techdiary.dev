@@ -25,7 +25,6 @@ class CommentController extends Controller
         $page = request()->query('page', 1);
         $comments = $model->nestedComments($page, $perPage) ?: [];
 
-
         return new LengthAwarePaginator(CommentResource::collection($comments), $model->comments->where('parent_id', null)->count(), $perPage, $page);
     }
 
