@@ -67,6 +67,8 @@ test('storing tag by authenticated user', function () {
     $user = \App\Models\User::factory()->create();
     $this->actingAs($user);
 
+
+
     $response = $this->post('/api/tags', [
         'name' => 'tag1'
     ]);

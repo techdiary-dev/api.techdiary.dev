@@ -7,7 +7,7 @@ use App\TechDiary\HasComments;
 use App\TechDiary\HasMetaData;
 use App\TechDiary\Reaction\Contracts\ReactableInterface;
 use App\TechDiary\Reaction\Traits\ReactionableModel;
-use App\TechDiary\Votable;
+use App\TechDiary\VotableModel;
 use App\Traits\CanBeScoped;
 use App\Traits\NestableComments;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -60,7 +60,7 @@ use Illuminate\Support\Str;
 class Article extends Model implements ReactableInterface
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
-    use HasFactory, CanBeScoped, ReactionableModel, HasComments, NestableComments, HasMetaData, Votable;
+    use HasFactory, CanBeScoped, ReactionableModel, HasComments, NestableComments, HasMetaData, VotableModel;
 
 //    use Searchable;
 //    protected $guarded = ['isApproved'];

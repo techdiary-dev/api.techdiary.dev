@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\TechDiary\Reaction\Model\Reaction;
 use App\TechDiary\Reaction\Traits\ReactionableModel;
-use App\TechDiary\Votable;
+use App\TechDiary\VotableModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -40,7 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Comment extends Model
 {
-    use HasFactory, ReactionableModel, Votable;
+    use HasFactory, ReactionableModel, VotableModel;
 
     protected $casts = [
         'id' => 'string'

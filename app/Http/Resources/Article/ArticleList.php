@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources\Article;
 
+use App\Http\Resources\TagResource;
 use App\Http\Resources\User\UserListResource;
-use App\TechDiary\Reaction\Resources\ReactionCollection;
+use App\Http\Resources\Vote\VoteSummeryResource;
 use Illuminate\Http\Resources\Json\JsonResource;
-use phpDocumentor\Reflection\Types\Parent_;
 
 class ArticleList extends JsonResource
 {
@@ -16,16 +16,18 @@ class ArticleList extends JsonResource
      * @param \Illuminate\Http\Request $request
      * @return array
      */
+    // $this->reactionSummary()
     public function toArray($request)
     {
         return [
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'reactions' => new ReactionCollection($this->reactions),
+            'votes' => $this->reactionSummary(),
+//            'reactions' => new ReactionCollection($this->reactions),
             'comments_count' => $this->comments_count,
             'thumbnail' => $this->thumbnail,
-            'tags' => $this->tags,
+            'tags' => TagResource::collection($this->tags),
             'excerpt' => $this->excerpt,
             'isPublished' => $this->isPublished,
             'user' => new UserListResource($this->user),
