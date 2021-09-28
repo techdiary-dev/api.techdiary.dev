@@ -20,11 +20,6 @@ class ArticleList extends JsonResource
     // $this->reactionSummary()
     public function toArray($request)
     {
-        $votes = collect($this->reactionSummary())->map(function ($reaction){
-            return $reaction['reactors'];
-        });
-
-
         return [
             'id' => $this->id,
             'title' => $this->title,
