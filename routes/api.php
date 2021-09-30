@@ -54,8 +54,8 @@ Route::group(['prefix' => 'users'], function () {
 Route::group(['prefix' => 'auth'], function () {
 
     Route::post('oauth/signed-login', [AuthController::class, 'oauthSignedLogin'])
-        ->name('oauth-signed-login')
-        ->middleware('signed');
+        ->name('oauth-signed-login');
+//        ->middleware('signed');
 
     Route::get('oauth/{service}', [AuthController::class, 'oauthRedirect']);
     Route::get('oauth/{service}/callback', [AuthController::class, 'oauthCallback']);
