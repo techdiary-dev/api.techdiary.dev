@@ -167,6 +167,7 @@ return [
          */
         Jenssegers\Agent\AgentServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
+        App\Providers\FortifyServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -234,7 +235,6 @@ return [
          *
          */
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
-
     ],
 
 ];

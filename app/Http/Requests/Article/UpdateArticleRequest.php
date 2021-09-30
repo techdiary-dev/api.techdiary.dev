@@ -24,14 +24,20 @@ class UpdateArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'min:5', 'max:255'],
+            'title' => ['nullable', 'min:5', 'max:255'],
             'slug' => ['nullable', 'min:5', 'max:255'],
             'excerpt' => ['nullable', 'min:5', 'max:255'],
             'isPublished' => ['nullable', 'boolean'],
             'seriesName' => ['nullable', 'min:5', 'max:255'],
             'thumbnail' => ['nullable', 'url', 'max:255'],
-            'body' => ['required'],
-            'tags' => ['array']
+            'body' => ['nullable'],
+            'tags' => ['nullable', 'array'],
+
+            "seo.og_image" => ['nullable', 'url'],
+            "seo.seo_title" => ['nullable', 'string', 'max:255'],
+            "seo.seo_description" => ['nullable', 'string', 'max:255'],
+            "seo.canonical_url" => ['nullable', 'url', 'max:255'],
+            "settings.disabled_comments" => ['nullable', 'boolean', 'max:255'],
         ];
     }
 }

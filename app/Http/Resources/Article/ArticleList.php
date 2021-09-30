@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources\Article;
 
+use App\Http\Resources\Bookmark\BookmarkCollection;
+use App\Http\Resources\TagResource;
 use App\Http\Resources\User\UserListResource;
-use App\TechDiary\Reaction\Resources\ReactionCollection;
+use App\Http\Resources\Vote\VoteSummeryCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ArticleList extends JsonResource
@@ -15,17 +17,20 @@ class ArticleList extends JsonResource
      * @param \Illuminate\Http\Request $request
      * @return array
      */
+    // $this->reactionSummary()
     public function toArray($request)
     {
         return [
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'reactions' => new ReactionCollection($this->reactions),
+            'votes' => new VoteSummeryCollection($this->reactions),
+            'bookmarked_users' => new BookmarkCollection($this->reactions),
+            'comments_count' => $this->comments_count,
             'thumbnail' => $this->thumbnail,
-            'tags' => $this->tags,
+            'tags' => TagResource::collection($this->tags),
             'excerpt' => $this->excerpt,
-            'is_published' => $this->isPublished,
+            'isPublished' => $this->isPublished,
             'user' => new UserListResource($this->user),
             'created_at' => $this->created_at
         ];

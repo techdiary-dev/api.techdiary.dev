@@ -17,3 +17,4 @@ class UserScope implements Scope
         });
     }
 }
+// api/themes?type=ghost

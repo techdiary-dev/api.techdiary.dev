@@ -42,8 +42,8 @@ class ArticleCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-
         $this->crud->orderBy('created_at', 'DESC');
+
         $this->crud->addFilter([
             'type' => 'select2',
             'label' => 'Publish status',
@@ -96,6 +96,7 @@ class ArticleCrudController extends CrudController
         $this->crud->with('tags');
         $this->crud->with('user');
         $this->crud->column('title');
+        $this->crud->column('slug');
         $this->crud->column('thumbnail')->type('image');
         $this->crud->column('isPublished')->type('check');
         $this->crud->column('isApproved')->type('check');
@@ -115,6 +116,8 @@ class ArticleCrudController extends CrudController
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
+        $this->crud->enableExportButtons();
+
     }
 
 
@@ -127,7 +130,7 @@ class ArticleCrudController extends CrudController
 
         $this->crud->addField([
             "name" => "body",
-            "type" => "editorjs"
+            "type" => "easymde"
         ]);
 
 

@@ -32,6 +32,17 @@
       0 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
     ),
   ),
+  'cloudinary-labs/cloudinary-laravel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'CloudinaryLabs\\CloudinaryLaravel\\CloudinaryServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Cloudinary' => 'CloudinaryLabs\\CloudinaryLaravel\\Facades\\Cloudinary',
+    ),
+  ),
   'consoletvs/charts' => 
   array (
     'providers' => 
@@ -100,6 +111,13 @@
       0 => 'Laracasts\\Generators\\GeneratorsServiceProvider',
     ),
   ),
+  'laravel/fortify' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Fortify\\FortifyServiceProvider',
+    ),
+  ),
   'laravel/sail' => 
   array (
     'providers' => 
@@ -153,6 +171,13 @@
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
+  'pestphp/pest' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Pest\\Laravel\\PestServiceProvider',
+    ),
+  ),
   'prologue/alerts' => 
   array (
     'providers' => 
@@ -181,6 +206,13 @@
     'providers' => 
     array (
       0 => 'Spatie\\Permission\\PermissionServiceProvider',
+    ),
+  ),
+  'torchlight/torchlight-laravel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Torchlight\\TorchlightServiceProvider',
     ),
   ),
 );

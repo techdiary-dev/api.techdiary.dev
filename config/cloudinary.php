@@ -32,11 +32,5 @@ return [
     |
     |
     */
-    'cloud_url' => 'https://api.cloudinary.com/v1_1/techdiary-dev/image/upload',
-
-    /**
-     * Upload Preset From Cloudinary Dashboard
-     *
-     */
-    'upload_preset' => 'techdiary-article-assets'
+    'cloud_url' => env('CLOUDINARY_URL'),
 ];

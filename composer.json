@@ -13,13 +13,15 @@
         "algolia/algoliasearch-client-php": "^3.0",
         "backpack/crud": "4.1.*",
         "backpack/permissionmanager": "^6.0",
+        "cloudinary-labs/cloudinary-laravel": "^1.0",
         "consoletvs/charts": "6.*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.3",
         "jenssegers/agent": "^2.6",
+        "laravel/fortify": "^1.7",
         "laravel/framework": "^8.40",
-        "laravel/sanctum": "^2.10",
+        "laravel/sanctum": "^2.11",
         "laravel/scout": "^9.0",
         "laravel/socialite": "^5.2",
         "laravel/telescope": "^4.4",
@@ -27,7 +29,12 @@
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "^5.0",
         "sentry/sentry-laravel": "^2.5",
+<<<<<<< HEAD
         "techdiary/editorjs-parser": "dev-master"
+=======
+        "torchlight/torchlight-commonmark": "^0.5.1",
+        "torchlight/torchlight-laravel": "^0.5.5"
+>>>>>>> ec70272a94f7bb352dc1b149ccebac8a4076d630
     },
     "require-dev": {
         "backpack/generators": "^3.1",
@@ -39,6 +46,8 @@
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
+        "pestphp/pest": "^1.20",
+        "pestphp/pest-plugin-laravel": "^1.1",
         "phpunit/phpunit": "^9.3.3"
     },
     "config": {

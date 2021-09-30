@@ -5,25 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Article\ArticleReactionRequest;
 use App\Http\Requests\Article\CreateArticleRequest;
 use App\Http\Requests\Article\UpdateArticleRequest;
+use App\Http\Requests\VoteRequest;
 use App\Http\Resources\Article\ArticleCollection;
 use App\Http\Resources\Article\ArticleDetails;
 use App\Http\Resources\Article\ArticleList;
+use App\Http\Resources\Article\AuthArticleList;
 use App\Models\Article;
 use App\Scoping\Scopes\ArticlesByTagName;
 use App\Scoping\Scopes\UserScope;
 use App\TechDiary\Reaction\Resources\ReactionCollection;
+use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    /**
-     * ArticleController constructor.
-     */
-
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum')->only(['store', 'destroy', 'update', 'myArticles']);
-    }
-
 
     /**
      * Display a listing of the resource.
@@ -35,12 +29,9 @@ class ArticleController extends Controller
     {
         $articles = Article::where([
             'isPublished' => true,
-            'isApproved' => true
-        ])->with(['tags', 'user', 'reactions'])->latest()->withScopes($this->scopes());
+//            'isApproved' => true
+        ])->with(['tags', 'user', 'reactions'])->withCount('comments')->latest()->withScopes($this->scopes());
 
-//        return cache()->remember('articles', now()->addSeconds(30), function () use ($articles) {
-//
-//        });
         return new ArticleCollection($articles->paginate(request()->query('limit', 10)));
     }
 
@@ -52,7 +43,11 @@ class ArticleController extends Controller
      */
     public function store(CreateArticleRequest $request)
     {
-        $article = auth()->user()->articles()->create($request->except('tags'));
+        $article = auth()
+            ->user()
+            ->articles()
+            ->create($request->except('tags', 'seo', 'settings'));
+
         $article->isApproved = true;
 
         if ($request->tags) {
@@ -60,10 +55,36 @@ class ArticleController extends Controller
             $article->tags()->sync($tags);
         }
 
+        if ($request->seo) {
+            $article->setMetaJSON("seo", $request->only('seo.og_image', 'seo.seo_title', 'seo.seo_description', 'seo.disabled_comments')['seo']);
+        }
+
+        if ($request->settings)
+        {
+            $article->setMetaValue("settings.disabled_comments", $request->get('settings.disabled_comments'));
+        }
+
         $article->save();
+
         return response()->json([
             'message' => 'Article saved successfully',
             'data' => $article
+        ]);
+    }
+
+
+    public function spark(Request $request)
+    {
+        $article = auth()
+            ->user()
+            ->articles()
+            ->create();
+
+        $article->update(["slug" => $article->id]);
+
+        return response()->json([
+            "message" => "New diary generated",
+            "uuid" => $article->id
         ]);
     }
 
@@ -75,11 +96,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-//        return cache()->remember("articles." . $article->id, now()->addHour(), function () use ($article) {
-//
-//        });
-
-        return new ArticleDetails($article->load(['tags', 'user', 'reactions']));
+        return new ArticleDetails($article->load(['tags', 'user', 'reactions', 'meta']));
     }
 
     /**
@@ -91,43 +108,27 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-
-//        cache()->flush();
-
         $this->authorize('update', $article);
 
-        $article->update($request->except('tags'));
+        $article->update($request->except('tags', 'seo', 'settings'));
 
         if ($request->tags) {
             $tags = collect($request->tags)->pluck('id');
             $article->tags()->sync($tags);
         }
 
-        return response()->json([
-            'message' => 'Article updated successfully',
-            'data' => $article
-        ]);
-    }
-
-    /**
-     * Article React
-     * @param ArticleReactionRequest $request
-     * @param Article $article
-     * @return array
-     */
-    public function reaction(ArticleReactionRequest $request, Article $article)
-    {
-        $article->react($request->reaction_type);
-        $reactions = $article->reactions()->get();
-        if ($reactions->isNotEmpty()) {
-            $reactions = new ReactionCollection($reactions);
-        } else {
-            $reactions = null;
+        if ($request->seo) {
+            $article->setMetaJSON("seo", $request->only('seo.og_image', 'seo.seo_title', 'seo.seo_description', 'seo.canonical_url')['seo']);
         }
 
-        return [
-            "reactions" => $reactions
-        ];
+        if ($request->settings) {
+            $article->setMetaJSON("settings", $request->only('settings.disabled_comments')['settings']);
+        }
+
+        $article->save();
+        return response()->json([
+            'message' => 'Article saved successfully'
+        ]);
     }
 
     /**
@@ -135,43 +136,40 @@ class ArticleController extends Controller
      *
      * @param \App\Models\Article $article
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Article $article)
     {
         $this->authorize('delete', $article);
 
         $article->delete();
+
         return response()->json([
             'message' => 'Deleted successfully'
         ]);
     }
 
-    public function myBookmarks()
+    public function myArticles(Request $request)
     {
-        $article_ids = auth()->guard('sanctum')->user()?->reactions()->where('type', 'BOOKMARK')->where('ReactionAble_type', Article::class)->select('ReactionAble_id')->get()->pluck('ReactionAble_id');
+        $published_count = auth()->user()->articles()->where('isPublished', true)->count();
+        $draft_count = auth()->user()->articles()->where('isPublished', false)->count();
 
-        if ($article_ids) {
-            $articles = Article::with('user')->whereIn('id', $article_ids)->latest()->paginate();
-            return ArticleList::collection($articles);
-        } else {
-            abort(401, "Unauthorized activity");
-        }
-    }
-
-    public function removeBookmark($articleId)
-    {
-        return auth()
+        $articles = auth()
             ->user()
-            ->reactions()
-            ->where('type', 'BOOKMARK')
-            ->where('ReactionAble_type', Article::class)
-            ->where('ReactionAble_id', $articleId)->delete();
-    }
+            ->articles()
+            ->where($request->only('isPublished'))
+            ->latest()
+            ->paginate();
 
-    public function myArticles()
-    {
-        $articles = auth()->user()->articles()->with('user')->latest()->paginate();
-        return ArticleList::collection($articles);
+
+        return AuthArticleList::collection($articles)->additional([
+            'meta' => [
+                "counts" => [
+                    "published" => $published_count,
+                    "draft" => $draft_count
+                ]
+            ]
+        ]);
     }
 
     protected function scopes()
