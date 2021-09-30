@@ -125,7 +125,7 @@ class AuthController extends Controller
                 ]);
             }
 
-            $signedRoute = URL::temporarySignedRoute('oauth-signed-login', now()->addSeconds(30), [
+            $signedRoute = URL::temporarySignedRoute('oauth-signed-login', now()->addSeconds(60), [
                 'user_id' => $user->id,
             ]);
             $signedToken = explode('?', $signedRoute)[1];
