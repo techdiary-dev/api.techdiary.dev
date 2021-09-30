@@ -79,7 +79,5 @@ test('List of bookmarked tags', function () {
     $response = $this->get('api/bookmarks?model_name=TAG');
     $response->assertOk();
 
-//    dump($response->json());
-
     $response->assertJsonCount(3, 'data');
 });

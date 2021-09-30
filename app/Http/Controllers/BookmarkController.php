@@ -29,11 +29,10 @@ class BookmarkController extends Controller
             ->where('type', 'BOOKMARK')
             ->get()->pluck('ReactionAble_id');
 
-        if ($request->model_name == 'ARTICLE')
-        {
+        if ($request->model_name == 'ARTICLE') {
             return MinimalArticleResource::collection($model::with('user:id,name,username,profilePhoto')->whereIn('id', $bookmark_ids)->paginate($request->get('limit', 30), ['id', 'title', 'slug', 'user_id']));
-        }else{
-            $model::whereIn('id', $bookmark_ids)->paginate();
+        } else {
+            return $model::whereIn('id', $bookmark_ids)->paginate();
         }
     }
 
