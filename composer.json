@@ -1,11 +1,8 @@
 {
-    "name": "laravel/laravel",
+    "name": "techdiary/api",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": [
-        "framework",
-        "laravel"
-    ],
+    "description": "Techdiary backend api",
+    "keywords": [],
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
@@ -29,12 +26,8 @@
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "^5.0",
         "sentry/sentry-laravel": "^2.5",
-<<<<<<< HEAD
-        "techdiary/editorjs-parser": "dev-master"
-=======
         "torchlight/torchlight-commonmark": "^0.5.1",
         "torchlight/torchlight-laravel": "^0.5.5"
->>>>>>> ec70272a94f7bb352dc1b149ccebac8a4076d630
     },
     "require-dev": {
         "backpack/generators": "^3.1",
@@ -57,7 +50,9 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": ["laravel/telescope"]
+            "dont-discover": [
+                "laravel/telescope"
+            ]
         }
     },
     "autoload": {
