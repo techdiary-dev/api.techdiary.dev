@@ -2,11 +2,7 @@
 
 namespace App\Http\Resources\Article;
 
-<<<<<<< HEAD
-use Durlecode\EJSParser\Parser;
-=======
 use App\Http\Resources\Bookmark\BookmarkCollection;
->>>>>>> ec70272a94f7bb352dc1b149ccebac8a4076d630
 use App\Http\Resources\TagResource;
 use App\Http\Resources\User\UserListResource;
 use App\Http\Resources\Vote\VoteSummeryCollection;
@@ -31,16 +27,6 @@ class ArticleDetails extends JsonResource
     public function toArray($request)
     {
 
-<<<<<<< HEAD
-//        $blocks = [
-//            "time" => now(),
-//            "version" => "2.16.1",
-//            "blocks" => $this->body
-//        ];
-
-        return array_merge(parent::toArray($request), [
-//            "body_html" => Parser::parse(json_encode($blocks))->toHtml(),
-=======
         $md = new TDMarkdown($this->body);
 
         return array_merge([
@@ -58,7 +44,6 @@ class ArticleDetails extends JsonResource
             'excerpt' => $this->excerpt,
             'isPublished' => $this->isPublished,
             'isApproved' => $this->isPublished,
->>>>>>> ec70272a94f7bb352dc1b149ccebac8a4076d630
             'tags' => TagResource::collection($this->tags),
             'user' => new UserListResource($this->user),
             'seo' => $this->getMetaJSON('seo'),
