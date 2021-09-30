@@ -89,7 +89,6 @@ class AuthController extends Controller
 
     public function oauthCallback($service)
     {
-
         try {
             $socialServiceUser = Socialite::driver($service)->stateless()->user();
 
@@ -125,10 +124,12 @@ class AuthController extends Controller
                 ]);
             }
 
-            $signedRoute = URL::temporarySignedRoute('oauth-signed-login', now()->addSeconds(60), [
+            $signedRoute = URL::temporarySignedRoute('oauth-signed-login', now()->addMinutes(10), [
                 'user_id' => $user->id,
             ]);
             $signedToken = explode('?', $signedRoute)[1];
+
+
 
             $redirect_url = env('CLIENT_URL') . '/auth/oauth-callback?' . $signedToken;
             return redirect($redirect_url);
