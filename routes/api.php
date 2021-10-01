@@ -35,8 +35,11 @@ Route::get('/signed', function (){
 
 
 Route::get('/signed-decode', function (Request $request){
+
+    if (!$request->hasValidSignature()) abort(403, 'Vul signature');
+
     return $request->all();
-})->name('test-signed')->middleware('signed');
+})->name('test-signed');
 
 
 
