@@ -131,7 +131,6 @@ class AuthController extends Controller
             $signedToken = explode('?', $signedRoute)[1];
 
 
-
             $redirect_url = env('CLIENT_URL') . '/auth/oauth-callback?' . $signedToken;
             return redirect($redirect_url);
 
@@ -147,7 +146,8 @@ class AuthController extends Controller
         auth()->loginUsingId($userId);
 
         return response()->json([
-           'message' => 'Successfully logged in through cookie'
+            'message' => 'Successfully logged in through cookie',
+            'user' => auth()->user()
         ]);
     }
 
