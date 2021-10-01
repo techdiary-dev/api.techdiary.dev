@@ -29,7 +29,7 @@ Route::get('/', function () {
 
 Route::get('/signed', function (){
    return URL::temporarySignedRoute('test-signed', now()->addSeconds(40), [
-       'x' => 10
+       'name' => "Rayhan"
    ]);
 });
 
