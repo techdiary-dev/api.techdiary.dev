@@ -9,7 +9,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\URL;
 
 
 /*
@@ -26,6 +26,18 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/signed', function (){
+   return URL::temporarySignedRoute('test-signed', now()->addSeconds(20), [
+       'x' => 10
+   ]);
+});
+
+
+Route::get('/signed-decode', function (Request $request){
+    return $request->all();
+})->name('test-signed')->middleware('signed');
+
 
 
 /**

@@ -33,7 +33,7 @@
     <div class="wrapper">
         <h1>Techdiary API V3</h1>
         <a href="{{ env('CLIENT_URL') }}">{{ env('CLIENT_URL') }}</a>
-        <a href="{{ env('CLIENT_URL') }}">Documentation</a>
+        <a href="https://go.techdiary.dev/api-doc">Documentation</a>
     </div>
 </body>
 </html>
