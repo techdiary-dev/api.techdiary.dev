@@ -1395,7 +1395,7 @@ var css = {
 
 // ie specific styling
 if (_.isMsie()) {
-  // ie6-8 (and 9?) doesn't fire hover and click events for elements with
+  // ie6-8 (and 9?) doesn't fire hover and click events for Elements with
   // transparent backgrounds, for a workaround, use 1x1 transparent gif
   _.mixin(css.input, {
     backgroundImage: 'url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)'
@@ -2716,7 +2716,7 @@ function places_places(options) {
       style = options.style,
       accessibility = options.accessibility,
       _options$autocomplete = options.autocompleteOptions,
-      userAutocompleteOptions = _options$autocomplete === void 0 ? {} : _options$autocomplete; // multiple DOM elements targeted
+      userAutocompleteOptions = _options$autocomplete === void 0 ? {} : _options$autocomplete; // multiple DOM Elements targeted
 
   if (container instanceof NodeList) {
     if (container.length > 1) {
@@ -2727,7 +2727,7 @@ function places_places(options) {
     return places_places(places_objectSpread(places_objectSpread({}, options), {}, {
       container: container[0]
     }));
-  } // container sent as a string, resolve it for multiple DOM elements issue
+  } // container sent as a string, resolve it for multiple DOM Elements issue
 
 
   if (typeof container === 'string') {
@@ -3909,7 +3909,7 @@ function shuffle(array) {
   var temporaryValue;
   var randomIndex;
 
-  // While there remain elements to shuffle...
+  // While there remain Elements to shuffle...
   while (currentIndex !== 0) {
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
@@ -5876,7 +5876,7 @@ var Enumerator = function () {
   `Promise.all` accepts an array of promises, and returns a new promise which
   is fulfilled with an array of fulfillment values for the passed promises, or
   rejected with the reason of the first passed promise to be rejected. It casts all
-  elements of the passed iterable to promises as it runs this algorithm.
+  Elements of the passed iterable to promises as it runs this algorithm.
 
   Example:
 
@@ -6365,9 +6365,9 @@ var Promise$1 = function () {
   /**
     `finally` will be invoked regardless of the promise's fate just as native
     try/catch/finally behaves
-  
+
     Synchronous example:
-  
+
     ```js
     findAuthor() {
       if (Math.random() > 0.5) {
@@ -6375,7 +6375,7 @@ var Promise$1 = function () {
       }
       return new Author();
     }
-  
+
     try {
       return findAuthor(); // succeed or fail
     } catch(error) {
@@ -6385,9 +6385,9 @@ var Promise$1 = function () {
       // doesn't affect the return value
     }
     ```
-  
+
     Asynchronous example:
-  
+
     ```js
     findAuthor().catch(function(reason){
       return findOtherAuther();
@@ -6395,7 +6395,7 @@ var Promise$1 = function () {
       // author was either found, or not
     });
     ```
-  
+
     @method finally
     @param {Function} callback
     @return {Promise}
@@ -8078,7 +8078,7 @@ module.exports = autocomplete;
     return this.each(function(){
       // handle focus(), blur() by calling them directly
       if (event.type in focus && typeof this[event.type] == "function") this[event.type]()
-      // items in the collection might not be DOM elements
+      // items in the collection might not be DOM Elements
       else if ('dispatchEvent' in this) this.dispatchEvent(event)
       else $(this).triggerHandler(event, args)
     })
@@ -8188,7 +8188,7 @@ module.exports = autocomplete;
         }) :
         // get value from first element
         (0 in this ? getData(this[0], name) : undefined) :
-      // set value on all elements
+      // set value on all Elements
       this.each(function(){ setData(this, name, value) })
   }
 

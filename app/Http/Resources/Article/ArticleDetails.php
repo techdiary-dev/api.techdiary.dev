@@ -7,7 +7,7 @@ use App\Http\Resources\TagResource;
 use App\Http\Resources\User\UserListResource;
 use App\Http\Resources\Vote\VoteSummeryCollection;
 use App\TechDiary\Reaction\Resources\ReactionCollection;
-use App\TechDiary\TDMarkdown;
+use App\TechDiary\Markdown\TDMarkdown;
 use Illuminate\Http\Resources\Json\JsonResource;
 use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;

@@ -345,7 +345,7 @@
 
 					this.direction = intersection === 1 ? "down" : "up";
 
-					// mjs - rearrange the elements and reset timeouts and hovering state
+					// mjs - rearrange the Elements and reset timeouts and hovering state
 					if (this.options.tolerance === "pointer" || this._intersectsWithSides(item)) {
 						$(itemElement).mouseleave();
 						this.mouseentered = false;

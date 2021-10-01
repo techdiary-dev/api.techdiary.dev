@@ -61,14 +61,14 @@ n("themes/"+o.theme+"/theme"+r+".js"),n("themes/"+o.theme+"/langs/"+i+".js"),
 d.each(o.plugins.split(","),function(e,t){t&&(n("plugins/"+t+"/plugin"+r+".js"),n("plugins/"+t+"/langs/"+i+".js"))})},end:function(){}})),(n=document.createElement("script")).type="text/javascript",n.onload=n.onreadystatechange=function(e){e=e||window.event,2===c||"load"!=e.type&&!/complete|loaded/.test(n.readyState)||(v().dom.Event.domLoaded=1,c=2,
 // Execute callback after mainscript has been loaded and before the initialization occurs
 o.script_loaded&&o.script_loaded(),a(),d.each(s,function(e,t){t()}))},n.src=e,document.body.appendChild(n)),l},
-// Add :tinymce pseudo selector this will select elements that has been converted into editor instances
-// it's now possible to use things like $('*:tinymce') to get all TinyMCE bound elements.
+// Add :tinymce pseudo selector this will select Elements that has been converted into editor instances
+// it's now possible to use things like $('*:tinymce') to get all TinyMCE bound Elements.
 d.extend(d.expr[":"],{tinymce:function(e){var t;return!!(e.id&&"tinymce"in p&&(t=v().get(e.id))&&t.editorManager===v())}});
 // This function patches internal jQuery functions so that if
 // you for example remove an div element containing an editor it's
 // automatically destroyed by the TinyMCE API
 var m=function(){
-// Removes any child editor instances by looking for editor wrapper elements
+// Removes any child editor instances by looking for editor wrapper Elements
 var r=function(e){
 // If the function is remove
 "remove"===e&&this.each(function(e,t){var n=l(t);n&&n.remove()}),this.find("span.mceEditor,div.mceEditor").each(function(e,t){var n=v().get(t.id.replace(/_parent$/,""));n&&n.remove()})},o=function(i){var e,t=this;

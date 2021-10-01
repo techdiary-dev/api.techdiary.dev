@@ -197,7 +197,7 @@
 	white-space: nowrap;
 }
 
-/* no icon support for input elements */
+/* no icon support for input Elements */
 input.ui-button.ui-button-icon-only {
 	text-indent: 0;
 }

@@ -19,7 +19,7 @@
     'hello': function(context) {
       var self = this;
 
-      // ui has renders to build ui elements.
+      // ui has renders to build ui Elements.
       //  - you can create a button with `ui.button`
       var ui = $.summernote.ui;
 
@@ -57,7 +57,7 @@
       };
 
       // This method will be called when editor is initialized by $('..').summernote();
-      // You can create elements for plugin
+      // You can create Elements for plugin
       this.initialize = function() {
         this.$panel = $('<div class="hello-panel"/>').css({
           position: 'absolute',
@@ -72,7 +72,7 @@
       };
 
       // This methods will be called when editor is destroyed by $('..').summernote('destroy');
-      // You should remove elements on `initialize`.
+      // You should remove Elements on `initialize`.
       this.destroy = function() {
         this.$panel.remove();
         this.$panel = null;

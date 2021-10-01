@@ -113,11 +113,11 @@ jQuery.fn = jQuery.prototype = {
 			// Return just the one element from the set
 			( num < 0 ? this[ num + this.length ] : this[ num ] ) :
 
-			// Return all the elements in a clean array
+			// Return all the Elements in a clean array
 			slice.call( this );
 	},
 
-	// Take an array of elements and push it onto the stack
+	// Take an array of Elements and push it onto the stack
 	// (returning the new matched element set)
 	pushStack: function( elems ) {
 
@@ -808,7 +808,7 @@ function Sizzle( selector, context, results, seed ) {
 
 							// Support: IE, Opera, Webkit
 							// TODO: identify versions
-							// getElementById can match elements by name instead of ID
+							// getElementById can match Elements by name instead of ID
 							if ( elem.id === m ) {
 								results.push( elem );
 								return results;
@@ -822,7 +822,7 @@ function Sizzle( selector, context, results, seed ) {
 
 						// Support: IE, Opera, Webkit
 						// TODO: identify versions
-						// getElementById can match elements by name instead of ID
+						// getElementById can match Elements by name instead of ID
 						if ( newContext && (elem = newContext.getElementById( m )) &&
 							contains( context, elem ) &&
 							elem.id === m ) {
@@ -858,7 +858,7 @@ function Sizzle( selector, context, results, seed ) {
 				// qSA looks outside Element context, which is not what we want
 				// Thanks to Andrew Dupont for this workaround technique
 				// Support: IE <=8
-				// Exclude object elements
+				// Exclude object Elements
 				} else if ( context.nodeName.toLowerCase() !== "object" ) {
 
 					// Capture the context ID, setting it first if necessary
@@ -1030,7 +1030,7 @@ function createPositionalPseudo( fn ) {
 				matchIndexes = fn( [], seed.length, argument ),
 				i = matchIndexes.length;
 
-			// Match elements found at the specified indexes
+			// Match Elements found at the specified indexes
 			while ( i-- ) {
 				if ( seed[ (j = matchIndexes[i]) ] ) {
 					seed[j] = !(matches[j] = seed[j]);
@@ -1110,7 +1110,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	/* getElement(s)By*
 	---------------------------------------------------------------------- */
 
-	// Check if getElementsByTagName("*") returns only elements
+	// Check if getElementsByTagName("*") returns only Elements
 	support.getElementsByTagName = assert(function( div ) {
 		div.appendChild( document.createComment("") );
 		return !div.getElementsByTagName("*").length;
@@ -1120,7 +1120,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	support.getElementsByClassName = rnative.test( document.getElementsByClassName );
 
 	// Support: IE<10
-	// Check if getElementById returns elements by name
+	// Check if getElementById returns Elements by name
 	// The broken getElementById methods don't pick up programatically-set names,
 	// so use a roundabout getElementsByName test
 	support.getById = assert(function( div ) {
@@ -1243,7 +1243,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 				rbuggyQSA.push("~=");
 			}
 
-			// Webkit/Opera - :checked should return selected option elements
+			// Webkit/Opera - :checked should return selected option Elements
 			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
 			// IE8 throws error here and will not see later tests
 			if ( !div.querySelectorAll(":checked").length ) {
@@ -1271,7 +1271,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 				rbuggyQSA.push( "name" + whitespace + "*[*^$|!~]?=" );
 			}
 
-			// FF 3.5 - :enabled/:disabled and hidden elements (hidden elements are still enabled)
+			// FF 3.5 - :enabled/:disabled and hidden Elements (hidden Elements are still enabled)
 			// IE8 throws error here and will not see later tests
 			if ( !div.querySelectorAll(":enabled").length ) {
 				rbuggyQSA.push( ":enabled", ":disabled" );
@@ -1552,7 +1552,7 @@ getText = Sizzle.getText = function( elem ) {
 			ret += getText( node );
 		}
 	} else if ( nodeType === 1 || nodeType === 9 || nodeType === 11 ) {
-		// Use textContent for elements
+		// Use textContent for Elements
 		// innerText usage removed for consistency of new lines (jQuery #11153)
 		if ( typeof elem.textContent === "string" ) {
 			return elem.textContent;
@@ -1893,7 +1893,7 @@ Expr = Sizzle.selectors = {
 						unmatched = matcher( seed, null, xml, [] ),
 						i = seed.length;
 
-					// Match elements unmatched by `matcher`
+					// Match Elements unmatched by `matcher`
 					while ( i-- ) {
 						if ( (elem = unmatched[i]) ) {
 							seed[i] = !(matches[i] = elem);
@@ -1974,7 +1974,7 @@ Expr = Sizzle.selectors = {
 		},
 
 		"checked": function( elem ) {
-			// In CSS3, :checked should return both checked and selected elements
+			// In CSS3, :checked should return both checked and selected Elements
 			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
 			var nodeName = elem.nodeName.toLowerCase();
 			return (nodeName === "input" && !!elem.checked) || (nodeName === "option" && !!elem.selected);
@@ -2186,7 +2186,7 @@ function addCombinator( matcher, combinator, base ) {
 			}
 		} :
 
-		// Check against all ancestor/preceding elements
+		// Check against all ancestor/preceding Elements
 		function( elem, context, xml ) {
 			var oldCache, uniqueCache, outerCache,
 				newCache = [ dirruns, doneName ];
@@ -2212,10 +2212,10 @@ function addCombinator( matcher, combinator, base ) {
 						if ( (oldCache = uniqueCache[ dir ]) &&
 							oldCache[ 0 ] === dirruns && oldCache[ 1 ] === doneName ) {
 
-							// Assign to newCache so results back-propagate to previous elements
+							// Assign to newCache so results back-propagate to previous Elements
 							return (newCache[ 2 ] = oldCache[ 2 ]);
 						} else {
-							// Reuse newcache so results back-propagate to previous elements
+							// Reuse newcache so results back-propagate to previous Elements
 							uniqueCache[ dir ] = newCache;
 
 							// A match means we're done; a fail means we have to keep checking
@@ -2286,7 +2286,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 			postMap = [],
 			preexisting = results.length,
 
-			// Get initial elements from seed or context
+			// Get initial Elements from seed or context
 			elems = seed || multipleContexts( selector || "*", context.nodeType ? [ context ] : context, [] ),
 
 			// Prefilter to get matcher input, preserving a map for seed-results synchronization
@@ -2315,7 +2315,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 			temp = condense( matcherOut, postMap );
 			postFilter( temp, [], context, xml );
 
-			// Un-match failing elements by moving them back to matcherIn
+			// Un-match failing Elements by moving them back to matcherIn
 			i = temp.length;
 			while ( i-- ) {
 				if ( (elem = temp[i]) ) {
@@ -2339,7 +2339,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 					postFinder( null, (matcherOut = []), temp, xml );
 				}
 
-				// Move matched elements from seed to results to keep them synchronized
+				// Move matched Elements from seed to results to keep them synchronized
 				i = matcherOut.length;
 				while ( i-- ) {
 					if ( (elem = matcherOut[i]) &&
@@ -2350,7 +2350,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 				}
 			}
 
-		// Add elements to results, through postFinder if defined
+		// Add Elements to results, through postFinder if defined
 		} else {
 			matcherOut = condense(
 				matcherOut === results ?
@@ -2373,7 +2373,7 @@ function matcherFromTokens( tokens ) {
 		implicitRelative = leadingRelative || Expr.relative[" "],
 		i = leadingRelative ? 1 : 0,
 
-		// The foundational matcher ensures that elements are reachable from top-level context(s)
+		// The foundational matcher ensures that Elements are reachable from top-level context(s)
 		matchContext = addCombinator( function( elem ) {
 			return elem === checkContext;
 		}, implicitRelative, true ),
@@ -2434,7 +2434,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 				unmatched = seed && [],
 				setMatched = [],
 				contextBackup = outermostContext,
-				// We must always have either seed elements or outermost context
+				// We must always have either seed Elements or outermost context
 				elems = seed || byElement && Expr.find["TAG"]( "*", outermost ),
 				// Use integer dirruns iff this is the outermost matcher
 				dirrunsUnique = (dirruns += contextBackup == null ? 1 : Math.random() || 0.1),
@@ -2444,9 +2444,9 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 				outermostContext = context === document || context || outermost;
 			}
 
-			// Add elements passing elementMatchers directly to results
+			// Add Elements passing elementMatchers directly to results
 			// Support: IE<9, Safari
-			// Tolerate NodeList properties (IE: "length"; Safari: <number>) matching elements by id
+			// Tolerate NodeList properties (IE: "length"; Safari: <number>) matching Elements by id
 			for ( ; i !== len && (elem = elems[i]) != null; i++ ) {
 				if ( byElement && elem ) {
 					j = 0;
@@ -2465,7 +2465,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 					}
 				}
 
-				// Track unmatched elements for set filters
+				// Track unmatched Elements for set filters
 				if ( bySet ) {
 					// They will have gone through all possible matchers
 					if ( (elem = !matcher && elem) ) {
@@ -2479,13 +2479,13 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 				}
 			}
 
-			// `i` is now the count of elements visited above, and adding it to `matchedCount`
+			// `i` is now the count of Elements visited above, and adding it to `matchedCount`
 			// makes the latter nonnegative.
 			matchedCount += i;
 
-			// Apply set filters to unmatched elements
-			// NOTE: This can be skipped if there are no unmatched elements (i.e., `matchedCount`
-			// equals `i`), unless we didn't visit _any_ elements in the above loop because we have
+			// Apply set filters to unmatched Elements
+			// NOTE: This can be skipped if there are no unmatched Elements (i.e., `matchedCount`
+			// equals `i`), unless we didn't visit _any_ Elements in the above loop because we have
 			// no element matchers and no seed.
 			// Incrementing an initially-string "0" `i` allows `i` to remain a string only in that
 			// case, which will result in a "00" `matchedCount` that differs from `i` but is also
@@ -2572,7 +2572,7 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
  *  selector function built with Sizzle.compile
  * @param {Element} context
  * @param {Array} [results]
- * @param {Array} [seed] A set of elements to match against
+ * @param {Array} [seed] A set of Elements to match against
  */
 select = Sizzle.select = function( selector, context, results, seed ) {
 	var i, tokens, token, type, find,
@@ -3026,7 +3026,7 @@ jQuery.fn.extend( {
 				if ( cur.nodeType < 11 && ( pos ?
 					pos.index( cur ) > -1 :
 
-					// Don't pass non-elements to Sizzle
+					// Don't pass non-Elements to Sizzle
 					cur.nodeType === 1 &&
 						jQuery.find.matchesSelector( cur, selectors ) ) ) {
 
@@ -3040,7 +3040,7 @@ jQuery.fn.extend( {
 	},
 
 	// Determine the position of an element within
-	// the matched set of elements
+	// the matched set of Elements
 	index: function( elem ) {
 
 		// No argument, return index in parent
@@ -3725,15 +3725,15 @@ jQuery( function() {
 	if ( typeof div.style.zoom !== "undefined" ) {
 
 		// Support: IE<8
-		// Check if natively block-level elements act like inline-block
-		// elements when setting their display to 'inline' and giving
+		// Check if natively block-level Elements act like inline-block
+		// Elements when setting their display to 'inline' and giving
 		// them layout
 		div.style.cssText = "display:inline;margin:0;border:0;padding:1px;width:1px;zoom:1";
 
 		support.inlineBlockNeedsLayout = val = div.offsetWidth === 3;
 		if ( val ) {
 
-			// Prevent IE 6 from affecting layout for positioned elements #11048
+			// Prevent IE 6 from affecting layout for positioned Elements #11048
 			// Prevent IE from shrinking the body in IE 7 mode #12869
 			// Support: IE<8
 			body.style.zoom = 1;
@@ -3755,7 +3755,7 @@ jQuery( function() {
 		support.deleteExpando = false;
 	}
 
-	// Null elements to avoid leaks in IE.
+	// Null Elements to avoid leaks in IE.
 	div = null;
 } )();
 var acceptData = function( elem ) {
@@ -4012,7 +4012,7 @@ function internalRemoveData( elem, name, pvt ) {
 jQuery.extend( {
 	cache: {},
 
-	// The following elements (space-suffixed to avoid Object.prototype collisions)
+	// The following Elements (space-suffixed to avoid Object.prototype collisions)
 	// throw uncatchable exceptions if you attempt to set expando properties
 	noData: {
 		"applet ": true,
@@ -4064,7 +4064,7 @@ jQuery.fn.extend( {
 					while ( i-- ) {
 
 						// Support: IE11+
-						// The attrs elements can be null (#14894)
+						// The attrs Elements can be null (#14894)
 						if ( attrs[ i ] ) {
 							name = attrs[ i ].name;
 							if ( name.indexOf( "data-" ) === 0 ) {
@@ -4272,7 +4272,7 @@ jQuery.fn.extend( {
 		body.appendChild( container ).appendChild( div );
 
 		// Support: IE6
-		// Check if elements with layout shrink-wrap their children
+		// Check if Elements with layout shrink-wrap their children
 		if ( typeof div.style.zoom !== "undefined" ) {
 
 			// Reset CSS: box-sizing; display; margin; border
@@ -4467,11 +4467,11 @@ function createSafeFragment( document ) {
 	// IE strips leading whitespace when .innerHTML is used
 	support.leadingWhitespace = div.firstChild.nodeType === 3;
 
-	// Make sure that tbody elements aren't automatically inserted
+	// Make sure that tbody Elements aren't automatically inserted
 	// IE will insert them into empty tables
 	support.tbody = !div.getElementsByTagName( "tbody" ).length;
 
-	// Make sure that link elements get serialized correctly by innerHTML
+	// Make sure that link Elements get serialized correctly by innerHTML
 	// This requires a wrapper element in IE
 	support.htmlSerialize = !!div.getElementsByTagName( "link" ).length;
 
@@ -4509,7 +4509,7 @@ function createSafeFragment( document ) {
 	support.checkClone = div.cloneNode( true ).cloneNode( true ).lastChild.checked;
 
 	// Support: IE<9
-	// Cloned elements keep attachEvent handlers, we use addEventListener on IE9+
+	// Cloned Elements keep attachEvent handlers, we use addEventListener on IE9+
 	support.noCloneEvent = !!div.addEventListener;
 
 	// Support: IE<9
@@ -4679,7 +4679,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 		}
 	}
 
-	// Fix #11356: Clear elements from fragment
+	// Fix #11356: Clear Elements from fragment
 	if ( tmp ) {
 		safe.removeChild( tmp );
 	}
@@ -4693,7 +4693,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 	i = 0;
 	while ( ( elem = nodes[ i++ ] ) ) {
 
-		// Skip elements already in the context collection (trac-4087)
+		// Skip Elements already in the context collection (trac-4087)
 		if ( selection && jQuery.inArray( elem, selection ) > -1 ) {
 			if ( ignored ) {
 				ignored.push( elem );
@@ -4745,7 +4745,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 		}
 	}
 
-	// Null elements to avoid leaks in IE.
+	// Null Elements to avoid leaks in IE.
 	div = null;
 } )();
 
@@ -5262,8 +5262,8 @@ jQuery.event = {
 			for ( ; cur != this; cur = cur.parentNode || this ) {
 				/* jshint eqeqeq: true */
 
-				// Don't check non-elements (#13208)
-				// Don't process clicks on disabled elements (#6911, #8165, #11382, #11764)
+				// Don't check non-Elements (#13208)
+				// Don't process clicks on disabled Elements (#6911, #8165, #11382, #11764)
 				if ( cur.nodeType === 1 && ( cur.disabled !== true || event.type !== "click" ) ) {
 					matches = [];
 					for ( i = 0; i < delegateCount; i++ ) {
@@ -5896,7 +5896,7 @@ function manipulationTarget( elem, content ) {
 		elem;
 }
 
-// Replace/restore the type attribute of script elements for safe DOM manipulation
+// Replace/restore the type attribute of script Elements for safe DOM manipulation
 function disableScript( elem ) {
 	elem.type = ( jQuery.find.attr( elem, "type" ) !== null ) + "/" + elem.type;
 	return elem;
@@ -5965,7 +5965,7 @@ function fixCloneNodeIssues( src, dest ) {
 		disableScript( dest ).text = src.text;
 		restoreScript( dest );
 
-	// IE6-10 improperly clones children of object elements using classid.
+	// IE6-10 improperly clones children of object Elements using classid.
 	// IE10 throws NoModificationAllowedError if parent is null, #12132.
 	} else if ( nodeName === "object" ) {
 		if ( dest.parentNode ) {
@@ -6040,7 +6040,7 @@ function domManip( collection, args, callback, ignored ) {
 			fragment = first;
 		}
 
-		// Require either new content or an interest in ignored elements to invoke the callback
+		// Require either new content or an interest in ignored Elements to invoke the callback
 		if ( first || ignored ) {
 			scripts = jQuery.map( getAll( fragment, "script" ), disableScript );
 			hasScripts = scripts.length;
@@ -6697,8 +6697,8 @@ if ( window.getComputedStyle ) {
 	getStyles = function( elem ) {
 
 		// Support: IE<=11+, Firefox<=30+ (#15098, #14150)
-		// IE throws on elements created in popups
-		// FF meanwhile throws on frame elements through "defaultView.getComputedStyle"
+		// IE throws on Elements created in popups
+		// FF meanwhile throws on frame Elements through "defaultView.getComputedStyle"
 		var view = elem.ownerDocument.defaultView;
 
 		if ( !view || !view.opener ) {
@@ -6900,7 +6900,7 @@ function showHide( elements, show ) {
 				elem.style.display = "";
 			}
 
-			// Set elements which have been overridden with display: none
+			// Set Elements which have been overridden with display: none
 			// in a stylesheet to whatever the default browser style is
 			// for such an element
 			if ( elem.style.display === "" && isHidden( elem ) ) {
@@ -6920,7 +6920,7 @@ function showHide( elements, show ) {
 		}
 	}
 
-	// Set the display of most of the elements in a second loop
+	// Set the display of most of the Elements in a second loop
 	// to avoid the constant reflow
 	for ( index = 0; index < length; index++ ) {
 		elem = elements[ index ];
@@ -6997,7 +6997,7 @@ function getWidthOrHeight( elem, name, extra ) {
 		isBorderBox = support.boxSizing &&
 			jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
 
-	// some non-html elements return undefined for offsetWidth, so check for null/undefined
+	// some non-html Elements return undefined for offsetWidth, so check for null/undefined
 	// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
 	// MathML - https://bugzilla.mozilla.org/show_bug.cgi?id=491668
 	if ( val <= 0 || val == null ) {
@@ -7191,7 +7191,7 @@ jQuery.each( [ "height", "width" ], function( i, name ) {
 		get: function( elem, computed, extra ) {
 			if ( computed ) {
 
-				// certain elements can have dimension info if we invisibly show them
+				// certain Elements can have dimension info if we invisibly show them
 				// however, it must have a current display style that would benefit from this
 				return rdisplayswap.test( jQuery.css( elem, "display" ) ) &&
 					elem.offsetWidth === 0 ?
@@ -7583,7 +7583,7 @@ function defaultPrefilter( elem, props, opts ) {
 		opts.overflow = [ style.overflow, style.overflowX, style.overflowY ];
 
 		// Set display property to inline-block for height/width
-		// animations on inline elements that are having width/height animated
+		// animations on inline Elements that are having width/height animated
 		display = jQuery.css( elem, "display" );
 
 		// Test default display if display is currently "none"
@@ -7592,8 +7592,8 @@ function defaultPrefilter( elem, props, opts ) {
 
 		if ( checkDisplay === "inline" && jQuery.css( elem, "float" ) === "none" ) {
 
-			// inline-level elements accept inline-block;
-			// block-level elements need to be inline with layout
+			// inline-level Elements accept inline-block;
+			// block-level Elements need to be inline with layout
 			if ( !support.inlineBlockNeedsLayout || defaultDisplay( elem.nodeName ) === "inline" ) {
 				style.display = "inline-block";
 			} else {
@@ -7911,7 +7911,7 @@ jQuery.speed = function( speed, easing, fn ) {
 jQuery.fn.extend( {
 	fadeTo: function( speed, to, easing, callback ) {
 
-		// show any hidden elements after setting opacity to 0
+		// show any hidden Elements after setting opacity to 0
 		return this.filter( isHidden ).css( "opacity", 0 ).show()
 
 			// animate to the value specified
@@ -8578,7 +8578,7 @@ if ( !getSetAttribute ) {
 
 			ret.value = value += "";
 
-			// Break association with cloned elements by also using setAttribute (#9646)
+			// Break association with cloned Elements by also using setAttribute (#9646)
 			if ( name === "value" || value === elem.getAttribute( name ) ) {
 				return value;
 			}
@@ -9923,7 +9923,7 @@ jQuery.fn.extend( {
 
 		if ( this[ 0 ] ) {
 
-			// The elements to wrap the target around
+			// The Elements to wrap the target around
 			var wrap = jQuery( html, this[ 0 ].ownerDocument ).eq( 0 ).clone( true );
 
 			if ( this[ 0 ].parentNode ) {
@@ -9988,7 +9988,7 @@ function getDisplay( elem ) {
 
 function filterHidden( elem ) {
 
-	// Disconnected elements are considered hidden
+	// Disconnected Elements are considered hidden
 	if ( !jQuery.contains( elem.ownerDocument || document, elem ) ) {
 		return true;
 	}
@@ -10004,7 +10004,7 @@ function filterHidden( elem ) {
 jQuery.expr.filters.hidden = function( elem ) {
 
 	// Support: Opera <= 12.12
-	// Opera reports offsetWidths and offsetHeights less than zero on some elements
+	// Opera reports offsetWidths and offsetHeights less than zero on some Elements
 	return support.reliableHiddenOffsets() ?
 		( elem.offsetWidth <= 0 && elem.offsetHeight <= 0 &&
 			!elem.getClientRects().length ) :
@@ -10062,7 +10062,7 @@ function buildParams( prefix, obj, traditional, add ) {
 	}
 }
 
-// Serialize an array of form elements or a set of
+// Serialize an array of form Elements or a set of
 // key/values into a query string
 jQuery.param = function( a, traditional ) {
 	var prefix,
@@ -10079,10 +10079,10 @@ jQuery.param = function( a, traditional ) {
 		traditional = jQuery.ajaxSettings && jQuery.ajaxSettings.traditional;
 	}
 
-	// If an array was passed in, assume that it is an array of form elements.
+	// If an array was passed in, assume that it is an array of form Elements.
 	if ( jQuery.isArray( a ) || ( a.jquery && !jQuery.isPlainObject( a ) ) ) {
 
-		// Serialize the form elements
+		// Serialize the form Elements
 		jQuery.each( a, function() {
 			add( this.name, this.value );
 		} );
@@ -10107,7 +10107,7 @@ jQuery.fn.extend( {
 	serializeArray: function() {
 		return this.map( function() {
 
-			// Can add propHook for "elements" to filter or add form elements
+			// Can add propHook for "Elements" to filter or add form Elements
 			var elements = jQuery.prop( this, "elements" );
 			return elements ? jQuery.makeArray( elements ) : this;
 		} )
@@ -10432,7 +10432,7 @@ jQuery.ajaxTransport( "script", function( s ) {
 					}
 				};
 
-				// Circumvent IE6 bugs with base elements (#2709 and #4378) by prepending
+				// Circumvent IE6 bugs with base Elements (#2709 and #4378) by prepending
 				// Use native DOM manipulation to avoid our domManip AJAX trickery
 				head.insertBefore( script, head.firstChild );
 			},
@@ -10608,7 +10608,7 @@ jQuery.fn.load = function( url, params, callback ) {
 		type = "POST";
 	}
 
-	// If we have elements to modify, make the request
+	// If we have Elements to modify, make the request
 	if ( self.length > 0 ) {
 		jQuery.ajax( {
 			url: url,
@@ -10626,7 +10626,7 @@ jQuery.fn.load = function( url, params, callback ) {
 
 			self.html( selector ?
 
-				// If a selector was specified, locate the right elements in a dummy div
+				// If a selector was specified, locate the right Elements in a dummy div
 				// Exclude scripts to avoid IE 'Permission Denied' errors
 				jQuery( "<div>" ).append( jQuery.parseHTML( responseText ) ).find( selector ) :
 
@@ -10784,7 +10784,7 @@ jQuery.fn.extend( {
 			parentOffset = { top: 0, left: 0 },
 			elem = this[ 0 ];
 
-		// Fixed elements are offset from window (parentOffset = {top:0, left: 0},
+		// Fixed Elements are offset from window (parentOffset = {top:0, left: 0},
 		// because it is its only offset parent
 		if ( jQuery.css( elem, "position" ) === "fixed" ) {
 
@@ -10946,7 +10946,7 @@ jQuery.fn.extend( {
 	}
 } );
 
-// The number of elements contained in the matched element set
+// The number of Elements contained in the matched element set
 jQuery.fn.size = function() {
 	return this.length;
 };

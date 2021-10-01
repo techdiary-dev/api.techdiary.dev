@@ -1,14 +1,14 @@
 /*!
- * 
+ *
  * Super simple wysiwyg editor v0.8.18
  * https://summernote.org
- * 
- * 
+ *
+ *
  * Copyright 2013- Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license.
- * 
+ *
  * Date: 2020-05-20T16:47Z
- * 
+ *
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -796,7 +796,7 @@ function lists_isEmpty(array) {
   return !array || !array.length;
 }
 /**
- * cluster elements by predicate function.
+ * cluster Elements by predicate function.
  *
  * @param {Array} array - array
  * @param {Function} fn - predicate function for cluster rule
@@ -1368,7 +1368,7 @@ function insertAfter(node, preceding) {
   return node;
 }
 /**
- * append elements.
+ * append Elements.
  *
  * @param {Node} node
  * @param {Collection} aChild
@@ -4914,7 +4914,7 @@ var Table_Table = /*#__PURE__*/function () {
     * Copy attributes from element.
     *
     * @param {object} Element to recover attributes.
-    * @return {string} Copied string elements.
+    * @return {string} Copied string Elements.
     */
 
   }, {
@@ -5685,7 +5685,7 @@ var Editor_Editor = /*#__PURE__*/function () {
       return this.getLastRange();
     }
     /**
-     * create a new range from the list of elements
+     * create a new range from the list of Elements
      *
      * @param {list} dom element list
      * @return {WrappedRange}

@@ -3483,7 +3483,7 @@
 
         var element = this.element,
             options = this.options,
-            image = this.image; // Create cropper elements
+            image = this.image; // Create cropper Elements
 
         var container = element.parentNode;
         var template = document.createElement('div');

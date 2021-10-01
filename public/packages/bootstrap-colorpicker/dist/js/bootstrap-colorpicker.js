@@ -4032,7 +4032,7 @@ var PopupHandler = function () {
 
 
     /**
-     * Binds the different colorpicker elements to the focus/mouse/touch events so it reacts in order to show or
+     * Binds the different colorpicker Elements to the focus/mouse/touch events so it reacts in order to show or
      * hide the colorpicker popup accordingly. It also adds the proper classes.
      */
     value: function bind() {
@@ -4040,7 +4040,7 @@ var PopupHandler = function () {
 
       if (cp.options.inline) {
         cp.picker.addClass('colorpicker-inline colorpicker-visible');
-        return; // no need to bind show/hide events for inline elements
+        return; // no need to bind show/hide events for inline Elements
       }
 
       cp.picker.addClass('colorpicker-popup colorpicker-hidden');

@@ -463,7 +463,7 @@ $.Widget.prototype = {
 			}
 
 			// We are doing this to create a new jQuery object because the _removeClass() call
-			// on the next line is going to destroy the reference to the current elements being
+			// on the next line is going to destroy the reference to the current Elements being
 			// tracked. We need to save a copy of this collection so that we can add the new classes
 			// below.
 			elements = $( currentElements.get() );
@@ -756,7 +756,7 @@ var widget = $.widget;
 
 //>>label: Position
 //>>group: Core
-//>>description: Positions elements relative to other elements.
+//>>description: Positions Elements relative to other Elements.
 //>>docs: http://api.jqueryui.com/position/
 //>>demos: http://jqueryui.com/position/
 
@@ -1242,7 +1242,7 @@ var position = $.ui.position;
 
 //>>label: :data Selector
 //>>group: Core
-//>>description: Selects elements which have data stored under the specified key.
+//>>description: Selects Elements which have data stored under the specified key.
 //>>docs: http://api.jqueryui.com/data-selector/
 
 
@@ -1271,7 +1271,7 @@ var data = $.extend( $.expr[ ":" ], {
 
 //>>label: disableSelection
 //>>group: Core
-//>>description: Disable selection of text content within the set of matched elements.
+//>>description: Disable selection of text content within the set of matched Elements.
 //>>docs: http://api.jqueryui.com/disableSelection/
 
 // This file is deprecated
@@ -2477,7 +2477,7 @@ $.extend( $.effects, {
 			cssPosition = element.css( "position" ),
 			position = element.position();
 
-		// Lock in margins first to account for form elements, which
+		// Lock in margins first to account for form Elements, which
 		// will change margin if you explicitly set height
 		// see: http://jsfiddle.net/JZSMt/3/ https://bugs.webkit.org/show_bug.cgi?id=107380
 		// Support: Safari
@@ -2495,7 +2495,7 @@ $.extend( $.effects, {
 
 			placeholder = $( "<" + element[ 0 ].nodeName + ">" ).insertAfter( element ).css( {
 
-				// Convert inline to inline block to account for inline elements
+				// Convert inline to inline block to account for inline Elements
 				// that turn to inline block based on content (like img)
 				display: /^(inline|ruby)/.test( element.css( "display" ) ) ?
 					"inline-block" :
@@ -2734,7 +2734,7 @@ $.fn.extend( {
 			}
 		}
 
-		// Run prefilter on all elements first to ensure that
+		// Run prefilter on all Elements first to ensure that
 		// any showing or hiding happens before placeholder creation,
 		// which ensures that any layout changes are correctly captured.
 		return queue === false ?
@@ -3881,7 +3881,7 @@ var effectsEffectTransfer = effect;
 
 //>>label: :focusable Selector
 //>>group: Core
-//>>description: Selects elements which can be focused.
+//>>description: Selects Elements which can be focused.
 //>>docs: http://api.jqueryui.com/focusable-selector/
 
 
@@ -4240,7 +4240,7 @@ var scrollParent = $.fn.scrollParent = function( includeHidden ) {
 
 //>>label: :tabbable Selector
 //>>group: Core
-//>>description: Selects elements which can be tabbed to.
+//>>description: Selects Elements which can be tabbed to.
 //>>docs: http://api.jqueryui.com/tabbable-selector/
 
 
@@ -4463,7 +4463,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 		this.element.attr( "aria-disabled", value );
 
 		// Support: IE8 Only
-		// #5332 / #6059 - opacity doesn't cascade to positioned elements in IE
+		// #5332 / #6059 - opacity doesn't cascade to positioned Elements in IE
 		// so we need to add the disabled class to the headers and panels
 		this._toggleClass( null, "ui-state-disabled", !!value );
 		this._toggleClass( this.headers.add( this.headers.next() ), null, "ui-state-disabled",
@@ -5029,7 +5029,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 				}
 
 				// Remove ui-state-active class from siblings of the newly focused menu item
-				// to avoid a jump caused by adjacent elements both having a class with a border
+				// to avoid a jump caused by adjacent Elements both having a class with a border
 				this._removeClass( target.siblings().children( ".ui-state-active" ),
 					null, "ui-state-active" );
 				this.focus( event, target );
@@ -6177,7 +6177,7 @@ $.widget( "ui.autocomplete", {
 
 	// Support: Chrome <=50
 	// We should be able to just use this.element.prop( "isContentEditable" )
-	// but hidden elements always report false in Chrome.
+	// but hidden Elements always report false in Chrome.
 	// https://code.google.com/p/chromium/issues/detail?id=313082
 	_isContentEditable: function( element ) {
 		if ( !element.length ) {
@@ -6334,7 +6334,7 @@ var widgetsControlgroup = $.widget( "ui.controlgroup", {
 			}
 
 			// We assume everything is in the middle to start because we can't determine
-			// first / last elements until all enhancments are done.
+			// first / last Elements until all enhancments are done.
 			if ( that[ "_" + widget + "Options" ] ) {
 				options = that[ "_" + widget + "Options" ]( "middle" );
 			} else {
@@ -7198,7 +7198,7 @@ function datepicker_getZindex( elem ) {
 
 			// IE returns 0 when zIndex is not specified
 			// other browsers return a string
-			// we ignore the case of nested elements with an explicit value of 0
+			// we ignore the case of nested Elements with an explicit value of 0
 			// <div style="z-index: -10;"><div style="z-index: 0;"></div></div>
 			value = parseInt( elem.css( "zIndex" ), 10 );
 			if ( !isNaN( value ) && value !== 0 ) {
@@ -7306,7 +7306,7 @@ function Datepicker() {
 }
 
 $.extend( Datepicker.prototype, {
-	/* Class name added to elements to indicate already configured with a date picker. */
+	/* Class name added to Elements to indicate already configured with a date picker. */
 	markerClassName: "hasDatepicker",
 
 	//Keep track of the maximum number of rows displayed (see #7043)
@@ -7471,7 +7471,7 @@ $.extend( Datepicker.prototype, {
 			this._disableDatepicker( target );
 		}
 
-		// Set display:block in place of inst.dpDiv.show() which won't work on disconnected elements
+		// Set display:block in place of inst.dpDiv.show() which won't work on disconnected Elements
 		// http://bugs.jqueryui.com/ticket/7552 - A Datepicker created on a detached div has zero height
 		inst.dpDiv.css( "display", "block" );
 	},
@@ -9177,7 +9177,7 @@ $.extend( Datepicker.prototype, {
 } );
 
 /*
- * Bind hover events for datepicker elements.
+ * Bind hover events for datepicker Elements.
  * Done via delegate so the binding only occurs once in the lifetime of the parent div.
  * Global datepicker_instActive, set by _updateDatepicker allows the handlers to find their way back to the active picker.
  */
@@ -10170,7 +10170,7 @@ $.widget( "ui.draggable", $.ui.mouse, {
 
 			if ( o.grid ) {
 
-				//Check for grid elements set to 0 to prevent divide by 0 error causing invalid
+				//Check for grid Elements set to 0 to prevent divide by 0 error causing invalid
 				// argument errors in IE (see ticket #6950)
 				top = o.grid[ 1 ] ? this.originalPageY + Math.round( ( pageY -
 					this.originalPageY ) / o.grid[ 1 ] ) * o.grid[ 1 ] : this.originalPageY;
@@ -12708,7 +12708,7 @@ $.widget( "ui.dialog", {
 		}
 
 		// Reset wrapper sizing
-		// determine the height of all the non-content elements
+		// determine the height of all the non-content Elements
 		nonContentHeight = this.uiDialog.css( {
 			height: "auto",
 			width: options.width
@@ -12867,7 +12867,7 @@ var widgetsDialog = $.ui.dialog;
 
 //>>label: Droppable
 //>>group: Interactions
-//>>description: Enables drop targets for draggable elements.
+//>>description: Enables drop targets for draggable Elements.
 //>>docs: http://api.jqueryui.com/droppable/
 //>>demos: http://jqueryui.com/droppable/
 
@@ -13165,7 +13165,7 @@ $.ui.ddmanager = {
 				continue;
 			}
 
-			// Filter out elements in the current dragged item
+			// Filter out Elements in the current dragged item
 			for ( j = 0; j < list.length; j++ ) {
 				if ( list[ j ] === m[ i ].element[ 0 ] ) {
 					m[ i ].proportions().height = 0;
@@ -13512,7 +13512,7 @@ var widgetsProgressbar = $.widget( "ui.progressbar", {
 
 //>>label: Selectable
 //>>group: Interactions
-//>>description: Allows groups of elements to be selected with the mouse.
+//>>description: Allows groups of Elements to be selected with the mouse.
 //>>docs: http://api.jqueryui.com/selectable/
 //>>demos: http://jqueryui.com/selectable/
 //>>css.structure: ../../themes/base/selectable.css
@@ -16469,7 +16469,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 					this.scrollParent,
 				scrollIsRootNode = ( /(html|body)/i ).test( scroll[ 0 ].tagName );
 
-		// This is another very weird special case that only happens for relative elements:
+		// This is another very weird special case that only happens for relative Elements:
 		// 1. If the css position is relative
 		// 2. and the scroll parent is the document or similar to the offset parent
 		// we have to refresh the relative offset during the scroll so there are no jumps
@@ -17303,7 +17303,7 @@ var widgetsSpinner = $.ui.spinner;
 
 //>>label: Tabs
 //>>group: Widgets
-//>>description: Transforms a set of container elements into a tab structure.
+//>>description: Transforms a set of container Elements into a tab structure.
 //>>docs: http://api.jqueryui.com/tabs/
 //>>demos: http://jqueryui.com/tabs/
 //>>css.structure: ../../themes/base/core.css
@@ -18235,7 +18235,7 @@ $.widget( "ui.tooltip", {
 		},
 		hide: true,
 
-		// Disabled elements have inconsistent behavior across browsers (#8661)
+		// Disabled Elements have inconsistent behavior across browsers (#8661)
 		items: "[title]:not([disabled])",
 		position: {
 			my: "left top+15",

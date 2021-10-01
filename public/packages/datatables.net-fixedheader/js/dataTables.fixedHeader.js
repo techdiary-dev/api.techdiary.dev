@@ -152,7 +152,7 @@ $.extend( FixedHeader.prototype, {
 	},
 
 	/**
-	 * Enable / disable the fixed elements
+	 * Enable / disable the fixed Elements
 	 *
 	 * @param  {boolean} enable `true` to enable, `false` to disable
 	 */
@@ -173,9 +173,9 @@ $.extend( FixedHeader.prototype, {
 	{
 		return this.s.enable;
 	},
-	
+
 	/**
-	 * Set header offset 
+	 * Set header offset
 	 *
 	 * @param  {int} new value for headerOffset
 	 */
@@ -188,7 +188,7 @@ $.extend( FixedHeader.prototype, {
 
 		return this.c.headerOffset;
 	},
-	
+
 	/**
 	 * Set footer offset
 	 *
@@ -204,9 +204,9 @@ $.extend( FixedHeader.prototype, {
 		return this.c.footerOffset;
 	},
 
-	
+
 	/**
-	 * Recalculate the position of the fixed elements and force them into place
+	 * Recalculate the position of the fixed Elements and force them into place
 	 */
 	update: function ()
 	{
@@ -227,7 +227,7 @@ $.extend( FixedHeader.prototype, {
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Constructor
 	 */
-	
+
 	/**
 	 * FixedHeader constructor - adding the required event listeners and
 	 * simple initialisation
@@ -384,7 +384,7 @@ $.extend( FixedHeader.prototype, {
 	},
 
 	/**
-	 * Reposition the floating elements to take account of horizontal page
+	 * Reposition the floating Elements to take account of horizontal page
 	 * scroll
 	 *
 	 * @param  {string} item       The `header` or `footer`
@@ -412,7 +412,7 @@ $.extend( FixedHeader.prototype, {
 	 * * `in` - Floating over the DataTable
 	 * * `below` - (Header only) Fixed to the bottom of the table body
 	 * * `above` - (Footer only) Fixed to the top of the table body
-	 * 
+	 *
 	 * @param  {string}  mode        Mode that the item should be shown in
 	 * @param  {string}  item        'header' or 'footer'
 	 * @param  {boolean} forceChange Force a redraw of the mode, even if already
@@ -432,13 +432,13 @@ $.extend( FixedHeader.prototype, {
 			});
 		};
 
-		// Record focus. Browser's will cause input elements to loose focus if
+		// Record focus. Browser's will cause input Elements to loose focus if
 		// they are inserted else where in the doc
 		var tablePart = this.dom[ item==='footer' ? 'tfoot' : 'thead' ];
 		var focus = $.contains( tablePart[0], document.activeElement ) ?
 			document.activeElement :
 			null;
-		
+
 		if ( focus ) {
 			focus.blur();
 		}
