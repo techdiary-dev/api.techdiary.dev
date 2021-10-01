@@ -27,21 +27,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/signed', function (){
-   return URL::temporarySignedRoute('test-signed', now()->addSeconds(40), [
-       'name' => "Rayhan"
-   ]);
-});
-
-
-Route::get('/signed-decode', function (Request $request){
-
-    if (!$request->hasValidSignature()) abort(403, 'Vul signature');
-
-    return $request->all();
-})->name('test-signed');
-
-
 
 /**
  * User endpoints
