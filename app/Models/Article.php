@@ -55,8 +55,6 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|Article withScopes($scopes = [])
  * @mixin \Eloquent
  */
-
-
 class Article extends Model implements ReactableInterface
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
@@ -100,6 +98,15 @@ class Article extends Model implements ReactableInterface
     public function toSearchableArray()
     {
         return ArticleList::make($this->load('tags'))->jsonSerialize();
+    }
+
+    public function setSlugAttribute($slug)
+    {
+        if ($slug) {
+            $this->attributes['slug'] = Str::slug($slug) . '-' . Str::random(6);
+        } else {
+            $this->attributes['slug'] = $this->attributes['id'];
+        }
     }
 
     /**

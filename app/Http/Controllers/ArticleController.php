@@ -13,8 +13,10 @@ use App\Http\Resources\Article\AuthArticleList;
 use App\Models\Article;
 use App\Scoping\Scopes\ArticlesByTagName;
 use App\Scoping\Scopes\UserScope;
+use App\TechDiary\Markdown\TDMarkdown;
 use App\TechDiary\Reaction\Resources\ReactionCollection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
@@ -110,7 +112,8 @@ class ArticleController extends Controller
     {
         $this->authorize('update', $article);
 
-        $article->update($request->except('tags', 'seo', 'settings'));
+
+        $article->update($request->only('title', 'slug', 'thumbnail', 'body'));
 
         if ($request->tags) {
             $tags = collect($request->tags)->pluck('id');
@@ -127,7 +130,9 @@ class ArticleController extends Controller
 
         $article->save();
         return response()->json([
-            'message' => 'Article saved successfully'
+            'message' => 'Article saved successfully',
+            'article' => $article,
+            'htmlBody' => new TDMarkdown($article->body || "")
         ]);
     }
 
