@@ -47,9 +47,7 @@ class ArticleDetails extends JsonResource
             'tags' => TagResource::collection($this->tags),
             'user' => new UserListResource($this->user),
             'seo' => $this->getMetaJSON('seo'),
-            'settings' => [
-                "disabled_comments" => $this->getMetaValue('disabled_comments'),
-            ]
+            'settings' => $this->getMetaJSON('settings')
         ]);
     }
 }
