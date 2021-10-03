@@ -113,7 +113,7 @@ class ArticleController extends Controller
         $this->authorize('update', $article);
 
 
-        $article->update($request->only('title', 'slug', 'thumbnail', 'body'));
+        $article->update($request->only('title', 'slug', 'thumbnail', 'body', 'isPublished'));
 
         if ($request->tags) {
             $tags = collect($request->tags)->pluck('id');
