@@ -25,9 +25,15 @@ class UpdateProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => [Rule::unique('users')->ignore(auth()->id())],
-            'email' => [Rule::unique('email')->ignore(auth()->id())],
-            'profilePhoto' => ['url'],
+            'name' => ['nullable', 'min:6'],
+            'username' => ['nullable', Rule::unique('users')->ignore(auth()->id())],
+            'email' => ['nullable', Rule::unique('users')->ignore(auth()->id())],
+            'education' => ['nullable'],
+            'designation' => ['nullable'],
+            'website_url' => ['nullable', 'url'],
+            'location' => ['nullable'],
+            'profilePhoto' => ['nullable', 'url'],
+            'social_links' => ['nullable']
         ];
     }
 }

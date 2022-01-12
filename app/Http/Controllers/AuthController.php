@@ -18,38 +18,6 @@ use Laravel\Socialite\Two\InvalidStateException;
 class AuthController extends Controller
 {
     /**
-     * Register account
-     * @param RegisterRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    //    public function register(RegisterRequest $request)
-    //    {
-    //        $user = User::create($request->all(['name', 'username', 'email', 'password']));
-    //
-    //        return response()->json([
-    //            'message' => 'Registered successfully',
-    //            'user' => $user
-    //        ]);
-    //    }
-    //
-
-    /**
-     * Login using email and password
-     * @param LoginRequest $request
-     * @return array
-     * @throws AuthenticationException
-     */
-    //    public function getTokenUsingCredential(LoginRequest $request)
-    //    {
-    //        if (!auth()->guard()->attempt($request->all()))
-    //            throw new AuthenticationException('Invalid credential');
-    //
-    //        return [
-    //            'token' => Authentication::createToken(auth()->user())
-    //        ];
-    //    }
-
-    /**
      * Authenticated user's tokens
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -167,33 +135,5 @@ class AuthController extends Controller
         ]);
     }
 
-    public function updateProfile(UpdateProfileRequest $request)
-    {
-        auth()
-            ->user()
-            ->update($request->all());
 
-        return response()->json([
-            "message" => "Profile Updated successfully",
-            "data" => auth()->user(),
-        ]);
-    }
-
-    /**
-     * Update basic profile settings
-     * @param UpdateBasicProfileSettingsRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function updateBasicProfileSettings(
-        UpdateBasicProfileSettingsRequest $request
-    ) {
-        auth()
-            ->user()
-            ->update($request->all());
-
-        return response()->json([
-            "message" => "Profile Updated successfully",
-            "data" => auth()->user(),
-        ]);
-    }
 }
