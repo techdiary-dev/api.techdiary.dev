@@ -7,6 +7,8 @@ Route::group(["prefix" => "articles"], function () {
     Route::post("", [ArticleController::class, "index"])
         ->middleware("auth:sanctum");
 
+    Route::get('mine', [ArticleController::class, 'myArticles'])
+        ->middleware("auth:sanctum");
     Route::get("/uuid/{article:id}", [ArticleController::class, "show"]);
     Route::get("/slug/{article:slug}", [ArticleController::class, "show"]);
 

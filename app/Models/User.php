@@ -9,6 +9,7 @@ use App\TechDiary\Reaction\Traits\ReactorUserModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -115,20 +116,10 @@ class User extends Authenticatable implements ReactorUserInterface
         return $this->hasMany(UserSocial::class);
     }
 
-//    public function setPasswordAttribute($value)
-//    {
-//        $this->attributes['password'] = bcrypt($value);
-//    }
-
     public function setUsernameAttribute($value)
     {
-        $this->attributes['username'] = strtolower($value);
+        $this->attributes['username'] = Str::slug(strtolower($value));
     }
-
-//    public function series()
-//    {
-//        return $this->hasMany(Series::class);
-//    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
