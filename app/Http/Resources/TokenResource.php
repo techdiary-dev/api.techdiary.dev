@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MyTokensResource extends JsonResource
+class TokenResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,8 @@ class MyTokensResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'platform' => json_decode($this->name),
-            'isCurrent' => auth()->user()->currentAccessToken()->id == $this->id,
+            'name' => $this->name,
+//            'isCurrent' => auth()->user()->currentAccessToken()->id == $this->id ?? null,
             'last_used_at' => $this->last_used_at,
             'created_at' => $this->created_at
         ];
