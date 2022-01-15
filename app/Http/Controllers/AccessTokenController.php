@@ -32,7 +32,6 @@ class AccessTokenController extends Controller
     public function deleteToken($tokenId)
     {
         $token = auth()->user()->tokens()->where('id', $tokenId)->firstOrFail();
-        $this->authorize('delete', $token);
         $token->delete();
         return response()->json([
             'message' => 'deleted'
