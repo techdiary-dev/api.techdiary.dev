@@ -120,6 +120,6 @@ class Article extends Model implements ReactableInterface
 
     public function openGoogle($crud = false)
     {
-        return "<a href=" . env('CLIENT_URL') . "/" . $this->user->username . "/" . $this->slug . ">Read</a>";
+        return "<a href=" . env('CLIENT_BASE_URL') . "/" . $this->user->username . "/" . $this->slug . ">Read</a>";
     }
 }
