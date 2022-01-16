@@ -1,7 +1,7 @@
 {
     "name": "techdiary/api",
     "type": "project",
-    "description": "Techdiary backend api",
+    "description": "TechDiary backend api",
     "keywords": [],
     "license": "MIT",
     "require": {
@@ -25,9 +25,7 @@
         "laravel/tinker": "^2.6",
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "^5.0",
-        "sentry/sentry-laravel": "^2.5",
-        "torchlight/torchlight-commonmark": "^0.5.1",
-        "torchlight/torchlight-laravel": "^0.5.5"
+        "sentry/sentry-laravel": "^2.5"
     },
     "require-dev": {
         "backpack/generators": "^3.1",
@@ -36,7 +34,6 @@
         "fakerphp/faker": "^1.9.1",
         "knuckleswtf/scribe": "^2.5",
         "laracasts/generators": "^2.0",
-        "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
         "pestphp/pest": "^1.20",

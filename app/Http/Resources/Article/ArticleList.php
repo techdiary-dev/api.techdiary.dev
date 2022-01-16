@@ -24,6 +24,7 @@ class ArticleList extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
+            'url' => env('CLIENT_BASE_URL') . '/' . $this->user->username . '/' . $this->slug,
             'votes' => new VoteSummeryCollection($this->reactions),
             'bookmarked_users' => new BookmarkCollection($this->reactions),
             'comments_count' => $this->comments_count,
