@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Resources\Article\ArticleList;
 use App\TechDiary\HasComments;
 use App\TechDiary\HasMetaData;
+use App\TechDiary\Markdown\TDMarkdown;
 use App\TechDiary\Reaction\Contracts\ReactableInterface;
 use App\TechDiary\Reaction\Traits\ReactionableModel;
 use App\TechDiary\VotableModel;
@@ -13,6 +14,8 @@ use App\Traits\NestableComments;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Spatie\Feed\Feedable;
+use Spatie\Feed\FeedItem;
 
 /**
  * App\Models\Article
@@ -121,5 +124,16 @@ class Article extends Model implements ReactableInterface
     public function openGoogle($crud = false)
     {
         return "<a href=" . env('CLIENT_BASE_URL') . "/" . $this->user->username . "/" . $this->slug . ">Read</a>";
+    }
+
+    public function getBodyHtmlAttribute()
+    {
+        $md = new TDMarkdown($this->body);
+        return $md->toHTML();
+    }
+
+    public function getUrlAttribute()
+    {
+        return env('CLIENT_BASE_URL') . "/" . $this->user->username . "/" . $this->slug;
     }
 }

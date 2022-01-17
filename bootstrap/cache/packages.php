@@ -118,13 +118,6 @@
       0 => 'Laravel\\Fortify\\FortifyServiceProvider',
     ),
   ),
-  'laravel/sail' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Laravel\\Sail\\SailServiceProvider',
-    ),
-  ),
   'laravel/sanctum' => 
   array (
     'providers' => 
@@ -201,18 +194,18 @@
       'Sentry' => 'Sentry\\Laravel\\Facade',
     ),
   ),
+  'spatie/laravel-feed' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\Feed\\FeedServiceProvider',
+    ),
+  ),
   'spatie/laravel-permission' => 
   array (
     'providers' => 
     array (
       0 => 'Spatie\\Permission\\PermissionServiceProvider',
-    ),
-  ),
-  'torchlight/torchlight-laravel' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Torchlight\\TorchlightServiceProvider',
     ),
   ),
 );
