@@ -14,8 +14,6 @@ use App\Traits\NestableComments;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Spatie\Feed\Feedable;
-use Spatie\Feed\FeedItem;
 
 /**
  * App\Models\Article
