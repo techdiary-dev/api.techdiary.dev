@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\UserRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -76,25 +77,27 @@ class UserCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(UserRequest::class);
+        CRUD::setValidation(RegisterRequest::class);
 
-        CRUD::field('id');
-        $this->crud->field('socialProviders');
+//        CRUD::field('id');
+
         CRUD::field('name');
         CRUD::field('username');
         CRUD::field('email');
-
-
         CRUD::field('profilePhoto');
         CRUD::field('education');
         CRUD::field('designation');
         CRUD::field('bio');
         CRUD::field('website_url');
         CRUD::field('location');
-        CRUD::field('social_links');
-        CRUD::field('profile_readme');
+//        CRUD::field('social_links');
+        $this->crud->addField([
+            "name" => "profile_readme",
+            "type" => "easymde"
+        ]);
         CRUD::field('skills');
         CRUD::field('password');
+        $this->crud->field('socialProviders');
         CRUD::field('email_verified_at');
         CRUD::field('remember_token');
         CRUD::field('created_at')->type('datetime');

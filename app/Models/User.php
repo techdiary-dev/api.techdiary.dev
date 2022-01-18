@@ -128,4 +128,11 @@ class User extends Authenticatable implements ReactorUserInterface
     {
         return $this->hasMany(Reaction::class);
     }
+
+    public function setPasswordAttribute($password)
+    {
+        if ($password) {
+            $this->setAttribute('password', bcrypt($password));
+        }
+    }
 }

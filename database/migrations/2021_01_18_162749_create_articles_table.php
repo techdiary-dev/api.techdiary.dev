@@ -16,16 +16,13 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->default(DB::raw('uuid_generate_v4()'));
 
-//          $table->string('title');
-            $table->string('title')->default('শিরোনামহীন ডায়েরি');
+            $table->string('title')->nullable();
 
-//          $table->string('slug')->unique();
             $table->string('slug')->nullable();
 
             $table->string('thumbnail')->nullable();
             $table->string('seriesName')->nullable();
 
-//          $table->json('body');
             $table->text('body')->nullable();
 
             $table->string('excerpt')->nullable();
