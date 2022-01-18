@@ -6,7 +6,7 @@
         <title><![CDATA[ TechDiary ]]></title>
         <link><![CDATA[ https://api.techdiary.dev/rss/articles ]]></link>
         <description><![CDATA[ TechDiary articles RSS Feed ]]></description>
-        <language>en</language>
+        <language>bn</language>
         <pubDate>{{ now() }}</pubDate>
 
         @foreach($articles as $article)
