@@ -7,7 +7,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
-        "algolia/algoliasearch-client-php": "^3.0",
+        "algolia/algoliasearch-client-php": "^3.2",
         "backpack/crud": "4.1.*",
         "backpack/permissionmanager": "^6.0",
         "cloudinary-labs/cloudinary-laravel": "^1.0",
@@ -19,7 +19,7 @@
         "laravel/fortify": "^1.7",
         "laravel/framework": "^8.40",
         "laravel/sanctum": "^2.11",
-        "laravel/scout": "^9.0",
+        "laravel/scout": "^9.4",
         "laravel/socialite": "^5.2",
         "laravel/telescope": "^4.4",
         "laravel/tinker": "^2.6",
@@ -29,7 +29,6 @@
     "require-dev": {
         "backpack/generators": "^3.1",
         "barryvdh/laravel-ide-helper": "^2.10",
-        "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "knuckleswtf/scribe": "^2.5",
         "laracasts/generators": "^2.0",
@@ -37,7 +36,8 @@
         "nunomaduro/collision": "^5.0",
         "pestphp/pest": "^1.20",
         "pestphp/pest-plugin-laravel": "^1.1",
-        "phpunit/phpunit": "^9.3.3"
+        "phpunit/phpunit": "^9.3.3",
+        "spatie/laravel-ignition": "^1.0"
     },
     "config": {
         "optimize-autoloader": true,

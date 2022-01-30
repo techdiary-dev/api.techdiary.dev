@@ -77,7 +77,7 @@ class User extends Authenticatable implements ReactorUserInterface
 
     protected $keyType = 'string';
     protected $primaryKey = 'id';
-//    public $identifiableAttribute = 'service_uid';
+    //    public $identifiableAttribute = 'service_uid';
     /**
      * The attributes that are mass assignable.
      *
@@ -129,10 +129,10 @@ class User extends Authenticatable implements ReactorUserInterface
         return $this->hasMany(Reaction::class);
     }
 
-    public function setPasswordAttribute($password)
-    {
-        if ($password) {
-            $this->setAttribute('password', bcrypt($password));
-        }
-    }
+    // public function setPasswordAttribute($password)
+    // {
+    //     if ($password) {
+    //         $this->setAttribute('password', bcrypt($password));
+    //     }
+    // }
 }

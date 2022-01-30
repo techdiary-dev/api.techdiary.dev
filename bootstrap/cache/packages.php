@@ -61,17 +61,6 @@
       'Gravatar' => 'Creativeorange\\Gravatar\\Facades\\Gravatar',
     ),
   ),
-  'facade/ignition' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Facade\\Ignition\\IgnitionServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Flare' => 'Facade\\Ignition\\Facades\\Flare',
-    ),
-  ),
   'fideloper/proxy' => 
   array (
     'providers' => 
@@ -182,23 +171,15 @@
       'Alert' => 'Prologue\\Alerts\\Facades\\Alert',
     ),
   ),
-  'sentry/sentry-laravel' => 
+  'spatie/laravel-ignition' => 
   array (
     'providers' => 
     array (
-      0 => 'Sentry\\Laravel\\ServiceProvider',
-      1 => 'Sentry\\Laravel\\Tracing\\ServiceProvider',
+      0 => 'Spatie\\LaravelIgnition\\IgnitionServiceProvider',
     ),
     'aliases' => 
     array (
-      'Sentry' => 'Sentry\\Laravel\\Facade',
-    ),
-  ),
-  'spatie/laravel-feed' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Spatie\\Feed\\FeedServiceProvider',
+      'Flare' => 'Spatie\\LaravelIgnition\\Facades\\Flare',
     ),
   ),
   'spatie/laravel-permission' => 

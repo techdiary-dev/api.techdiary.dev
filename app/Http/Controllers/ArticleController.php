@@ -2,21 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Article\ArticleReactionRequest;
 use App\Http\Requests\Article\CreateArticleRequest;
 use App\Http\Requests\Article\UpdateArticleRequest;
-use App\Http\Requests\VoteRequest;
 use App\Http\Resources\Article\ArticleCollection;
 use App\Http\Resources\Article\ArticleDetails;
-use App\Http\Resources\Article\ArticleList;
 use App\Http\Resources\Article\AuthArticleList;
 use App\Models\Article;
 use App\Scoping\Scopes\ArticlesByTagName;
 use App\Scoping\Scopes\UserScope;
 use App\TechDiary\Markdown\TDMarkdown;
-use App\TechDiary\Reaction\Resources\ReactionCollection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
