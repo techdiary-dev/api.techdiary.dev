@@ -48,7 +48,8 @@ class ArticleDetails extends JsonResource
             'tags' => TagResource::collection($this->tags),
             'user' => new UserListResource($this->user),
             'seo' => $this->getMetaJSON('seo'),
-            'settings' => $this->getMetaJSON('settings')
+            'settings' => $this->getMetaJSON('settings'),
+            'created_at' => $this->created_at
         ]);
     }
 }
