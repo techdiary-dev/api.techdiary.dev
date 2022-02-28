@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d520fc0f2b9dae478220f6bded88bde9",
+    "content-hash": "16e4ee86f9d1fa6ed50dfbceb4cb5a8a",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -135,6 +135,60 @@
                 "source": "https://github.com/asm89/stack-cors/tree/v2.1.1"
             },
             "time": "2022-01-18T09:12:03+00:00"
+        },
+        {
+            "name": "aviator/array-map-keys",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/danielsdeboer/array-map-keys.git",
+                "reference": "996fec29e047a2de5e92eeb565e043256155c9e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/danielsdeboer/array-map-keys/zipball/996fec29e047a2de5e92eeb565e043256155c9e5",
+                "reference": "996fec29e047a2de5e92eeb565e043256155c9e5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.1",
+                "phpunit/phpunit": "~6.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel S. Deboer",
+                    "email": "daniel.s.deboer@gmail.com",
+                    "homepage": "https://aviatorcreative.ca",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Array map with keys",
+            "homepage": "https://github.com/danielsdeboer/array-map-keys",
+            "keywords": [
+                "PHP7",
+                "arrays",
+                "functional",
+                "map",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/danielsdeboer/array-map-keys/issues",
+                "source": "https://github.com/danielsdeboer/array-map-keys/tree/0.1.0"
+            },
+            "time": "2017-11-25T16:05:06+00:00"
         },
         {
             "name": "backpack/crud",
@@ -7528,6 +7582,66 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.4"
             },
             "time": "2021-12-08T09:12:39+00:00"
+        },
+        {
+            "name": "ueberdosis/commonmark-embed-extension",
+            "version": "0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ueberdosis/commonmark-embed-extension.git",
+                "reference": "027af76755b41b0ecbfd68b8c260d7af45795aba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ueberdosis/commonmark-embed-extension/zipball/027af76755b41b0ecbfd68b8c260d7af45795aba",
+                "reference": "027af76755b41b0ecbfd68b8c260d7af45795aba",
+                "shasum": ""
+            },
+            "require": {
+                "aviator/array-map-keys": "^0.1.0",
+                "league/commonmark": "^2.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "phpunit/phpunit": "^9.5",
+                "vimeo/psalm": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ueberdosis\\CommonMark\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hans Pagel",
+                    "email": "hans.pagel@ueber.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An embed extension for league/commonmark",
+            "homepage": "https://github.com/ueberdosis/commonmark-embed-extension",
+            "keywords": [
+                "commonmark",
+                "commonmark-embed-extension",
+                "markdown"
+            ],
+            "support": {
+                "issues": "https://github.com/ueberdosis/commonmark-embed-extension/issues",
+                "source": "https://github.com/ueberdosis/commonmark-embed-extension/tree/0.2.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/ueberdosis/",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-10-20T09:31:34+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

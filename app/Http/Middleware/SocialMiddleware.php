@@ -21,11 +21,11 @@ class SocialMiddleware
 //            if (config('service') . $service) {
 //                return $service;
 //            }
-//        }, $services);
+//        }, $Services);
 
         $enabledServices = [];
         foreach ($services as $service) {
-            if (config('services') . $service) {
+            if (config('Services') . $service) {
                 $enabledServices[] = $service;
             }
         }

@@ -83,7 +83,7 @@ return [
 
                     /*
                      * Laravel config variables which should be set for the API call.
-                     * This is a good place to ensure that notifications, emails and other external services
+                     * This is a good place to ensure that notifications, emails and other external Services
                      * are not triggered during the documentation API calls.
                      * You can also create a `.env.docs` file and run the generate command with `--env docs`.
                      */

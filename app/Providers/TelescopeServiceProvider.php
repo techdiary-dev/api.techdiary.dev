@@ -10,7 +10,7 @@ use Laravel\Telescope\TelescopeApplicationServiceProvider;
 class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 {
     /**
-     * Register any application services.
+     * Register any application Services.
      *
      * @return void
      */
