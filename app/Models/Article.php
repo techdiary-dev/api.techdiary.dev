@@ -64,7 +64,7 @@ class Article extends Model implements ReactableInterface
 
     use Searchable;
 //    protected $guarded = ['isApproved'];
-    protected $guarded = [];
+    protected $guarded = ['user_id'];
     protected $casts = [
         'id' => 'string'
     ];
