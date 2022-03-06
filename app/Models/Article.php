@@ -105,7 +105,7 @@ class Article extends Model implements ReactableInterface
     public function setSlugAttribute($slug)
     {
         if ($slug) {
-            $this->attributes['slug'] = Str::slug($slug) . '-' . Str::random(6);
+//            $this->attributes['slug'] = Str::slug($slug) . '-' . Str::random(6);
         } else {
             $this->attributes['slug'] = $this->attributes['id'];
         }
