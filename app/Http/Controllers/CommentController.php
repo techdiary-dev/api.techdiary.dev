@@ -30,7 +30,7 @@ class CommentController extends Controller
 
     public function store(CommentStoreRequest $request)
     {
-        Comment::create([
+        $comment = Comment::create([
             'commentable_type' => $this->commendableModels[$request->model_name],
             'commentable_id' => $request->model_id,
             'body' => $request->body,
@@ -39,7 +39,11 @@ class CommentController extends Controller
         ]);
 
         return response()->json([
-           'message' => 'Comment created successfully'
+           'message' => 'Comment created successfully',
+           'data' => [
+               "id" => $comment->id,
+               "created_at" => $comment->created_at
+           ]
         ]);
     }
 
@@ -65,7 +69,7 @@ class CommentController extends Controller
         ]);
     }
 
-    public function destroy(Article $article, Comment $comment)
+    public function destroy(Comment $comment)
     {
         $this->authorize('delete', $comment);
         $comment->delete();

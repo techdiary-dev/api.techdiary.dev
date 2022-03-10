@@ -45,23 +45,23 @@ test('Failed bookmark a tag without auth', function () {
 });
 
 
-test('List of bookmarked articles', function () {
-    $this->actingAs(\App\Models\User::factory()->create());
-
-    $article1 = \App\Models\Article::create(['user_id' => \App\Models\User::factory()->create()->id]);
-    $article2 = \App\Models\Article::create(['user_id' => \App\Models\User::factory()->create()->id]);
-    $article3 = \App\Models\Article::create(['user_id' => \App\Models\User::factory()->create()->id]);
-
-    $article1->storeReaction('BOOKMARK', auth()->user());
-    $article2->storeReaction('BOOKMARK', auth()->user());
-    $article3->storeReaction('BOOKMARK', auth()->user());
-
-
-    $response = $this->get('api/bookmarks?model_name=ARTICLE');
-    $response->assertOk();
-
-    $response->assertJsonCount(3, 'data');
-});
+//test('List of bookmarked articles', function () {
+//    $this->actingAs(\App\Models\User::factory()->create());
+//
+//    $article1 = \App\Models\Article::create(['user_id' => \App\Models\User::factory()->create()->id]);
+//    $article2 = \App\Models\Article::create(['user_id' => \App\Models\User::factory()->create()->id]);
+//    $article3 = \App\Models\Article::create(['user_id' => \App\Models\User::factory()->create()->id]);
+//
+//    $article1->storeReaction(ReactionableModelTest'BOOKMARK', auth()->user());
+//    $article2->storeReaction('BOOKMARK', auth()->user());
+//    $article3->storeReaction('BOOKMARK', auth()->user());
+//
+//
+//    $response = $this->get('api/bookmarks?model_name=ARTICLE');
+//    $response->assertOk();
+//
+//    $response->assertJsonCount(3, 'data');
+//});
 
 
 test('List of bookmarked tags', function () {

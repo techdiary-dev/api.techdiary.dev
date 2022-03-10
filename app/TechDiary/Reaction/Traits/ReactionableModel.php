@@ -36,6 +36,12 @@ trait ReactionableModel
         ]);
     }
 
+    /**
+     * Toggle Reaction
+     * @param $type
+     * @param ReactorUserInterface $user
+     * @return bool
+     */
     public function toggleReaction($type, ReactorUserInterface $user)
     {
         $reaction = $this->reactions()->where([

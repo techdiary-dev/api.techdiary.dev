@@ -54,37 +54,37 @@ test('Reaction: model->reactorIds() to Article Model', function () {
 });
 
 
-test('Reaction: model->reactorIds() to Comment Model', function () {
-
-    $user1 = User::factory()->create();
-    $user2 = User::factory()->create();
-    $user3 = User::factory()->create();
-    $user4 = User::factory()->create();
-    $user5 = User::factory()->create();
-
-    $this->actingAs($user1);
-
-
-    $article = Article::create(['title' => 'article', 'user_id' => User::all()->random()->id]);
-    $comment = $article->comments()->create(['body' => 'comment', 'user_id' => User::all()->random()->id]);
-
-
-    $comment->storeReaction('BOOKMARK', $user1);
-    $comment->storeReaction('BOOKMARK', $user2);
-    $comment->storeReaction('BOOKMARK', $user3);
-    $comment->storeReaction('BOOKMARK', $user4);
-    $comment->storeReaction('BOOKMARK', $user5);
-
-    $reactorIds = $comment->reactorIds();
-
-    $this->assertTrue($reactorIds->contains($user1->id));
-    $this->assertTrue($reactorIds->contains($user2->id));
-    $this->assertTrue($reactorIds->contains($user3->id));
-    $this->assertTrue($reactorIds->contains($user4->id));
-    $this->assertTrue($reactorIds->contains($user5->id));
-
-    $this->assertCount(5, $reactorIds);
-});
+//test('Reaction: model->reactorIds() to Comment Model', function () {
+//
+//    $user1 = User::factory()->create();
+//    $user2 = User::factory()->create();
+//    $user3 = User::factory()->create();
+//    $user4 = User::factory()->create();
+//    $user5 = User::factory()->create();
+//
+//    $this->actingAs($user1);
+//
+//
+//    $article = Article::create(['title' => 'article', 'user_id' => User::all()->random()->id]);
+//    $comment = $article->comments()->create(['body' => 'comment', 'user_id' => User::all()->random()->id]);
+//
+//
+//    $comment->storeReaction('BOOKMARK', $user1);
+//    $comment->storeReaction('BOOKMARK', $user2);
+//    $comment->storeReaction('BOOKMARK', $user3);
+//    $comment->storeReaction('BOOKMARK', $user4);
+//    $comment->storeReaction('BOOKMARK', $user5);
+//
+//    $reactorIds = $comment->reactorIds();
+//
+//    $this->assertTrue($reactorIds->contains($user1->id));
+//    $this->assertTrue($reactorIds->contains($user2->id));
+//    $this->assertTrue($reactorIds->contains($user3->id));
+//    $this->assertTrue($reactorIds->contains($user4->id));
+//    $this->assertTrue($reactorIds->contains($user5->id));
+//
+//    $this->assertCount(5, $reactorIds);
+//});
 
 
 test('Reaction: model->reactionsBy() to Article Model', function () {

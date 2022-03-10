@@ -8,9 +8,9 @@ Route::group(["prefix" => "comments"], function () {
     Route::post("", [CommentController::class, "store"])
         ->middleware("auth:sanctum");
 
-    Route::put("{comment:uuid}", [CommentController::class, "update",])
+    Route::put("{comment}", [CommentController::class, "update"])
         ->middleware("auth:sanctum");
 
-    Route::delete("{comment:uuid}", [CommentController::class,"destroy"])
+    Route::delete("{comment}", [CommentController::class,"destroy"])
         ->middleware("auth:sanctum");
 });
