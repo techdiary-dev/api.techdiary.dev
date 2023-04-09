@@ -19,7 +19,7 @@ class Scoper
     public function apply(Builder $builder, array $scopes)
     {
         foreach ($this->limitScopes($scopes) as $key => $scope) {
-            if (!$scope instanceof Scope) {
+            if (! $scope instanceof Scope) {
                 continue;
             }
 

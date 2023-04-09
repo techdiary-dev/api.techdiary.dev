@@ -7,9 +7,7 @@ test('up vote on article', function () {
 
     $article->vote('UP_VOTE', auth()->user());
     $this->assertArrayHasKey('UP_VOTE', collect($article->reactionSummary())->toArray());
-
 });
-
 
 test('down vote on article', function () {
     $this->actingAs(\App\Models\User::factory()->create());
@@ -19,7 +17,6 @@ test('down vote on article', function () {
     $article->vote('DOWN_VOTE', auth()->user());
     $this->assertArrayHasKey('DOWN_VOTE', collect($article->reactionSummary())->toArray());
 });
-
 
 test('remove up_vote if already exists on article', function () {
     $this->actingAs(\App\Models\User::factory()->create());
@@ -31,7 +28,6 @@ test('remove up_vote if already exists on article', function () {
 
     $article->vote('UP_VOTE', auth()->user());
     $this->assertArrayNotHasKey('UP_VOTE', collect($article->reactionSummary())->toArray());
-
 });
 
 test('remove down_vote if already exists on article', function () {
@@ -52,10 +48,8 @@ test('count 2 up_votes for two different users on articles', function () {
 
     $article = $user1->articles()->create();
 
-
     $article->vote('UP_VOTE', $user1);
     $article->vote('UP_VOTE', $user2);
-
 
     $summery = collect($article->reactionSummary())->toArray();
 //

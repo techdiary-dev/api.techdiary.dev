@@ -1,15 +1,12 @@
 <?php
 
-
 namespace App\Http\Requests\Article;
-
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class ArticleReactionRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,8 +22,6 @@ class ArticleReactionRequest extends FormRequest
      *
      * @return array
      */
-
-
     public function rules()
     {
         $reaction = [
@@ -38,12 +33,11 @@ class ArticleReactionRequest extends FormRequest
             'MONEY',
             'PARTY',
             'TROPHY',
-            'CHEER'
+            'CHEER',
         ];
 
         return [
-            'reaction_type' => ['required', Rule::in($reaction)]
+            'reaction_type' => ['required', Rule::in($reaction)],
         ];
     }
-
 }

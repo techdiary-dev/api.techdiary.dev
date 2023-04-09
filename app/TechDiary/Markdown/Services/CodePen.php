@@ -10,13 +10,12 @@ class CodePen implements ServiceInterface
 {
     public const pattern = 'https?.*codepen.io\/(.*)\/pen\/(.*)';
 
-
     public function render(Embed $node): HtmlElement
     {
         return new HtmlElement(
             'iframe',
             [
-                'src' => 'https://codepen.io/'.$this->getUsername($node->getUrl()).'/embed/' . $this->getId($node->getUrl()),
+                'src' => 'https://codepen.io/'.$this->getUsername($node->getUrl()).'/embed/'.$this->getId($node->getUrl()),
                 'frameborder' => '0',
             ],
         );
@@ -24,14 +23,15 @@ class CodePen implements ServiceInterface
 
     protected function getId($url)
     {
-        preg_match('/' . self::pattern . '/', $url, $matches);
+        preg_match('/'.self::pattern.'/', $url, $matches);
 
         return $matches[2] ?? '';
     }
 
     public function getUsername($url)
     {
-        preg_match('/' . self::pattern . '/', $url, $matches);
+        preg_match('/'.self::pattern.'/', $url, $matches);
+
         return $matches[1] ?? '';
     }
 }

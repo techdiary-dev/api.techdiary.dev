@@ -1,12 +1,9 @@
 <?php
 
-
 namespace App\TechDiary\Reaction\Contracts;
-
 
 interface ReactableInterface
 {
-
     /**
      * Collection of reactions.
      *

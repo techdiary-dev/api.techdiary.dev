@@ -9,13 +9,12 @@
 Route::group([
     'prefix' => config('backpack.base.route_prefix', 'admin'),
     'middleware' => array_merge(
-        (array)config('backpack.base.web_middleware', 'web'),
-        (array)config('backpack.base.middleware_key', 'admin')
+        (array) config('backpack.base.web_middleware', 'web'),
+        (array) config('backpack.base.middleware_key', 'admin')
     ),
     'namespace' => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
-
-    Route::get('dashboard', 'DashboardRootController@dashboard');
+Route::get('dashboard', 'DashboardRootController@dashboard');
     Route::get('/', 'DashboardRootController@redirect');
 
     Route::crud('tag', 'TagCrudController');
@@ -23,7 +22,6 @@ Route::group([
     Route::crud('user', 'UserCrudController');
     Route::crud('usersocial', 'UserSocialCrudController');
     Route::crud('admin', 'AdminCrudController');
-
 
     /**
      * Chart api endpoints

@@ -23,7 +23,7 @@ class EventServiceProvider extends ServiceProvider
         NewUserCreated::class => [
             AssignDummyProfileReadmeToNewUser::class,
             // send a welcome mail to new user
-        ]
+        ],
     ];
 
     /**

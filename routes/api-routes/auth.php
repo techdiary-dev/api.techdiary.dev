@@ -7,9 +7,9 @@ Route::group(['prefix' => 'auth'], function () {
         ->name('signedLogin')
         ->middleware('signed');
 
-    Route::post('login-spark', function (){
+    Route::post('login-spark', function () {
         return response()->json([
-            'message' => 'login-spark'
+            'message' => 'login-spark',
         ]);
     });
 });

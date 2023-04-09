@@ -1,6 +1,5 @@
 <?php
 
-
 // update
 // destroy
 
@@ -18,7 +17,6 @@ test('get all tags', function () {
     $response->assertSee('tag3');
 
     $response->assertJsonCount(3, 'data');
-
 });
 
 //test('get articles by tag', function () {
@@ -54,12 +52,12 @@ test('Failed storing without auth', function () {
     $response = $this->withHeaders(['Accept' => 'application/json'])
         ->post('/api/tags',
             [
-                'name' => 'tag_name'
+                'name' => 'tag_name',
             ]);
 
     $response->assertStatus(401)
         ->assertExactJson([
-            'message' => 'Unauthenticated.'
+            'message' => 'Unauthenticated.',
         ]);
 });
 
@@ -67,10 +65,8 @@ test('storing tag by authenticated user', function () {
     $user = \App\Models\User::factory()->create();
     $this->actingAs($user);
 
-
-
     $response = $this->post('/api/tags', [
-        'name' => 'tag1'
+        'name' => 'tag1',
     ]);
 
     $response->assertSee('tag1');

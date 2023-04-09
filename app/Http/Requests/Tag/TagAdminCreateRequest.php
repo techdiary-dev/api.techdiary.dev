@@ -27,7 +27,7 @@ class TagAdminCreateRequest extends FormRequest
             'name' => 'required|unique:tags|max:255',
             'icon' => 'string|url|nullable',
             'description' => 'string|nullable',
-            'color' => 'string|nullable'
+            'color' => 'string|nullable',
         ];
     }
 }

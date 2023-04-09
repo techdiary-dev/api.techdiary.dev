@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial query()
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial whereServiceUid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class UserSocial extends Model
@@ -34,7 +36,7 @@ class UserSocial extends Model
     protected $fillable = [
         'user_id',
         'service',
-        'service_uid'
+        'service_uid',
     ];
 
     public function user()

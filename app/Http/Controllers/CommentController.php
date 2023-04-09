@@ -9,12 +9,11 @@ use App\Models\Article;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Validation\Rule;
 
 class CommentController extends Controller
 {
     protected $commendableModels = [
-        'ARTICLE' => Article::class
+        'ARTICLE' => Article::class,
     ];
 
     public function index(CommentIndexRequest $request)
@@ -35,23 +34,24 @@ class CommentController extends Controller
             'commentable_id' => $request->model_id,
             'body' => $request->body,
             'user_id' => auth()->guard('sanctum')->id(),
-            'parent_id' => $request->parent_id
+            'parent_id' => $request->parent_id,
         ]);
 
         return response()->json([
-           'message' => 'Comment created successfully',
-           'data' => [
-               "id" => $comment->id,
-               "created_at" => $comment->created_at
-           ]
+            'message' => 'Comment created successfully',
+            'data' => [
+                'id' => $comment->id,
+                'created_at' => $comment->created_at,
+            ],
         ]);
     }
 
     /**
      * Update comment
-     * @param Comment $comment
-     * @param CommentStoreRequest $request
+     *
+     * @param  CommentStoreRequest  $request
      * @return \Illuminate\Http\JsonResponse
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Comment $comment, Request $request)
@@ -59,13 +59,13 @@ class CommentController extends Controller
         $this->authorize('update', $comment);
 
         $request->validate([
-           'body' => ['nullable']
+            'body' => ['nullable'],
         ]);
 
         $comment->update($request->only('body'));
 
         return response()->json([
-           "message" => "Comment updated"
+            'message' => 'Comment updated',
         ]);
     }
 
@@ -73,6 +73,7 @@ class CommentController extends Controller
     {
         $this->authorize('delete', $comment);
         $comment->delete();
+
         return response()->noContent();
     }
 }

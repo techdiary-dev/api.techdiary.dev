@@ -16,6 +16,7 @@ trait HasMetaData
 
     /**
      * Get meta value by using unique key
+     *
      * @param $key String meta key name
      */
     public function getMetaValue($key)
@@ -24,13 +25,16 @@ trait HasMetaData
             ->where('key', $key)
             ->first();
 
-        if(!$meta) return null;
+        if (! $meta) {
+            return null;
+        }
 
         return $meta->value;
     }
 
     /**
      * Get meta json data by using unique key
+     *
      * @param $key Unique meta key name
      */
     public function getMetaJSON($key)
@@ -39,41 +43,46 @@ trait HasMetaData
             ->where('key', $key)
             ->first();
 
-        if(!$meta) return null;
+        if (! $meta) {
+            return null;
+        }
 
         return json_decode($meta->json_payload);
     }
 
     /**
      * Set meta value with a key
-     * @param $key
+     *
      * @param $data
      * return void
      */
     public function setMetaValue($key, $data)
     {
-        if (!$data) return null;
+        if (! $data) {
+            return null;
+        }
 
         $this->meta()->updateOrCreate(
-            ["key" => $key],
-            ["value" => $data]
+            ['key' => $key],
+            ['value' => $data]
         );
     }
 
     /**
      * Set meta json payload with a key
-     * @param $key
+     *
      * @param $data
      * return void
      */
     public function setMetaJSON($key, $data)
     {
-        if (!$data) return null;
+        if (! $data) {
+            return null;
+        }
 
         $this->meta()->updateOrCreate(
-            ["key" => $key],
-            ["json_payload" => json_encode($data)]
+            ['key' => $key],
+            ['json_payload' => json_encode($data)]
         );
     }
-
 }

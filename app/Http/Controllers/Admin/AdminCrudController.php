@@ -6,7 +6,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
  * Class AdminCrudController
- * @package App\Http\Controllers\Admin
+ *
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
 class AdminCrudController extends \Backpack\PermissionManager\app\Http\Controllers\UserCrudController
@@ -28,7 +28,7 @@ class AdminCrudController extends \Backpack\PermissionManager\app\Http\Controlle
 
         CRUD::enableExportButtons();
         CRUD::setModel(\App\Models\Admin::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/admin');
+        CRUD::setRoute(config('backpack.base.route_prefix').'/admin');
         CRUD::setEntityNameStrings('admin', 'admins');
     }
 
@@ -42,9 +42,9 @@ class AdminCrudController extends \Backpack\PermissionManager\app\Http\Controlle
         $this->crud->setRequest($this->crud->validateRequest());
         $this->crud->setRequest($this->handlePasswordInput($this->crud->getRequest()));
         $this->crud->unsetValidation(); // validation has already been run
+
         return $this->traitUpdate();
     }
-
 
     /**
      * Store a newly created resource in the database.
@@ -59,5 +59,4 @@ class AdminCrudController extends \Backpack\PermissionManager\app\Http\Controlle
 
         return $this->traitStore();
     }
-
 }

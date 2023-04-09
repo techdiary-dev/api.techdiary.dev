@@ -24,12 +24,12 @@ class GenerateTokenRequest extends FormRequest
     public function rules()
     {
         return [
-            "oauth_uid" => ['required'],
-            "oauth_provider" => ['required', 'in:github,google'],
-            "email" => ['required'],
-            "name" => ['required'],
-            "image" => ['nullable'],
-            'secret' => ['required']
+            'oauth_uid' => ['required'],
+            'oauth_provider' => ['required', 'in:github,google'],
+            'email' => ['required'],
+            'name' => ['required'],
+            'image' => ['nullable'],
+            'secret' => ['required'],
         ];
     }
 }

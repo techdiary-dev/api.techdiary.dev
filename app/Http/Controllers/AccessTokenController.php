@@ -11,23 +11,23 @@ use Illuminate\Support\Str;
 
 class AccessTokenController extends Controller
 {
-
     public function createTokenUsingSecret(GenerateTokenRequest $request)
     {
         $social_user = UserSocial::where([
-            ["service", $request->oauth_provider],
-            ["service_uid", $request->oauth_uid],
+            ['service', $request->oauth_provider],
+            ['service_uid', $request->oauth_uid],
         ])->first();
 
         if ($social_user) {
-            $token = $social_user->user->createToken('access_token_' . $request->oauth_uid);
+            $token = $social_user->user->createToken('access_token_'.$request->oauth_uid);
+
             return response()->json([
-                'access_token' => $token->plainTextToken
+                'access_token' => $token->plainTextToken,
             ]);
         }
 
         $username = strtolower(
-            explode("@", $request->email)[0] .
+            explode('@', $request->email)[0].
                 Str::random(4)
         );
 
@@ -40,48 +40,49 @@ class AccessTokenController extends Controller
         $user->save();
 
         $user->socialProviders()->create([
-            "service" => $request->oauth_provider,
-            "service_uid" => $request->oauth_uid,
+            'service' => $request->oauth_provider,
+            'service_uid' => $request->oauth_uid,
         ]);
 
-        $token = $user->createToken('access_token_' . $request->oauth_uid);
+        $token = $user->createToken('access_token_'.$request->oauth_uid);
 
         return response()->json([
-            'access_token' => $token->plainTextToken
+            'access_token' => $token->plainTextToken,
         ]);
     }
 
     /**
      * Create personal access token
-     * @param Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function createToken(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'min:5']
+            'name' => ['required', 'min:5'],
         ]);
 
         $token = auth()->user()->createToken($request->name);
 
         return response()->json([
             'message' => 'Access token generated',
-            'token' => $token->plainTextToken
+            'token' => $token->plainTextToken,
         ]);
     }
-
 
     public function deleteToken($tokenId)
     {
         $token = auth()->user()->tokens()->where('id', $tokenId)->firstOrFail();
         $token->delete();
+
         return response()->json([
-            'message' => 'deleted'
+            'message' => 'deleted',
         ]);
     }
 
     /**
      * Current user's token list
+     *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function tokenList()
@@ -95,8 +96,9 @@ class AccessTokenController extends Controller
     public function deleteCurrentToken()
     {
         auth()->user()->currentAccessToken()->delete();
+
         return response()->json([
-            'message' => 'Your current access token removed'
+            'message' => 'Your current access token removed',
         ]);
     }
 }

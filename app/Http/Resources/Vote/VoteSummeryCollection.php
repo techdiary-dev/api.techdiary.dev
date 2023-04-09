@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Vote;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class VoteSummeryCollection extends ResourceCollection
@@ -21,7 +20,7 @@ class VoteSummeryCollection extends ResourceCollection
         return [
             'up_voters' => $upvotes,
             'down_voters' => $downvotes,
-            'score' => $upvotes->count() - $downvotes->count()
+            'score' => $upvotes->count() - $downvotes->count(),
         ];
     }
 }

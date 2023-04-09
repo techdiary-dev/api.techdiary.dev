@@ -14,6 +14,7 @@ class AppPagination
         $currentpage = $page;
         $offset = ($currentpage * $perPage) - $perPage;
         $itemstoshow = array_slice($items, $offset, $perPage);
+
         return new LengthAwarePaginator($itemstoshow, $total, $perPage);
     }
 }

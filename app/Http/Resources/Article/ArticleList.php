@@ -10,11 +10,10 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ArticleList extends JsonResource
 {
-
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     // $this->reactionSummary()
@@ -24,7 +23,7 @@ class ArticleList extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'url' => env('CLIENT_BASE_URL') . '/' . $this->user->username . '/' . $this->slug,
+            'url' => env('CLIENT_BASE_URL').'/'.$this->user->username.'/'.$this->slug,
             'votes' => new VoteSummeryCollection($this->reactions),
             'bookmarked_users' => new BookmarkCollection($this->reactions),
             'comments_count' => $this->comments_count,
@@ -33,8 +32,7 @@ class ArticleList extends JsonResource
             'excerpt' => $this->excerpt,
             'isPublished' => $this->isPublished,
             'user' => new UserListResource($this->user),
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at,
         ];
     }
-
 }

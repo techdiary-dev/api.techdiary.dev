@@ -13,7 +13,7 @@ class Meta extends Model
 
     protected $casts = [
         'id' => 'string',
-        'value' => 'array'
+        'value' => 'array',
     ];
 
     public function metable()

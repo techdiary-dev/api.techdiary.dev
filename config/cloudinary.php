@@ -21,7 +21,6 @@ return [
     */
     'notification_url' => env('CLOUDINARY_NOTIFICATION_URL'),
 
-
     /*
     |--------------------------------------------------------------------------
     | Cloudinary Configuration
