@@ -28,6 +28,7 @@ class GenerateTokenRequest extends FormRequest
             "oauth_provider" => ['required', 'in:github,google'],
             "email" => ['required'],
             "name" => ['required'],
+            "image" => ['nullable'],
             'secret' => ['required']
         ];
     }

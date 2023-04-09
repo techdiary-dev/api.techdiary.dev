@@ -28,19 +28,20 @@ class AccessTokenController extends Controller
 
         $username = strtolower(
             explode("@", $request->email)[0] .
-            Str::random(4)
+                Str::random(4)
         );
 
         $user = new User([
             'name' => $request->name,
             'username' => $username,
-            'email' => $request->email
+            'email' => $request->email,
+            'profilePhoto' => $request->image,
         ]);
         $user->save();
 
         $user->socialProviders()->create([
             "service" => $request->oauth_provider,
-            "service_uid" =>$request->oauth_uid,
+            "service_uid" => $request->oauth_uid,
         ]);
 
         $token = $user->createToken('access_token_' . $request->oauth_uid);
