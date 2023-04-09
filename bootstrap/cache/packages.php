@@ -61,6 +61,17 @@
       'Gravatar' => 'Creativeorange\\Gravatar\\Facades\\Gravatar',
     ),
   ),
+  'digitallyhappy/assets' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'DigitallyHappy\\Assets\\AssetsServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Assets' => 'DigitallyHappy\\Assets\\Facades\\Assets',
+    ),
+  ),
   'fideloper/proxy' => 
   array (
     'providers' => 
@@ -84,13 +95,6 @@
     'aliases' => 
     array (
       'Agent' => 'Jenssegers\\Agent\\Facades\\Agent',
-    ),
-  ),
-  'knuckleswtf/scribe' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Knuckles\\Scribe\\ScribeServiceProvider',
     ),
   ),
   'laracasts/generators' => 
@@ -151,6 +155,13 @@
     'providers' => 
     array (
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    ),
+  ),
+  'nunomaduro/termwind' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Termwind\\Laravel\\TermwindServiceProvider',
     ),
   ),
   'pestphp/pest' => 

@@ -3,6 +3,8 @@
 use App\Http\Controllers\AccessTokenController;
 
 Route::group(['prefix' => 'tokens'], function (){
+    Route::post('token-by-secret', [AccessTokenController::class, 'createTokenUsingSecret']);
+
     Route::get('', [AccessTokenController::class, 'tokenList'])
         ->middleware("auth:sanctum");
 
@@ -14,6 +16,4 @@ Route::group(['prefix' => 'tokens'], function (){
 
     Route::delete('{token}', [AccessTokenController::class, 'deleteToken'])
         ->middleware("auth:sanctum");
-
-
 });
