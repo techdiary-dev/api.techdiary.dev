@@ -2,4 +2,4 @@
 
 use App\Http\Controllers\TagController;
 
-Route::apiResource("tags", TagController::class);
+Route::apiResource('tags', TagController::class);

@@ -38,6 +38,7 @@ use Laravel\Scout\Searchable;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tag[] $tags
  * @property-read int|null $tags_count
  * @property-read \App\Models\User $user
+ *
  * @method static \Database\Factories\ArticleFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Article newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Article newQuery()
@@ -55,20 +56,24 @@ use Laravel\Scout\Searchable;
  * @method static \Illuminate\Database\Eloquent\Builder|Article whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Article whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Article withScopes($scopes = [])
+ *
  * @mixin \Eloquent
  */
 class Article extends Model implements ReactableInterface
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory, CanBeScoped, ReactionableModel, HasComments, NestableComments, HasMetaData, VotableModel;
-
     use Searchable;
+
 //    protected $guarded = ['isApproved'];
     protected $guarded = ['user_id'];
+
     protected $casts = [
-        'id' => 'string'
+        'id' => 'string',
     ];
+
     protected $primaryKey = 'id';
+
     protected $keyType = 'string';
 
     public function tags()
@@ -80,7 +85,6 @@ class Article extends Model implements ReactableInterface
     {
         return $this->belongsTo(User::class);
     }
-
 
     public static function boot()
     {
@@ -95,6 +99,7 @@ class Article extends Model implements ReactableInterface
 
     /**
      * Define article payload for algolia search
+     *
      * @return array
      */
     public function toSearchableArray()
@@ -105,7 +110,7 @@ class Article extends Model implements ReactableInterface
     public function setSlugAttribute($slug)
     {
         if ($slug) {
-            $this->attributes['slug'] = Str::slug($slug) . '-' . Str::random(6);
+            $this->attributes['slug'] = Str::slug($slug).'-'.Str::random(6);
         } else {
             $this->attributes['slug'] = $this->attributes['id'];
         }
@@ -113,6 +118,7 @@ class Article extends Model implements ReactableInterface
 
     /**
      * Defined what object should be searchable
+     *
      * @return mixed
      */
     public function shouldBeSearchable()
@@ -122,17 +128,18 @@ class Article extends Model implements ReactableInterface
 
     public function openGoogle($crud = false)
     {
-        return "<a href=" . env('CLIENT_BASE_URL') . "/" . $this->user->username . "/" . $this->slug . ">Read</a>";
+        return '<a href='.env('CLIENT_BASE_URL').'/'.$this->user->username.'/'.$this->slug.'>Read</a>';
     }
 
     public function getBodyHtmlAttribute()
     {
         $md = new TDMarkdown($this->body);
+
         return $md->toHTML();
     }
 
     public function getUrlAttribute()
     {
-        return env('CLIENT_BASE_URL') . "/" . $this->user->username . "/" . $this->slug;
+        return env('CLIENT_BASE_URL').'/'.$this->user->username.'/'.$this->slug;
     }
 }

@@ -32,7 +32,7 @@ class BookmarkRequest extends FormRequest
 
         return [
             'model_name' => ['required', Rule::in($models)],
-            'model_id' => ['required']
+            'model_id' => ['required'],
         ];
     }
 }

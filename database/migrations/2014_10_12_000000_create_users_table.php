@@ -30,7 +30,6 @@ class CreateUsersTable extends Migration
             $table->string('location')->nullable();
             $table->json('social_links')->nullable();
 
-
             $table->text('profile_readme')->nullable();
             $table->string('skills')->nullable();
             $table->string('password')->nullable();

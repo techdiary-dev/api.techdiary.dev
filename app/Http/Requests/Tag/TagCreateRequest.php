@@ -25,7 +25,7 @@ class TagCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', Rule::unique('tags')]
+            'name' => ['required', Rule::unique('tags')],
         ];
     }
 }

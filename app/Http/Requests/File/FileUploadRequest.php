@@ -25,7 +25,7 @@ class FileUploadRequest extends FormRequest
     {
         return [
             'file' => ['required', 'max:5120', 'mimes:jpeg,jpg,png,gif'],
-            'preset' => ['required']
+            'preset' => ['required'],
         ];
     }
 }

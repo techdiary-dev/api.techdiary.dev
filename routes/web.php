@@ -3,13 +3,6 @@
 use App\Http\Controllers\RSSFeedController;
 use Illuminate\Support\Facades\Route;
 
-use League\CommonMark\CommonMarkConverter;
-use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
-use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkRenderer;
-use League\CommonMark\Extension\Table\TableExtension;
-use Torchlight\Commonmark\V2\TorchlightExtension;
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,6 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'rss'], function (){
+Route::group(['prefix' => 'rss'], function () {
     Route::get('articles', [RSSFeedController::class, 'articles']);
 });

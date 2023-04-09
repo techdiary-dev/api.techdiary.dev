@@ -26,13 +26,13 @@ class VoteRequest extends FormRequest
     {
         $models = [
             'ARTICLE',
-            'COMMENT'
+            'COMMENT',
         ];
 
         return [
             'model_name' => ['required', Rule::in($models)],
             'model_id' => ['required'],
-            'vote' => ['required', Rule::in(['UP_VOTE', 'DOWN_VOTE'])]
+            'vote' => ['required', Rule::in(['UP_VOTE', 'DOWN_VOTE'])],
         ];
     }
 }

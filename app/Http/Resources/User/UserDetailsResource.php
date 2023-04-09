@@ -29,7 +29,7 @@ class UserDetailsResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
@@ -37,7 +37,7 @@ class UserDetailsResource extends JsonResource
         $md = new TDMarkdown($this->profile_readme);
 
         return array_merge(parent::toArray($request), [
-            'profile_readme_html' => $md->toHTML()
+            'profile_readme_html' => $md->toHTML(),
         ]);
     }
 }

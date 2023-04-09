@@ -40,9 +40,8 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * @param $request
-     * @param Throwable $e
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response|void
+     *
      * @throws Throwable
      */
     public function render($request, Throwable $e)
@@ -50,6 +49,7 @@ class Handler extends ExceptionHandler
         if ($e instanceof ModelNotFoundException) {
             abort(404, 'আপনি যা খুঁজছেন তা দুঃখজনক কারনে পাওয়া যায়নি');
         }
+
         return parent::render($request, $e);
     }
 

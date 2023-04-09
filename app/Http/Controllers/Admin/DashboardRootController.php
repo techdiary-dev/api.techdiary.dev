@@ -35,14 +35,13 @@ class DashboardRootController extends Controller
         Widget::add()->to('before_content')->type('div')->class('row')->content([
             $this->counterCardWidget('TOTAL ARTICLES', Article::count()),
             $this->counterCardWidget('PENDING ARTICLES', Article::where('isApproved', false)->count(), 'warning text-dark'),
-            $this->counterCardWidget('TOTAL USERS', User::count(), 'info')
+            $this->counterCardWidget('TOTAL USERS', User::count(), 'info'),
         ]);
 
         // Second Row
         Widget::add()->to('before_content')->type('div')->class('row')->content([
-            $this->currentMonthStatesChart()
+            $this->currentMonthStatesChart(),
         ]);
-
 
         return view(backpack_view('dashboard'), $this->data);
     }
@@ -67,12 +66,11 @@ class DashboardRootController extends Controller
         ];
     }
 
-
     /**
      * Counter card widget
-     * @param $title
-     * @param int $count
-     * @param string $theme
+     *
+     * @param  int  $count
+     * @param  string  $theme
      * @return mixed
      */
     protected function counterCardWidget($title, $count = 0, $theme = 'primary')
@@ -92,8 +90,8 @@ class DashboardRootController extends Controller
             'controller' => \App\Http\Controllers\Admin\Charts\LatestArticlesChartController::class,
             'wrapperClass' => 'col-md-12',
             'content' => [
-                'header' => 'Current month states'
-            ]
+                'header' => 'Current month states',
+            ],
         ];
     }
 }

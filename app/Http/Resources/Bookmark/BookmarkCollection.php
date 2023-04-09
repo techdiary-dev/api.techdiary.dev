@@ -15,6 +15,7 @@ class BookmarkCollection extends ResourceCollection
     public function toArray($request)
     {
         $bookmarks = $this->collection->where('type', 'BOOKMARK')->pluck('user_id');
+
         return $bookmarks;
     }
 }

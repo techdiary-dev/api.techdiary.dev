@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\TechDiary\Reaction\Model\Reaction;
 use App\TechDiary\Reaction\Traits\ReactionableModel;
 use App\TechDiary\VotableModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|Comment[] $replies
  * @property-read int|null $replies_count
  * @property-read \App\Models\User $user
+ *
  * @method static \Database\Factories\CommentFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Comment newQuery()
@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereParentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Comment extends Model
@@ -43,9 +44,11 @@ class Comment extends Model
     use HasFactory, ReactionableModel, VotableModel;
 
     protected $casts = [
-        'id' => 'string'
+        'id' => 'string',
     ];
+
     protected $primaryKey = 'id';
+
     protected $keyType = 'string';
 
     protected $guarded = [];

@@ -25,8 +25,9 @@ class CommentIndexRequest extends FormRequest
     public function rules()
     {
         $models = [
-            'ARTICLE'
+            'ARTICLE',
         ];
+
         return [
             'model_name' => ['required', Rule::in($models)],
             'model_id' => ['required'],

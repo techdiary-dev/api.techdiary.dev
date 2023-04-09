@@ -1,7 +1,7 @@
 <?php
+
 use App\Models\Article;
 use App\Models\User;
-
 
 test('Reaction: model->storeReaction()', function () {
     $this->actingAs(User::factory()->create());
@@ -10,7 +10,6 @@ test('Reaction: model->storeReaction()', function () {
 
     // have reactions relations
     $this->assertCount(0, $article->reactions);
-
 
     $type = 'TEST_REACTION';
 
@@ -22,7 +21,6 @@ test('Reaction: model->storeReaction()', function () {
  * Check list of user ids who are reacted to a model
  */
 test('Reaction: model->reactorIds() to Article Model', function () {
-
     $user1 = User::factory()->create();
     $user2 = User::factory()->create();
     $user3 = User::factory()->create();
@@ -31,9 +29,7 @@ test('Reaction: model->reactorIds() to Article Model', function () {
 
     $this->actingAs($user1);
 
-
     $article = auth()->user()->articles()->create(['title' => 'article']);
-
 
     $article->storeReaction('SAVED', $user1);
     $article->storeReaction('SAVED', $user2);
@@ -43,7 +39,6 @@ test('Reaction: model->reactorIds() to Article Model', function () {
 
     $reactorIds = $article->reactorIds();
 
-
     $this->assertTrue($reactorIds->contains($user1->id));
     $this->assertTrue($reactorIds->contains($user2->id));
     $this->assertTrue($reactorIds->contains($user3->id));
@@ -52,7 +47,6 @@ test('Reaction: model->reactorIds() to Article Model', function () {
 
     $this->assertCount(5, $reactorIds);
 });
-
 
 //test('Reaction: model->reactorIds() to Comment Model', function () {
 //
@@ -86,7 +80,6 @@ test('Reaction: model->reactorIds() to Article Model', function () {
 //    $this->assertCount(5, $reactorIds);
 //});
 
-
 test('Reaction: model->reactionsBy() to Article Model', function () {
     $user1 = User::factory()->create();
     $user2 = User::factory()->create();
@@ -103,7 +96,6 @@ test('Reaction: model->reactionsBy() to Article Model', function () {
     $this->assertCount(3, $article->reactionsBy());
 });
 
-
 test('Reaction: model->reactionSummary() to Article Model', function () {
     $user1 = User::factory()->create();
     $user2 = User::factory()->create();
@@ -116,13 +108,10 @@ test('Reaction: model->reactionSummary() to Article Model', function () {
     $article->storeReaction('SAVED', $user2);
     $article->storeReaction('HEART', $user3);
 
-
     $this->assertArrayHasKey('BOOKMARK', collect($article->reactionSummary())->toArray());
     $this->assertArrayHasKey('SAVED', collect($article->reactionSummary())->toArray());
     $this->assertArrayHasKey('HEART', collect($article->reactionSummary())->toArray());
-
 });
-
 
 test('Reaction: model->isReactBy() to Tag Model', function () {
     $user1 = User::factory()->create();
@@ -158,7 +147,6 @@ test('Reaction: model->removeReaction() to Tag Model', function () {
     $this->assertFalse($tag->removeReaction('BOOKMARK', auth()->user()));
     $this->assertFalse($tag->removeReaction('NOTHING', auth()->user()));
 });
-
 
 test('Reaction: model->toggleReaction() to Tag Model', function () {
     $this->actingAs(User::factory()->create());

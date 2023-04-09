@@ -32,11 +32,11 @@ class CreateArticleRequest extends FormRequest
             'body' => ['required'],
             'tags' => ['array'],
 
-            "seo.og_image" => ['nullable', 'url'],
-            "seo.seo_title" => ['nullable', 'string', 'max:255'],
-            "seo.seo_description" => ['nullable', 'string', 'max:255'],
-            "seo.canonical_url" => ['nullable', 'url', 'max:255'],
-            "settings.disabled_comments" => ['nullable', 'boolean', 'max:255'],
+            'seo.og_image' => ['nullable', 'url'],
+            'seo.seo_title' => ['nullable', 'string', 'max:255'],
+            'seo.seo_description' => ['nullable', 'string', 'max:255'],
+            'seo.canonical_url' => ['nullable', 'url', 'max:255'],
+            'settings.disabled_comments' => ['nullable', 'boolean', 'max:255'],
         ];
     }
 
