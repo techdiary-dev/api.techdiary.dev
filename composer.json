@@ -1,5 +1,5 @@
 {
-    "name": "techdiary-api",
+    "name": "techdiary/api",
     "type": "project",
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
