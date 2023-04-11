@@ -2,43 +2,23 @@
 
 namespace App\Providers;
 
-use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application Services.
-     *
-     * @return void
+     * Register any application services.
      */
-    public function register()
+    public function register(): void
     {
-        /**
-         * Enable Laravel Telescope only for dev environment
-         */
-        if ($this->app->environment('local')) {
-            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
-            $this->app->register(TelescopeServiceProvider::class);
-        }
+        //
     }
 
     /**
-     * Bootstrap any application Services.
-     *
-     * @return void
+     * Bootstrap any application services.
      */
-    public function boot(UrlGenerator $url)
+    public function boot(): void
     {
-        $this->app->bind(
-            \Backpack\PermissionManager\app\Http\Controllers\UserCrudController::class, //this is package controller
-            \App\Http\Controllers\Admin\AdminCrudController::class //this should be your own controller
-        );
-        /**
-         * Enable https
-         */
-        if (env('ENABLE_HTTPS', false) || $this->app->environment('production')) {
-            $url->forceScheme('https');
-        }
+        //
     }
 }

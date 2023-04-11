@@ -71,7 +71,6 @@ use Laravel\Sanctum\HasApiTokens;
  */
 class User extends Authenticatable implements ReactorUserInterface
 {
-    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory, Notifiable, HasApiTokens;
 
     protected $keyType = 'string';

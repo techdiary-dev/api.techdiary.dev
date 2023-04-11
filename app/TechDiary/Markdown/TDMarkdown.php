@@ -60,7 +60,6 @@ class TDMarkdown
                 new CodePen(),
                 new YouTube(),
                 new Vimeo(),
-                //                TODO: codesandbox, soundcloud
             ],
         ];
         $converter = new CommonMarkConverter($config);

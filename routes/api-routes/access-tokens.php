@@ -4,6 +4,7 @@ use App\Http\Controllers\AccessTokenController;
 
 Route::group(['prefix' => 'tokens'], function () {
     Route::post('token-by-secret', [AccessTokenController::class, 'createTokenUsingSecret']);
+    Route::post('token-by-credential', [AccessTokenController::class, 'createTokenUsingCredential']);
 
     Route::get('', [AccessTokenController::class, 'tokenList'])
         ->middleware('auth:sanctum');
