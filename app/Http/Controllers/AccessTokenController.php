@@ -6,6 +6,7 @@ use App\Http\Requests\Token\GenerateTokenRequest;
 use App\Http\Resources\TokenResource;
 use App\Models\User;
 use App\Models\UserSocial;
+use App\TechDiary\TechdiaryToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -19,10 +20,10 @@ class AccessTokenController extends Controller
         ])->first();
 
         if ($social_user) {
-            $token = $social_user->user->createToken('access_token_'.$request->oauth_uid);
+            $token = TechdiaryToken::createTokenWithClientInformation($social_user->user);
 
             return response()->json([
-                'access_token' => $token->plainTextToken,
+                'access_token' => $token,
             ]);
         }
 
@@ -44,10 +45,10 @@ class AccessTokenController extends Controller
             'service_uid' => $request->oauth_uid,
         ]);
 
-        $token = $user->createToken('access_token_'.$request->oauth_uid);
+        $token = TechdiaryToken::createTokenWithClientInformation($user);
 
         return response()->json([
-            'access_token' => $token->plainTextToken,
+            'access_token' => $token,
         ]);
     }
 
@@ -88,17 +89,5 @@ class AccessTokenController extends Controller
     public function tokenList()
     {
         return TokenResource::collection(auth()->user()->tokens);
-    }
-
-    /**
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function deleteCurrentToken()
-    {
-        auth()->user()->currentAccessToken()->delete();
-
-        return response()->json([
-            'message' => 'Your current access token removed',
-        ]);
     }
 }
