@@ -8,13 +8,11 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-
 class ArticleFactory extends Factory
 {
-
     protected $commentCount = 10;
-    protected $commentDeptLevel = 3;
 
+    protected $commentDeptLevel = 3;
 
     /**
      * The name of the factory's corresponding model.
@@ -280,22 +278,23 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
 
         return [
             'title' => $title,
-            'slug' => Str::slug($title) . '-' . Str::random(6),
+            'slug' => Str::slug($title).'-'.Str::random(6),
             'thumbnail' => $this->faker->imageUrl(700, 450),
             'body' => $body,
             'excerpt' => $this->faker->paragraph(2),
             'isPublished' => $this->faker->boolean,
             'isApproved' => true,
-            'user_id' => User::all()->random()->id
+            'user_id' => User::all()->random()->id,
         ];
     }
 
     /**
      * Generate comment
+     *
      * @param $comment
      * @param $article
-     * @param int $depth
-     * @param int $currentDepth
+     * @param  int  $depth
+     * @param  int  $currentDepth
      */
 //    public function configure()
 //    {

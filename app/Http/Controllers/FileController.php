@@ -19,41 +19,38 @@ class FileController extends Controller
         $public_id = cloudinary()->upload(
             $request->file('file')->getRealPath(),
             [
-                "upload_preset" => $request->get('preset')
+                'upload_preset' => $request->get('preset'),
             ]
         )->getPublicId();
 
-        $url = (string)$cld->image($public_id)
+        $url = (string) $cld->image($public_id)
             ->delivery(
                 Delivery::format(Format::auto())
             )->delivery(
                 Delivery::quality(Quality::auto())
             )->toUrl();
 
-
         return response()->json([
             'message' => 'File uploaded successfully',
-            'url' => explode("?", $url)[0]
+            'url' => explode('?', $url)[0],
         ]);
     }
 
     public function destroy(FileDeleteRequest $request)
     {
-
         $file_url = $request->file_url;
-        $split = explode("/", $file_url);
-        $public_id = implode("/", array_slice($split, -2));
+        $split = explode('/', $file_url);
+        $public_id = implode('/', array_slice($split, -2));
 
         $cld_admin = new AdminApi();
 
         $deleted = $cld_admin->deleteAssets([
-            $public_id
+            $public_id,
         ]);
-
 
         return response()->json([
             'message' => 'File deleted successfully',
-            "deleted" => $deleted
+            'deleted' => $deleted,
         ]);
     }
 }

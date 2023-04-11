@@ -13,8 +13,7 @@ class SeriesPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param \App\Models\User $user
-     * @param \App\Models\Article $article
+     * @param  \App\Models\Article  $article
      * @return mixed
      */
     public function update(User $user, Series $series)
@@ -25,8 +24,7 @@ class SeriesPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param \App\Models\User $user
-     * @param \App\Models\Article $article
+     * @param  \App\Models\Article  $article
      * @return mixed
      */
     public function delete(User $user, Series $series)

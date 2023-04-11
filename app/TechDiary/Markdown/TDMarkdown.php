@@ -15,29 +15,22 @@ use Ueberdosis\CommonMark\EmbedExtension;
 use Ueberdosis\CommonMark\Services\Vimeo;
 use Ueberdosis\CommonMark\Services\YouTube;
 
-
 class TDMarkdown
 {
-
     protected $markdown;
 
-    /**
-     * @param $markdown
-     */
     public function __construct($markdown)
     {
         $this->markdown = $markdown;
     }
 
-
     /**
      * Generate html of given markdown
+     *
      * @return string
      */
     public function toHTML()
     {
-
-
         $config = [
             'heading_permalink' => [
                 'html_class' => 'heading-permalink',
@@ -47,7 +40,7 @@ class TDMarkdown
                 'min_heading_level' => 1,
                 'max_heading_level' => 6,
                 'title' => 'Permalink',
-                'symbol' => '#'
+                'symbol' => '#',
             ],
             'external_link' => [
                 'internal_hosts' => env('CLIENT_BASE_URL'),
@@ -67,8 +60,8 @@ class TDMarkdown
                 new CodePen(),
                 new YouTube(),
                 new Vimeo(),
-//                TODO: codesandbox, soundcloud
-            ]
+                //                TODO: codesandbox, soundcloud
+            ],
         ];
         $converter = new CommonMarkConverter($config);
 
@@ -81,8 +74,6 @@ class TDMarkdown
         $converter->getEnvironment()->addExtension(new TableOfContentsExtension());
         $converter->getEnvironment()->addExtension(new EmbedExtension());
 
-
-        return (string)$converter->convert($this->markdown ?: "");
+        return (string) $converter->convert($this->markdown ?: '');
     }
-
 }

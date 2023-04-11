@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Comment;
 
-use App\Http\Resources\ReactionCollection;
 use App\Http\Resources\Vote\VoteSummeryCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,7 +21,7 @@ class CommentResource extends JsonResource
             'user' => $this->user,
             'created_at' => $this->created_at,
             'votes' => new VoteSummeryCollection($this->reactions),
-            'children' => CommentResource::collection($this->children)
+            'children' => CommentResource::collection($this->children),
         ];
     }
 }

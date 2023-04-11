@@ -15,18 +15,18 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
      * @return ArticleCollection
+     *
      * @throws \Exception
      */
     public function index()
     {
         $articles = Article::where([
             'isPublished' => true,
-//            'isApproved' => true
+            //            'isApproved' => true
         ])->with(['tags', 'user', 'reactions'])
             ->withCount('comments')->latest()->withScopes($this->scopes());
 
@@ -36,7 +36,7 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreateArticleRequest $request)
@@ -54,22 +54,20 @@ class ArticleController extends Controller
         }
 
         if ($request->seo) {
-            $article->setMetaJSON("seo", $request->only('seo.og_image', 'seo.seo_title', 'seo.seo_description', 'seo.disabled_comments')['seo']);
+            $article->setMetaJSON('seo', $request->only('seo.og_image', 'seo.seo_title', 'seo.seo_description', 'seo.disabled_comments')['seo']);
         }
 
-        if ($request->settings)
-        {
-            $article->setMetaValue("settings.disabled_comments", $request->get('settings.disabled_comments'));
+        if ($request->settings) {
+            $article->setMetaValue('settings.disabled_comments', $request->get('settings.disabled_comments'));
         }
 
         $article->save();
 
         return response()->json([
             'message' => 'Article saved successfully',
-            'data' => $article
+            'data' => $article,
         ]);
     }
-
 
     public function spark(Request $request)
     {
@@ -78,18 +76,17 @@ class ArticleController extends Controller
             ->articles()
             ->create();
 
-        $article->update(["slug" => $article->id]);
+        $article->update(['slug' => $article->id]);
 
         return response()->json([
-            "message" => "New diary generated",
-            "uuid" => $article->id
+            'message' => 'New diary generated',
+            'uuid' => $article->id,
         ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Article $article
      * @return ArticleDetails
      */
     public function show(Article $article)
@@ -100,14 +97,12 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Article $article
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
         $this->authorize('update', $article);
-
 
         $article->update($request->only('title', 'slug', 'thumbnail', 'body', 'isPublished'));
 
@@ -117,26 +112,27 @@ class ArticleController extends Controller
         }
 
         if ($request->seo) {
-            $article->setMetaJSON("seo", $request->only('seo.og_image', 'seo.seo_title', 'seo.seo_description', 'seo.canonical_url')['seo']);
+            $article->setMetaJSON('seo', $request->only('seo.og_image', 'seo.seo_title', 'seo.seo_description', 'seo.canonical_url')['seo']);
         }
 
         if ($request->settings) {
-            $article->setMetaJSON("settings", $request->only('settings.disabled_comments')['settings']);
+            $article->setMetaJSON('settings', $request->only('settings.disabled_comments')['settings']);
         }
 
         $article->save();
+
         return response()->json([
             'message' => 'Article saved successfully',
             'article' => $article,
-            'htmlBody' => new TDMarkdown($article->body || "")
+            'htmlBody' => new TDMarkdown($article->body || ''),
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Article $article
      * @return \Illuminate\Http\JsonResponse
+     *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Article $article)
@@ -146,7 +142,7 @@ class ArticleController extends Controller
         $article->delete();
 
         return response()->json([
-            'message' => 'Deleted successfully'
+            'message' => 'Deleted successfully',
         ]);
     }
 
@@ -162,14 +158,13 @@ class ArticleController extends Controller
             ->latest()
             ->paginate();
 
-
         return AuthArticleList::collection($articles)->additional([
             'meta' => [
-                "counts" => [
-                    "published" => $published_count,
-                    "draft" => $draft_count
-                ]
-            ]
+                'counts' => [
+                    'published' => $published_count,
+                    'draft' => $draft_count,
+                ],
+            ],
         ]);
     }
 

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\TechDiary\Reaction\Exceptions;
 
 class InvalidReactionUser extends \Exception

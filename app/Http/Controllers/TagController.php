@@ -13,6 +13,7 @@ class TagController extends Controller
     {
         $this->middleware('auth:sanctum')->only('store');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,15 +37,16 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(TagCreateRequest $request)
     {
         $data = Tag::create($request->all());
+
         return response()->json([
             'message' => 'Successfully new tag created',
-            'data' => new TagResource($data)
+            'data' => new TagResource($data),
         ]);
     }
 
@@ -52,5 +54,4 @@ class TagController extends Controller
     {
         return new TagDetails($tag);
     }
-
 }

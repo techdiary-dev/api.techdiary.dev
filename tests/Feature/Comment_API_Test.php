@@ -11,7 +11,7 @@ test('/api/comments: Comment on article', function () {
     $response = $this->post('/api/comments', [
         'model_name' => 'ARTICLE',
         'model_id' => $article->id,
-        'body' => 'This is a comment'
+        'body' => 'This is a comment',
     ]);
 
     $response->assertOk();

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\TechDiary\Reaction\Traits;
 
 use App\Models\User;
@@ -24,36 +23,36 @@ trait ReactionableModel
 
     /**
      * Store reaction for model
-     * @param $type
-     * @param ReactorUserInterface $user
+     *
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function storeReaction($type, ReactorUserInterface $user)
     {
         return $this->reactions()->create([
             'type' => $type,
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
         ]);
     }
 
     /**
      * Toggle Reaction
-     * @param $type
-     * @param ReactorUserInterface $user
+     *
      * @return bool
      */
     public function toggleReaction($type, ReactorUserInterface $user)
     {
         $reaction = $this->reactions()->where([
             'user_id' => $user->getKey(),
-            'type' => $type
+            'type' => $type,
         ])->first();
 
-        if (!$reaction) {
+        if (! $reaction) {
             $this->storeReaction($type, $user);
+
             return true;
-        }else{
+        } else {
             $this->removeReaction($type, $user);
+
             return false;
         }
     }
@@ -66,9 +65,9 @@ trait ReactionableModel
     public function reactionsBy()
     {
         $userModel = $this->resolveUserModel();
+
         return $userModel::whereKey($this->reactorIds())->get();
     }
-
 
     /**
      * Reactors user ids
@@ -95,7 +94,7 @@ trait ReactionableModel
     /**
      * Check is reacted by user.
      *
-     * @param mixed $user
+     * @param  mixed  $user
      * @return bool
      */
     public function isReactBy(ReactorUserInterface $user, $type = null)
@@ -115,26 +114,25 @@ trait ReactionableModel
 
     /**
      * Remove reaction
-     * @param $reactionType
-     * @param null $user
+     *
+     * @param  null  $user
      * @return bool
      */
     public function removeReaction($reactionType, $user = null)
     {
         $reaction = $this->reactions()->where([
-            "user_id" => $user->getKey(),
-            "type" => $reactionType
+            'user_id' => $user->getKey(),
+            'type' => $reactionType,
         ])->first();
 
         if ($reaction) {
             $reaction->delete();
+
             return true;
         }
 
         return false;
-
     }
-
 
     /**
      * Retrieve User's model class name.
@@ -145,6 +143,4 @@ trait ReactionableModel
     {
         return config('auth.providers.users.model');
     }
-
 }
-

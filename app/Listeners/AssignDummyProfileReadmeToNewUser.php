@@ -4,7 +4,6 @@ namespace App\Listeners;
 
 use App\Events\NewUserCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class AssignDummyProfileReadmeToNewUser implements ShouldQueue
 {
@@ -21,13 +20,12 @@ class AssignDummyProfileReadmeToNewUser implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  NewUserCreated  $event
      * @return void
      */
     public function handle(NewUserCreated $event)
     {
         $event->user->update([
-            'profile_readme' => '# Hello, I am ' . $event->user->name
+            'profile_readme' => '# Hello, I am '.$event->user->name,
         ]);
     }
 }

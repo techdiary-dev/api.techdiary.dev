@@ -1,6 +1,7 @@
 <?php
 
 namespace App\TechDiary\Reaction\Model;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $reactBy
  * @property-read Model|\Eloquent $reactable
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Reaction newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Reaction newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Reaction query()
@@ -26,20 +28,22 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Reaction whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reaction whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reaction whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Reaction extends Model
 {
-
     use HasFactory;
+
     protected $fillable = ['type', 'user_id'];
 
     protected $casts = [
-        'id' => 'string'
+        'id' => 'string',
     ];
-    protected $primaryKey = 'id';
-    protected $keyType = 'string';
 
+    protected $primaryKey = 'id';
+
+    protected $keyType = 'string';
 
     /**
      * Reactable model relation.

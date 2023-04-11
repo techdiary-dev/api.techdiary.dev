@@ -73,7 +73,7 @@ return [
         /**
          * permission user table
          */
-        'users' => 'admins'
+        'users' => 'admins',
     ],
 
     'column_names' => [

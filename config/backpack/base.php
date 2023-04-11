@@ -212,7 +212,7 @@ return [
     */
 
     // Fully qualified namespace of the User model
-//    'user_model_fqn' => config('auth.providers.users.model'),
+    //    'user_model_fqn' => config('auth.providers.users.model'),
     // 'user_model_fqn' => App\User::class, // works on Laravel <= 7
     'user_model_fqn' => App\Models\Admin::class, // works on Laravel >= 8
 
@@ -236,7 +236,7 @@ return [
 
     // The guard that protects the Backpack admin panel.
     // If null, the config.auth.defaults.guard value will be used.
-//    'guard' => null,
+    //    'guard' => null,
     'guard' => 'backpack',
 
     // The password reset configuration for Backpack.

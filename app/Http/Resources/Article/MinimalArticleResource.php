@@ -15,10 +15,10 @@ class MinimalArticleResource extends JsonResource
     public function toArray($request)
     {
         return [
-          'id' => $this->id,
-          'title' => $this->title,
-          'slug' => $this->slug,
-          'user' => $this->user,
+            'id' => $this->id,
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'user' => $this->user,
         ];
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\TechDiary;
-
 
 use App\Models\User;
 use Jenssegers\Agent\Agent;
@@ -11,7 +9,7 @@ class Authentication
 {
     /**
      * Create token for a user
-     * @param $user
+     *
      * @return mixed
      */
     public static function createToken(User $user)
@@ -21,7 +19,7 @@ class Authentication
         return $user->createToken(json_encode([
             'browser' => $agent->browser(),
             'platform/OS' => $agent->platform(),
-            'device-type' => $agent->deviceType()
+            'device-type' => $agent->deviceType(),
         ]))->plainTextToken;
     }
 }

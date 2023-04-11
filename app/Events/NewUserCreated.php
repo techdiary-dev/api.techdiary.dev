@@ -15,8 +15,6 @@ class NewUserCreated
 
     /**
      * Create a new event instance.
-     *
-     * @param $user
      */
     public function __construct($user)
     {

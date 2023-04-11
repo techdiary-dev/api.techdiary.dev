@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\TechDiary\HasMetaData;
-use App\TechDiary\HasUUIDColumn;
 use App\TechDiary\Reaction\Traits\ReactionableModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $description
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Article[] $articles
  * @property-read int|null $articles_count
+ *
  * @method static \Database\Factories\TagFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Tag newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Tag newQuery()
@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Tag whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Tag whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Tag whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Tag extends Model
@@ -39,9 +40,11 @@ class Tag extends Model
     use HasFactory, ReactionableModel, HasMetaData;
 
     protected $casts = [
-        'id' => 'string'
+        'id' => 'string',
     ];
+
     protected $primaryKey = 'id';
+
     protected $keyType = 'string';
 
     protected $guarded = ['id'];
@@ -54,7 +57,6 @@ class Tag extends Model
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = strtolower($value);
-
     }
 
     public function articles()

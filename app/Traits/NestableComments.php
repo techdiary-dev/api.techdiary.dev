@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Traits;
+
 trait NestableComments
 {
     public function getIdsFromRoot($grouped, $page, $perPage)
     {
         $root = $grouped->get(null)?->forPage($page, $perPage);
+
         return $this->buildIdNest($root, $grouped);
     }
 
@@ -23,7 +25,6 @@ trait NestableComments
             $q->select('username', 'name', 'id', 'profilePhoto');
         }])->get()->groupBy('parent_id');
 
-
         $root = $grouped->get(null);
 
         return $this->buildNest($root, $grouped);
@@ -37,6 +38,7 @@ trait NestableComments
                 $this->buildIdNest($replies, $grouped, $ids);
             }
         }
+
         return $ids;
     }
 

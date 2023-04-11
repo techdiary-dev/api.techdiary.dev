@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Tag\TagAdminCreateRequest;
 use App\Http\Requests\Tag\TagAdminUpdateRequest;
-use App\Http\Requests\TagRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
  * Class TagCrudController
- * @package App\Http\Controllers\Admin
+ *
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
 class TagCrudController extends CrudController
@@ -29,7 +28,7 @@ class TagCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\Tag::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/tag');
+        CRUD::setRoute(config('backpack.base.route_prefix').'/tag');
         CRUD::setEntityNameStrings('tag', 'tags');
     }
 
@@ -37,6 +36,7 @@ class TagCrudController extends CrudController
      * Define what happens when the List operation is loaded.
      *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
+     *
      * @return void
      */
     protected function setupListOperation()
@@ -49,7 +49,7 @@ class TagCrudController extends CrudController
             'name' => 'articles', // name of relationship method in the model
             'type' => 'relationship_count',
             'label' => 'ArticleCount', // Table column heading
-            'orderable' => true
+            'orderable' => true,
         ]);
 
         /**
@@ -74,6 +74,7 @@ class TagCrudController extends CrudController
      * Define what happens when the Create operation is loaded.
      *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
+     *
      * @return void
      */
     protected function setupCreateOperation()
@@ -86,6 +87,7 @@ class TagCrudController extends CrudController
      * Define what happens when the Update operation is loaded.
      *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
+     *
      * @return void
      */
     protected function setupUpdateOperation()

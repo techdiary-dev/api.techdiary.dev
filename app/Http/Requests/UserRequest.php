@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
 use App\Rules\AllLowerCase;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -30,7 +29,7 @@ class UserRequest extends FormRequest
             'name' => ['required', 'min:3', 'max:50'],
             'username' => ['required', 'min:3', 'max:50', 'unique:users', new AllLowerCase()],
             'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'min:3', 'max:50', 'confirmed']
+            'password' => ['required', 'min:3', 'max:50', 'confirmed'],
         ];
     }
 
