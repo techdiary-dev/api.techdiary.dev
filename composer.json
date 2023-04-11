@@ -1,6 +1,7 @@
 {
     "name": "techdiary/api",
     "type": "project",
+    "version": "1.0.0",
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
