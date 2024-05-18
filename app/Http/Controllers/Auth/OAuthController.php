@@ -1,14 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use App\Events\NewUserCreated;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\GenerateTokenRequest;
+use App\Http\Requests\Auth\OAuthTokenGrantRequest;
 use App\Models\User;
 use App\Models\UserSocial;
+use App\TechDiary\TechdiaryToken;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\InvalidStateException;
+use Nette\NotImplementedException;
+use const Grpc\STATUS_NOT_FOUND;
 
 class OAuthController extends Controller
 {
@@ -85,5 +91,87 @@ class OAuthController extends Controller
         } catch (InvalidStateException $e) {
             return $this->redirect(env('CLIENT_URL').'?error=1');
         }
+    }
+
+
+    public function createTokenUsingSecret(GenerateTokenRequest $request)
+    {
+        $social_user = UserSocial::where([
+            ['service', $request->oauth_provider],
+            ['service_uid', $request->oauth_uid],
+        ])->first();
+
+        if ($social_user) {
+            $token = TechdiaryToken::createTokenWithClientInformation($social_user->user);
+
+            return response()->json([
+                'access_token' => $token,
+            ]);
+        }
+
+        $username = strtolower(
+            explode('@', $request->email)[0].
+            Str::random(4)
+        );
+
+        $user = new User([
+            'name' => $request->name,
+            'username' => $username,
+            'email' => $request->email,
+            'profilePhoto' => $request->image,
+        ]);
+        $user->save();
+
+        $user->socialProviders()->create([
+            'service' => $request->oauth_provider,
+            'service_uid' => $request->oauth_uid,
+        ]);
+
+        $token = TechdiaryToken::createTokenWithClientInformation($user);
+
+        return response()->json([
+            'access_token' => $token,
+        ]);
+    }
+
+    public function grantToken(OAuthTokenGrantRequest $request)
+    {
+        switch ($request->grant_type) {
+            case 'password':
+                if(!$request->email || !$request->password) {
+                    abort(403, 'Email and password are required for grant_type password');
+                }
+                return response()->json([
+                    'message' => "Successfully granted token using grand_type: $request->grant_type",
+                    'access_token' => $this->grantTokenUsingPassword($request->email, $request->password),
+                ]);
+            case 'refresh_token':
+                abort(NotImplementedException::class);
+            case 'authorization_code':
+                abort(NotImplementedException::class);
+                break;
+        }
+    }
+
+
+    public function grantTokenUsingPassword(string $email, string $password)
+    {
+        $user = User::whereEmail($email)->first();
+
+        if (!$user) {
+            abort(403);
+        }
+        auth()->attempt(['email' => $email, 'password' => $password]);
+
+        $attempt = auth()->attempt(['email' => $email, 'password' => $password]);
+        if(!$attempt){
+            abort(403);
+        }
+
+        return TechdiaryToken::createTokenWithClientInformation($user);
+    }
+
+    public function grantTokenUsingAuthorizationCode(string $authorizationCode){
+
     }
 }

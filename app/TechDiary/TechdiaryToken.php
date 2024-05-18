@@ -13,14 +13,21 @@ class TechdiaryToken
      * @param User $user
      * @return mixed
      */
-    public static function createTokenWithClientInformation(User $user): mixed
+    public static function createTokenWithClientInformation(User $user, string $tokenName = 'token'): mixed
     {
         $agent = new Agent();
-
-        return $user->createToken(json_encode([
+        $device_info = json_encode([
             'browser' => $agent->browser(),
             'platform/OS' => $agent->platform(),
             'device-type' => $agent->deviceType(),
-        ]))->plainTextToken;
+        ]);
+
+        $token = $user->createToken($tokenName);
+
+        $user->tokens()->where('id', $token->accessToken->id)->update([
+            'device_info' => $device_info,
+        ]);
+
+        return $token->plainTextToken;
     }
 }

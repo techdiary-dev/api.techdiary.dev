@@ -7,8 +7,6 @@ Route::get('/', function () {
 });
 
 include __DIR__.'/api-routes/auth.php';
-include __DIR__.'/api-routes/access-tokens.php';
-include __DIR__.'/api-routes/oauth.php';
 include __DIR__.'/api-routes/profile.php';
 include __DIR__.'/api-routes/articles.php';
 include __DIR__.'/api-routes/series.php';
