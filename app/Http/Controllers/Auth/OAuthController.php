@@ -169,8 +169,4 @@ class OAuthController extends Controller
 
         return TechdiaryToken::createTokenWithClientInformation($user);
     }
-
-    public function grantTokenUsingAuthorizationCode(string $authorizationCode){
-
-    }
 }

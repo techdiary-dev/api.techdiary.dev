@@ -14,8 +14,9 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('login-spark', function () {
         return response()->json([
             'message' => 'login-spark',
+            'user' => auth()->user()
         ]);
-    });
+    })->middleware('auth:sanctum');
 });
 
 Route::group(['prefix' => 'oauth'], function () {
