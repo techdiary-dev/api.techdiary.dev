@@ -14,7 +14,6 @@ use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\InvalidStateException;
 use Nette\NotImplementedException;
-use const Grpc\STATUS_NOT_FOUND;
 
 class OAuthController extends Controller
 {
@@ -146,9 +145,9 @@ class OAuthController extends Controller
                     'access_token' => $this->grantTokenUsingPassword($request->email, $request->password),
                 ]);
             case 'refresh_token':
-                abort(NotImplementedException::class);
+                throw new NotImplementedException("Refresh token is not implemented");
             case 'authorization_code':
-                abort(NotImplementedException::class);
+                throw new NotImplementedException("Authorization code is not implemented");
                 break;
         }
     }
