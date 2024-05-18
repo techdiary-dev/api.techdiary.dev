@@ -1,10 +1,15 @@
 <?php
 
-use App\Http\Controllers\Auth\AccessTokenController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\OAuthController;
 use App\Http\Controllers\Auth\PersonalAccessTokenController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('test', function () {
+    return response()->json([
+        'message' => 'test',
+    ]);
+})->name('password.reset');
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('signed-login', [AuthController::class, 'signedLogin'])
