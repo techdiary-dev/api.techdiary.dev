@@ -167,6 +167,7 @@ class ArticleController extends Controller
             ],
         ]);
     }
+    //
 
     protected function scopes()
     {
