@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Events\NewUserCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\GenerateTokenRequest;
 use App\Http\Requests\Auth\OAuthTokenGrantRequest;
