@@ -27,10 +27,7 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'oauth'], function () {
     Route::get('{service}', [OAuthController::class, 'redirect']);
     Route::get('{service}/callback', [OAuthController::class, 'callback']);
-
     Route::post('token', [OAuthController::class, 'grantToken']);
-
-
     Route::post('token-by-credential', [OAuthController::class, 'createTokenUsingCredential']);
 });
 

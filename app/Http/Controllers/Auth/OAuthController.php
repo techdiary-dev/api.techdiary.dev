@@ -64,8 +64,7 @@ class OAuthController extends Controller
                 $user->save();
             }
 
-            if (! $social_user) {
-                NewUserCreated::dispatch($user);
+            if (!$social_user) {
                 $user->socialProviders()->create([
                     'service' => $service,
                     'service_uid' => $socialServiceUser->id,
@@ -85,8 +84,6 @@ class OAuthController extends Controller
                 env('CLIENT_BASE_URL').'/auth/oauth-callback?'.$signedToken;
 
             return redirect($redirect_url);
-
-            return env('CLIENT_URL');
         } catch (InvalidStateException $e) {
             return $this->redirect(env('CLIENT_URL').'?error=1');
         }
