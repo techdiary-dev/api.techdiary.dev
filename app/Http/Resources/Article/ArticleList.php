@@ -6,19 +6,30 @@ use App\Http\Resources\Bookmark\BookmarkCollection;
 use App\Http\Resources\TagResource;
 use App\Http\Resources\User\UserListResource;
 use App\Http\Resources\Vote\VoteSummeryCollection;
+use App\TechDiary\Markdown\TDMarkdown;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ArticleList extends JsonResource
 {
+    function getWordsFromStr($length, $str)
+    {
+        $words = explode(' ', $str);
+        $s = array_slice($words, 0, $length);
+        return implode(' ', $s);
+    }
+
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     // $this->reactionSummary()
     public function toArray($request)
     {
+
+        $md = new TDMarkdown($this->body);
+
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -29,7 +40,12 @@ class ArticleList extends JsonResource
             'comments_count' => $this->comments_count,
             'thumbnail' => $this->thumbnail,
             'tags' => TagResource::collection($this->tags),
-            'excerpt' => $this->excerpt,
+            'body' => [
+                'html' => $md->toHTML(),
+                'markdown' => $this->body ?: '',
+                'plainText' => $md->toPlainText(),
+                'excerpt' => $this->getWordsFromStr(60, $md->toPlainText()),
+            ],
             'isPublished' => $this->isPublished,
             'user' => new UserListResource($this->user),
             'created_at' => $this->created_at,

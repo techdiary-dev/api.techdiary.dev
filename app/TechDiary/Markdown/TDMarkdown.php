@@ -29,7 +29,7 @@ class TDMarkdown
      *
      * @return string
      */
-    public function toHTML()
+    public function toHTML(): string
     {
         $config = [
             'heading_permalink' => [
@@ -74,5 +74,12 @@ class TDMarkdown
         $converter->getEnvironment()->addExtension(new EmbedExtension());
 
         return (string) $converter->convert($this->markdown ?: '');
+    }
+
+
+    public function toPlainText(): string
+    {
+        return strip_tags($this->toHTML() ?: '');
+
     }
 }

@@ -11,6 +11,13 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ArticleDetails extends JsonResource
 {
+    function getWordsFromStr($length, $str)
+    {
+        $words = explode(' ', $str);
+        $s = array_slice($words, 0, $length);
+        return implode(' ', $s);
+    }
+
     /**
      * Transform the resource into an array.
      *
@@ -30,6 +37,8 @@ class ArticleDetails extends JsonResource
             'body' => [
                 'html' => $md->toHTML(),
                 'markdown' => $this->body ?: '',
+                'plainText' => $md->toPlainText(),
+                'excerpt' => $this->getWordsFromStr(30, $md->toPlainText()),
             ],
             'votes' => new VoteSummeryCollection($this->reactions),
             'bookmarked_users' => new BookmarkCollection($this->reactions),
