@@ -17,11 +17,11 @@ class TagController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
-        return TagResource::collection(Tag::latest()->paginate());
+        return TagResource::collection(Tag::latest()->paginate(request()->query('limit', 10)));
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Http\Resources\Article\ArticleCollection;
 use App\Http\Resources\Article\ArticleDetails;
 use App\Http\Resources\Article\AuthArticleList;
 use App\Models\Article;
+use App\Scoping\Scopes\ArticleExcludeIdsScope;
 use App\Scoping\Scopes\ArticlesByTagName;
 use App\Scoping\Scopes\UserScope;
 use App\TechDiary\Markdown\TDMarkdown;
@@ -174,6 +175,7 @@ class ArticleController extends Controller
         return [
             'user' => new UserScope(),
             'tag' => new ArticlesByTagName(),
+            'excludeIds' => new ArticleExcludeIdsScope(),
         ];
     }
 }
