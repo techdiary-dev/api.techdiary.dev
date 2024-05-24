@@ -15,22 +15,16 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->default(DB::raw('uuid_generate_v4()'));
-
-            $table->string('title')->nullable();
-
-            $table->string('slug')->nullable();
-
+            $table->string('title');
+            $table->string('slug')->unique();
             $table->string('thumbnail')->nullable();
             $table->string('seriesName')->nullable();
-
-            $table->text('body')->nullable();
-
+            $table->json('body');
             $table->string('excerpt')->nullable();
             $table->boolean('isPublished')->default(false);
             $table->boolean('isApproved')->default(false);
 
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
-            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }

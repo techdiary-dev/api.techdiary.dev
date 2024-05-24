@@ -6,18 +6,29 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateSeriesTable extends Migration
 {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
         Schema::create('series', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->default(DB::raw('uuid_generate_v4()'));
-            $table->string('title')->nullable();
-            $table->json('contents')->nullable();
+            $table->string('name');
+            $table->string('cover')->nullable();
+            $table->string('icon')->nullable();
+            $table->text('description')->nullable();
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
-
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
         Schema::dropIfExists('series');
