@@ -61,6 +61,7 @@ use Laravel\Scout\Searchable;
  */
 class Article extends Model implements ReactableInterface
 {
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory, CanBeScoped, ReactionableModel, HasComments, NestableComments, HasMetaData, VotableModel;
 
 //    protected $guarded = ['isApproved'];
