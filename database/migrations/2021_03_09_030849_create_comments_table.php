@@ -14,7 +14,7 @@ class CreateCommentsTable extends Migration
     public function up()
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary()->unique();
             $table->uuidMorphs('commentable');
             $table->text('body');
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
