@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArticleSeriesTable extends Migration
-{
+return new class extends Migration{
     /**
      * Run the migrations.
      *
@@ -13,6 +12,15 @@ class CreateArticleSeriesTable extends Migration
      */
     public function up()
     {
+        Schema::create('series', function (Blueprint $table) {
+            $table->uuid('id')->primary()->unique();
+            $table->string('name');
+            $table->string('cover')->nullable();
+            $table->string('icon')->nullable();
+            $table->text('description')->nullable();
+            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
+        });
         Schema::create('article_series', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
@@ -29,6 +37,7 @@ class CreateArticleSeriesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('series');
         Schema::dropIfExists('article_series');
     }
-}
+};

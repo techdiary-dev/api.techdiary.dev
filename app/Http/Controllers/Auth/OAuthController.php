@@ -154,13 +154,14 @@ class OAuthController extends Controller
         $user = User::whereEmail($email)->first();
 
         if (!$user) {
-            abort(403);
+            abort(403, 'Invalid credentials');
         }
-        auth()->attempt(['email' => $email, 'password' => $password]);
 
         $attempt = auth()->attempt(['email' => $email, 'password' => $password]);
+
         if(!$attempt){
-            abort(403);
+            // throw UnauthorizedException::withMessage('Invalid credentials');
+            abort(403, 'Invalid credentials');
         }
 
         return TechdiaryToken::createTokenWithClientInformation($user);

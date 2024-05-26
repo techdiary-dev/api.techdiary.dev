@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArticlesTable extends Migration
-{
+return new class extends Migration{
     /**
      * Run the migrations.
      *
@@ -15,16 +14,17 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique();
-            $table->string('title');
-            $table->string('slug')->unique();
+            $table->string('title')->nullable();
+            $table->string('slug')->unique()->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('seriesName')->nullable();
-            $table->json('body');
+            $table->text('body')->nullable();
             $table->string('excerpt')->nullable();
             $table->boolean('isPublished')->default(false);
             $table->boolean('isApproved')->default(false);
 
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }
@@ -38,4 +38,4 @@ class CreateArticlesTable extends Migration
     {
         Schema::dropIfExists('articles');
     }
-}
+};

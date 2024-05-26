@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSeriesTable extends Migration
-{
+return new class extends Migration{
     /**
      * Run the migrations.
      *
@@ -13,14 +12,19 @@ class CreateSeriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('series', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique();
             $table->string('name');
-            $table->string('cover')->nullable();
             $table->string('icon')->nullable();
+            $table->string('color')->nullable();
             $table->text('description')->nullable();
-            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+        });
+
+        Schema::create('article_tag', function (Blueprint $table) {
+            $table->id();
+            $table->foreignUuid('article_id')->constrained()->onDelete('CASCADE');
+            $table->foreignUuid('tag_id')->constrained()->onDelete('CASCADE');
         });
     }
 
@@ -31,6 +35,7 @@ class CreateSeriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('series');
+        Schema::dropIfExists('tags');
+        Schema::dropIfExists('article_tag');
     }
-}
+};
