@@ -9,11 +9,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
 
 class User extends Authenticatable implements ReactorUserInterface
 {
+    use TwoFactorAuthenticatable;
     use HasUuids;
     use HasFactory, Notifiable, HasApiTokens;
 
