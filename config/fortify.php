@@ -86,7 +86,7 @@ return [
     |
     */
 
-    'prefix' => 'api/auth',
+    'prefix' => 'api/authentication',
 
     'domain' => null,
 
@@ -101,7 +101,7 @@ return [
     |
     */
 
-    'middleware' => ['auth:sanctum'],
+    'middleware' => ['web'],
 
     /*
     |--------------------------------------------------------------------------
@@ -115,8 +115,8 @@ return [
     */
 
     'limiters' => [
-        'login' => 'login',
-        'two-factor' => 'two-factor',
+//        'login' => 'login',
+//        'two-factor' => 'two-factor',
     ],
 
     /*
