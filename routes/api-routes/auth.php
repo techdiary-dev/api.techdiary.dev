@@ -27,7 +27,7 @@ Route::group(['prefix' => 'oauth'], function () {
 
 
 
-Route::group(['prefix' => 'personal-access-tokens'], function () {
+Route::group(['prefix' => 'auth/personal-access-tokens'], function () {
 
     Route::get('', [PersonalAccessTokenController::class, 'tokenList'])
         ->middleware('auth:sanctum');
