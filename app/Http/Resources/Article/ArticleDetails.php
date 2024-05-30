@@ -32,7 +32,7 @@ class ArticleDetails extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'url' => env('CLIENT_BASE_URL').'/'.$this->user->username.'/'.$this->slug,
+            'url' => config('app.client_url').'/'.$this->user->username.'/'.$this->slug,
             'thumbnail' => $this->thumbnail,
             'body' => [
                 'html' => $md->toHTML(),

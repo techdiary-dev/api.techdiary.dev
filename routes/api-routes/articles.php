@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'articles'], function () {
-    Route::get('', [ArticleController::class, 'index']);
+    Route::get('', [ArticleController::class, 'index'])->middleware('throttle:60,120');
+
     Route::post('', [ArticleController::class, 'index'])
         ->middleware('auth:sanctum');
 

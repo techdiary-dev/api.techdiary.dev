@@ -8,10 +8,12 @@ use App\Http\Resources\Article\ArticleCollection;
 use App\Http\Resources\Article\ArticleDetails;
 use App\Http\Resources\Article\AuthArticleList;
 use App\Models\Article;
+use App\Models\Comment;
 use App\Scoping\Scopes\ArticleExcludeIdsScope;
 use App\Scoping\Scopes\ArticlesByTagName;
 use App\Scoping\Scopes\UserScope;
 use App\TechDiary\Markdown\TDMarkdown;
+use App\TechDiary\Reaction\Model\Reaction;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -151,6 +153,17 @@ class ArticleController extends Controller
     {
         $published_count = auth()->user()->articles()->where('isPublished', true)->count();
         $draft_count = auth()->user()->articles()->where('isPublished', false)->count();
+        $my_articles_ids = auth()->user()->articles()->pluck('id');
+
+
+        $comments_count = Comment::where([
+            'commentable_type' => Article::getModel()->getMorphClass(),
+        ])->whereIn('commentable_id', $my_articles_ids)->count();
+
+        $bookmark_count = Reaction::where([
+            'ReactionAble_type' => Article::getModel()->getMorphClass(),
+            'type' => 'BOOKMARK',
+        ])->whereIn('ReactionAble_id', $my_articles_ids)->count();
 
         $articles = auth()
             ->user()
@@ -164,6 +177,8 @@ class ArticleController extends Controller
                 'counts' => [
                     'published' => $published_count,
                     'draft' => $draft_count,
+                    'comments' => $comments_count,
+                    'bookmarks' => $bookmark_count,
                 ],
             ],
         ]);
