@@ -43,7 +43,7 @@ blockquote {
 }
 
 a {
-    color: var(--primary);
+    color: #8A9CFE;
 }
 
 a img {
@@ -247,14 +247,14 @@ img {
 
 .button-blue,
 .button-primary {
-    background-color: var(--primary);
-    border-bottom: 8px solid var(--primary);
-    border-left: 18px solid var(--primary);
-    border-right: 18px solid var(--primary);
-    border-top: 8px solid var(--primary);
+    background-color: #8A9CFE;
+    border-bottom: 8px solid #8A9CFE;
+    border-left: 18px solid #8A9CFE;
+    border-right: 18px solid #8A9CFE;
+    border-top: 8px solid #8A9CFE;
 }
 
-.button-green,
+.button-#8A9CFE,
 .button-success {
     background-color: #48bb78;
     border-bottom: 8px solid #48bb78;
@@ -275,7 +275,7 @@ img {
 /* Panels */
 
 .panel {
-    border-left: var(--primary) solid 4px;
+    border-left: #8A9CFE solid 4px;
     margin: 21px 0;
 }
 
