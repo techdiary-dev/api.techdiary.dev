@@ -31,7 +31,7 @@ class ArticleController extends Controller
             'is_published' => true,
             //            'isApproved' => true
         ])->with(['tags', 'user', 'reactions'])
-            ->withCount('comments')->latest()->withScopes($this->scopes());
+            ->withCount('comments')->latest('published_at')->withScopes($this->scopes());
 
         return new ArticleCollection($articles->paginate(request()->query('limit', 10)));
     }
