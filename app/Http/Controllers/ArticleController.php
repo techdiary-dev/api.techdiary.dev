@@ -28,7 +28,7 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::where([
-            'isPublished' => true,
+            'is_published' => true,
             //            'isApproved' => true
         ])->with(['tags', 'user', 'reactions'])
             ->withCount('comments')->latest()->withScopes($this->scopes());
@@ -107,7 +107,7 @@ class ArticleController extends Controller
     {
         $this->authorize('update', $article);
 
-        $article->update($request->only('title', 'slug', 'thumbnail', 'body', 'isPublished'));
+        $article->update($request->only('title', 'slug', 'thumbnail', 'body', 'is_published'));
 
         if ($request->tags) {
             $tags = collect($request->tags)->pluck('id');
@@ -151,8 +151,8 @@ class ArticleController extends Controller
 
     public function myArticles(Request $request)
     {
-        $published_count = auth()->user()->articles()->where('isPublished', true)->count();
-        $draft_count = auth()->user()->articles()->where('isPublished', false)->count();
+        $published_count = auth()->user()->articles()->where('is_published', true)->count();
+        $draft_count = auth()->user()->articles()->where('is_published', false)->count();
         $my_articles_ids = auth()->user()->articles()->pluck('id');
 
 
@@ -165,11 +165,18 @@ class ArticleController extends Controller
             'type' => 'BOOKMARK',
         ])->whereIn('ReactionAble_id', $my_articles_ids)->count();
 
+        $reactions_count = Reaction::where([
+            'ReactionAble_type' => Article::getModel()->getMorphClass(),
+        ])
+            ->whereIn('type', ['UP_VOTE', 'DOWN_VOTE'])
+            ->whereIn('ReactionAble_id', $my_articles_ids)->count();
+
         $articles = auth()
             ->user()
             ->articles()
             ->where($request->only('isPublished'))
             ->latest()
+            ->withCount('comments')
             ->paginate();
 
         return AuthArticleList::collection($articles)->additional([
@@ -179,6 +186,7 @@ class ArticleController extends Controller
                     'draft' => $draft_count,
                     'comments' => $comments_count,
                     'bookmarks' => $bookmark_count,
+                    'reactions' => $reactions_count,
                 ],
             ],
         ]);

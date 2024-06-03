@@ -20,8 +20,8 @@ return new class extends Migration{
             $table->string('seriesName')->nullable();
             $table->text('body')->nullable();
             $table->string('excerpt')->nullable();
-            $table->boolean('isPublished')->default(false);
-            $table->boolean('isApproved')->default(false);
+            $table->boolean('is_published')->default(false);
+            $table->boolean('is_approved')->default(false);
 
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->timestamp('published_at')->nullable();
