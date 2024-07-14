@@ -11,22 +11,23 @@ class FileController extends Controller
 {
     public function upload(FileUploadRequest $request)
     {
-//        $upload = Cloudinary::upload($request->file('file'));
-//
-//        return response()->json([
-//            'message' => 'File uploaded successfully',
-//            'url' => $upload,
-//        ]);
+        $upload = Cloudinary::upload($request->file('file')->getRealPath());
+
+        return response()->json([
+            'message' => 'File uploaded successfully',
+            'url' => $upload->getSecurePath(),
+        ]);
     }
 
     public function destroy(FileDeleteRequest $request)
     {
-        $cld_admin = new AdminApi();
-        $deleted = $cld_admin->deleteAssets($request->keys);
+        collect($request->get('keys'))->each(function ($file) {
+            Cloudinary::destroy($file);
+        });
 
         return response()->json([
             'message' => 'File deleted successfully',
-            'deleted' => $deleted,
+            'deleted' => $request->get('keys'),
         ]);
     }
 }

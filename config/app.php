@@ -169,6 +169,7 @@ return [
         Jenssegers\Agent\AgentServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
+        CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
 
         /*
          * Application Service Providers...
