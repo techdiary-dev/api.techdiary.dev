@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Article;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateArticleRequest extends FormRequest
 {
@@ -25,11 +26,12 @@ class UpdateArticleRequest extends FormRequest
     {
         return [
             'title' => ['nullable', 'max:255'],
-            'slug' => ['nullable', 'max:255'],
+            'slug' => ['nullable', 'max:255',  Rule::unique('articles', 'slug')->ignore($this->route('article'))],
             'excerpt' => ['nullable', 'min:5', 'max:255'],
-            'isPublished' => ['nullable', 'boolean'],
-            'seriesName' => ['nullable', 'min:5', 'max:255'],
-            'thumbnail' => ['nullable', 'url', 'max:255'],
+            'is_published' => ['nullable', 'boolean'],
+            'seriesName' => ['nullable'],
+            'thumbnail.key' => ['nullable', 'max:255'],
+            'thumbnail.url' => ['nullable', 'url', 'max:255'],
             'body' => ['nullable'],
             'tags' => ['nullable', 'array'],
 

@@ -33,7 +33,7 @@ class ArticleDetails extends JsonResource
             'title' => $this->title,
             'slug' => $this->slug,
             'url' => config('app.client_url').'/'.$this->user->username.'/'.$this->slug,
-            'thumbnail' => $this->thumbnail,
+            'thumbnail' => $this->thumbnail ?? null,
             'body' => [
                 'html' => $md->toHTML(),
                 'markdown' => $this->body ?: '',
@@ -44,13 +44,14 @@ class ArticleDetails extends JsonResource
             'bookmarked_users' => new BookmarkCollection($this->reactions),
             'comments_count' => $this->comments_count,
             'excerpt' => $this->excerpt,
-            'isPublished' => $this->isPublished,
-            'isApproved' => $this->isPublished,
+            'is_published' => $this->is_published,
+            'is_approved' => $this->is_approved,
             'tags' => TagResource::collection($this->tags),
             'user' => new UserListResource($this->user),
             'seo' => $this->getMetaJSON('seo'),
             'settings' => $this->getMetaJSON('settings'),
             'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
     }
 }

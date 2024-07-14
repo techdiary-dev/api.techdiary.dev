@@ -107,7 +107,7 @@ class ArticleController extends Controller
     {
         $this->authorize('update', $article);
 
-        $article->update($request->only('title', 'slug', 'thumbnail', 'body', 'is_published'));
+        $article->update($request->only('title', 'slug', 'thumbnail', 'body', 'is_published', 'excerpt'));
 
         if ($request->tags) {
             $tags = collect($request->tags)->pluck('id');
@@ -127,7 +127,6 @@ class ArticleController extends Controller
         return response()->json([
             'message' => 'Article saved successfully',
             'article' => $article,
-            'htmlBody' => new TDMarkdown($article->body || ''),
         ]);
     }
 

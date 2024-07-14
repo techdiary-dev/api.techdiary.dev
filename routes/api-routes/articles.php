@@ -14,10 +14,10 @@ Route::group(['prefix' => 'articles'], function () {
     Route::get('/uuid/{article:id}', [ArticleController::class, 'show']);
     Route::get('/slug/{article:slug}', [ArticleController::class, 'show']);
 
-    Route::put('/uuid/{article:id}', [ArticleController::class, 'update'])
+    Route::patch('/uuid/{article:id}', [ArticleController::class, 'update'])
         ->middleware('auth:sanctum');
 
-    Route::put('/slug/{article:slug}', [ArticleController::class, 'update'])
+    Route::patch('/slug/{article:slug}', [ArticleController::class, 'update'])
         ->middleware('auth:sanctum');
 
     Route::delete('/uuid/{article:id}', [ArticleController::class, 'destroy'])

@@ -24,7 +24,7 @@ class FileDeleteRequest extends FormRequest
     public function rules()
     {
         return [
-            'file_url' => ['required', 'url'],
+            'keys' => ['required', 'array', 'min:1'],
         ];
     }
 }
