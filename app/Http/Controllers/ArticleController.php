@@ -15,6 +15,7 @@ use App\Scoping\Scopes\UserScope;
 use App\TechDiary\Markdown\TDMarkdown;
 use App\TechDiary\Reaction\Model\Reaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
@@ -47,9 +48,12 @@ class ArticleController extends Controller
         $article = auth()
             ->user()
             ->articles()
-            ->create($request->except('tags', 'seo', 'settings'));
+            ->create(array_merge($request->except('tags', 'seo', 'settings'), [
+                'is_approved' => true,
+                'slug' => $this->getUniqueSlugUtil($request->title),
+            ]));
 
-        $article->isApproved = true;
+//        $article->isApproved = true;
 
         if ($request->tags) {
             $tags = collect($request->tags)->pluck('id');
@@ -86,6 +90,26 @@ class ArticleController extends Controller
             'uuid' => $article->id,
         ]);
     }
+
+    public function getUniqueSlug(Request $request)
+    {
+
+        $request->validate([
+            'slug' => 'required',
+        ]);
+        return response()->json(['slug' => $this->getUniqueSlugUtil($request->slug)]);
+    }
+    public function getUniqueSlugUtil(string $slug)
+    {
+        $slugged = Str::slug($slug);
+        $slugExists = Article::where('slug', $slugged)->first();
+        if (!$slugExists) {
+            return $slugged;
+        }
+        return $slugged . '-' . Str::random(5);
+    }
+
+
 
     /**
      * Display the specified resource.
