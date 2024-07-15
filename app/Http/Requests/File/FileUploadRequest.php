@@ -24,8 +24,26 @@ class FileUploadRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => ['required', 'max:5120', 'mimes:jpeg,jpg,png,gif'],
+            'files' => ['required', 'array'],
+            'files.*' => ['file', 'mimes:jpeg,jpg,png,gif', 'max:2048'],
             'preset' => ['required'],
         ];
+    }
+
+    /**
+     * Customize the data returned from the validated method.
+     *
+     * @param null $key
+     * @param null $default
+     * @return array
+     */
+    public function validated($key = null, $default = null)
+    {
+        $validatedData = parent::validated();
+
+        // Ensure only the defined fields are included in the validated data
+        $fields = ['files'];
+
+        return array_intersect_key($validatedData, array_flip($fields));
     }
 }

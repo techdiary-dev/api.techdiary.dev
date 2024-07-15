@@ -4,18 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\File\FileDeleteRequest;
 use App\Http\Requests\File\FileUploadRequest;
-use Cloudinary\Api\Admin\AdminApi;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Http\Request;
 
 class FileController extends Controller
 {
-    public function upload(FileUploadRequest $request)
+    public function upload(FileUploadRequest $request): \Illuminate\Http\JsonResponse
     {
-        $upload = Cloudinary::upload($request->file('file')->getRealPath());
+        $uploadedFiles = collect($request->file('files'))->map(function ($file) {
+            $upload = Cloudinary::upload($file->getRealPath());
+
+            return [
+                'url' => $upload->getSecurePath(),
+                'file' => [
+                    'key' => $upload->getPublicId(),
+                    'provider' => 'cloudinary',
+                ]
+            ];
+        });
 
         return response()->json([
-            'message' => 'File uploaded successfully',
-            'url' => $upload->getSecurePath(),
+            'message' => 'Files uploaded successfully',
+            'files' => $uploadedFiles,
         ]);
     }
 

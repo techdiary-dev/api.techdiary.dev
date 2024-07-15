@@ -53,8 +53,6 @@ class ArticleController extends Controller
                 'slug' => $this->getUniqueSlugUtil($request->title),
             ]));
 
-//        $article->isApproved = true;
-
         if ($request->tags) {
             $tags = collect($request->tags)->pluck('id');
             $article->tags()->sync($tags);
