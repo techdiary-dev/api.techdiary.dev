@@ -8,6 +8,7 @@ use App\Http\Requests\Auth\OAuthTokenGrantRequest;
 use App\Models\User;
 use App\Models\UserSocial;
 use App\TechDiary\TechdiaryToken;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;

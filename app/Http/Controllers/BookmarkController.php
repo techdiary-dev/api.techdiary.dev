@@ -36,6 +36,11 @@ class BookmarkController extends Controller
     public function doBookmark(BookmarkRequest $request)
     {
         $model = $this->bookmarkableModels[$request->model_name]::find($request->model_id);
+        if (!$model) {
+            abort(404, 'Item not found');
+        }
+
+
         $bookmarked = $model->toggleReaction('BOOKMARK', auth()->user());
 
         return response()->json([
