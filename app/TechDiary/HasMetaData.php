@@ -76,7 +76,7 @@ trait HasMetaData
      */
     public function setMetaJSON($key, $data)
     {
-        if (! $data) {
+        if (!$data) {
             return null;
         }
 

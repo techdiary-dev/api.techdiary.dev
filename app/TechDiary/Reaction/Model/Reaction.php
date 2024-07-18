@@ -22,7 +22,7 @@ class Reaction extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function reactable()
+    public function ReactionAble()
     {
         return $this->morphTo();
     }

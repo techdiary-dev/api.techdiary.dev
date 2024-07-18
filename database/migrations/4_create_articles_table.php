@@ -25,6 +25,7 @@ return new class extends Migration{
 
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->timestamp('published_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

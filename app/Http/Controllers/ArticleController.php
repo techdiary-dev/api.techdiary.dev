@@ -12,7 +12,6 @@ use App\Models\Comment;
 use App\Scoping\Scopes\ArticleExcludeIdsScope;
 use App\Scoping\Scopes\ArticlesByTagName;
 use App\Scoping\Scopes\UserScope;
-use App\TechDiary\Markdown\TDMarkdown;
 use App\TechDiary\Reaction\Model\Reaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -30,7 +29,7 @@ class ArticleController extends Controller
     {
         $articles = Article::where([
             'is_published' => true,
-            //            'isApproved' => true
+            'is_approved' => true
         ])->with(['tags', 'user', 'reactions'])
             ->withCount('comments')->latest('published_at')->withScopes($this->scopes());
 
@@ -40,7 +39,7 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreateArticleRequest $request)
@@ -97,6 +96,7 @@ class ArticleController extends Controller
         ]);
         return response()->json(['slug' => $this->getUniqueSlugUtil($request->slug)]);
     }
+
     public function getUniqueSlugUtil(string $slug)
     {
         $slugged = Str::slug($slug);
@@ -106,7 +106,6 @@ class ArticleController extends Controller
         }
         return $slugged . '-' . Str::random(5);
     }
-
 
 
     /**
@@ -122,7 +121,7 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateArticleRequest $request, Article $article)
@@ -163,10 +162,20 @@ class ArticleController extends Controller
     {
         $this->authorize('delete', $article);
 
-        $article->delete();
+        $article->forceDelete();
 
         return response()->json([
             'message' => 'Deleted successfully',
+        ]);
+    }
+
+    public function archive(Article $article): \Illuminate\Http\JsonResponse
+    {
+        $this->authorize('delete', $article);
+        $article->delete();
+
+        return response()->json([
+            'message' => 'Soft deleted successfully',
         ]);
     }
 
@@ -212,6 +221,7 @@ class ArticleController extends Controller
             ],
         ]);
     }
+
     //
 
     protected function scopes()

@@ -14,6 +14,7 @@ use App\Traits\NestableComments;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 
@@ -21,6 +22,7 @@ use Laravel\Scout\Searchable;
 class Article extends Model implements ReactableInterface
 {
     use HasUuids;
+    use SoftDeletes;
     use HasFactory, CanBeScoped, ReactionableModel, HasComments, NestableComments, HasMetaData, VotableModel;
 
 //    protected $guarded = ['isApproved'];

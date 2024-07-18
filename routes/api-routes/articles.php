@@ -24,6 +24,8 @@ Route::group(['prefix' => 'articles'], function () {
 
     Route::delete('/uuid/{article:id}', [ArticleController::class, 'destroy'])
         ->middleware('auth:sanctum');
+    Route::delete('/uuid/archive/{article:id}', [ArticleController::class, 'archive'])
+        ->middleware('auth:sanctum');
 
     /**
      * Generate a blank article
