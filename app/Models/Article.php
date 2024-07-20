@@ -36,6 +36,7 @@ class Article extends Model implements ReactableInterface
 
     protected $keyType = 'string';
 
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class);

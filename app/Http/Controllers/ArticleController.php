@@ -13,6 +13,8 @@ use App\Scoping\Scopes\ArticleExcludeIdsScope;
 use App\Scoping\Scopes\ArticlesByTagName;
 use App\Scoping\Scopes\UserScope;
 use App\TechDiary\Reaction\Model\Reaction;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -39,7 +41,7 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreateArticleRequest $request)
@@ -97,7 +99,7 @@ class ArticleController extends Controller
         return response()->json(['slug' => $this->getUniqueSlugUtil($request->slug)]);
     }
 
-    public function getUniqueSlugUtil(string $slug)
+    public function getUniqueSlugUtil(string $slug): string
     {
         $slugged = Str::slug($slug);
         $slugExists = Article::where('slug', $slugged)->first();
@@ -111,9 +113,10 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Article $article
      * @return ArticleDetails
      */
-    public function show(Article $article)
+    public function show(Article $article): ArticleDetails
     {
         return new ArticleDetails($article->load(['tags', 'user', 'reactions', 'meta']));
     }
@@ -121,10 +124,12 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param UpdateArticleRequest $request
+     * @param Article $article
+     * @return JsonResponse
+     * @throws AuthorizationException
      */
-    public function update(UpdateArticleRequest $request, Article $article)
+    public function update(UpdateArticleRequest $request, Article $article): JsonResponse
     {
         $this->authorize('update', $article);
 

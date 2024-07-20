@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\UpdateProfileRequest;
 use App\Http\Resources\User\UserDetailsResource;
 use App\Http\Resources\User\UserListResource;
+use App\Models\Article;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -50,5 +53,29 @@ class ProfileController extends Controller
         return response()->json([
             'message' => 'Profile Updated successfully',
         ]);
+    }
+
+    public function getUniqueUsername(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $request->validate([
+            'username' => 'required',
+        ]);
+
+        $slugged_username = Str::slug($request->get('username'));
+        $slugged_auth_username = Str::slug(auth()->user()->username);
+
+        return response()->json([
+            'username' => $slugged_auth_username == $slugged_username ? $slugged_username : $this->getUniqueUsernameUtil($request->username)
+        ]);
+    }
+
+    public function getUniqueUsernameUtil(string $username): string
+    {
+        $slugged = Str::slug($username);
+        $slugExists = User::where('username', $slugged)->first();
+        if (!$slugExists) {
+            return $slugged;
+        }
+        return $slugged . '-' . Str::random(5);
     }
 }

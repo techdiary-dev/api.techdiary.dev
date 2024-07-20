@@ -15,7 +15,7 @@ Route::group(['prefix' => 'articles'], function () {
         ->middleware('auth:sanctum');
 
     Route::get('/uuid/{article:id}', [ArticleController::class, 'show']);
-    Route::post('/get-unique-slug', [ArticleController::class, 'getUniqueSlug']);
+    Route::post('/unique-slug', [ArticleController::class, 'getUniqueSlug']);
     Route::get('/slug/{article:slug}', [ArticleController::class, 'show']);
 
     Route::patch('/uuid/{article:id}', [ArticleController::class, 'update'])
