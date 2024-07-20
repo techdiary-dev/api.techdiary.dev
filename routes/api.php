@@ -1,8 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return response()->json([
         'message' => 'TechDiary Backend is running...',
+        'env' => env('APP_ENV', 'production'),
+        'debug' => env('APP_DEBUG', false),
     ], 200);
 });
 

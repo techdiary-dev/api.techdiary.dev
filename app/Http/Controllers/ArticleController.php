@@ -162,7 +162,7 @@ class ArticleController extends Controller
     {
         $this->authorize('delete', $article);
 
-        $article->forceDelete();
+        $article->forceDeleteQuietly();
 
         return response()->json([
             'message' => 'Deleted successfully',
@@ -222,7 +222,18 @@ class ArticleController extends Controller
         ]);
     }
 
-    //
+    public function myArchivedArticles(Request $request)
+    {
+        $articles = auth()
+            ->user()
+            ->articles()
+            ->onlyTrashed()
+            ->latest()
+            ->withCount('comments')
+            ->paginate();
+        return AuthArticleList::collection($articles);
+    }
+
 
     protected function scopes()
     {

@@ -11,6 +11,8 @@ Route::group(['prefix' => 'articles'], function () {
 
     Route::get('mine', [ArticleController::class, 'myArticles'])
         ->middleware('auth:sanctum');
+    Route::get('mine/archived', [ArticleController::class, 'myArchivedArticles'])
+        ->middleware('auth:sanctum');
 
     Route::get('/uuid/{article:id}', [ArticleController::class, 'show']);
     Route::post('/get-unique-slug', [ArticleController::class, 'getUniqueSlug']);

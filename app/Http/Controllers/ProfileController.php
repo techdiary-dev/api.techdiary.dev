@@ -41,7 +41,7 @@ class ProfileController extends Controller
         return new UserDetailsResource($user);
     }
 
-    public function updateProfile(UpdateProfileRequest $request)
+    public function updateMyProfile(UpdateProfileRequest $request): \Illuminate\Http\JsonResponse
     {
         auth()
             ->user()
