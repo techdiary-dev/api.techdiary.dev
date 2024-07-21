@@ -20,7 +20,6 @@ class ProfileController extends Controller
     public function users()
     {
         $users = User::latest();
-
         return UserListResource::collection($users->paginate(request()->query('limit', 10)));
     }
 

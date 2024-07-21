@@ -75,21 +75,6 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function spark(Request $request)
-    {
-        $article = auth()
-            ->user()
-            ->articles()
-            ->create();
-
-        $article->update(['slug' => $article->id]);
-
-        return response()->json([
-            'message' => 'New diary generated',
-            'uuid' => $article->id,
-        ]);
-    }
-
     public function getUniqueSlug(Request $request)
     {
 

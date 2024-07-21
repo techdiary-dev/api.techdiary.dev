@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TokenResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PersonalAccessTokenController extends Controller
 {
     /**
      * Create personal access token
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function createToken(Request $request)
+    public function createToken(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
             'name' => ['required', 'min:5'],
@@ -29,20 +32,20 @@ class PersonalAccessTokenController extends Controller
         ]);
     }
 
-    public function deleteToken($tokenId)
+    public function deleteToken($tokenId): \Illuminate\Http\JsonResponse
     {
         $token = auth()->user()->tokens()->where('id', $tokenId)->firstOrFail();
         $token->delete();
 
         return response()->json([
-            'message' => 'deleted',
+            'message' => 'Token deleted successfully',
         ]);
     }
 
     /**
      * Current user's token list
      *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return AnonymousResourceCollection
      */
     public function tokenList()
     {

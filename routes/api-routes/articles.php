@@ -28,10 +28,4 @@ Route::group(['prefix' => 'articles'], function () {
         ->middleware('auth:sanctum');
     Route::delete('/uuid/archive/{article:id}', [ArticleController::class, 'archive'])
         ->middleware('auth:sanctum');
-
-    /**
-     * Generate a blank article
-     */
-    Route::post('spark', [ArticleController::class, 'spark'])
-        ->middleware('auth:sanctum');
 });

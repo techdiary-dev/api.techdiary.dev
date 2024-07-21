@@ -33,6 +33,7 @@ class UpdateProfileRequest extends FormRequest
             'website_url' => ['nullable', 'url', 'max:255'],
             'location' => ['nullable', 'string', 'max:255'],
             'profilePhoto' => ['nullable', 'url', 'max:255'],
+            'profile_readme' => ['nullable'],
             'social_links' => ['nullable'],
         ];
     }
