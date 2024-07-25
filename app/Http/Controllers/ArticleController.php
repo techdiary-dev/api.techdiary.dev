@@ -42,7 +42,7 @@ class ArticleController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(CreateArticleRequest $request)
     {
@@ -87,7 +87,8 @@ class ArticleController extends Controller
     public function getUniqueSlugUtil(string $slug): string
     {
         $slugged = Str::slug($slug);
-        $slugExists = Article::where('slug', $slugged)->first();
+        $slugExists = Article::withTrashed()->where('slug', $slugged)->first();
+
         if (!$slugExists) {
             return $slugged;
         }
@@ -144,9 +145,8 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      *
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(string $uuid)
     {
@@ -158,7 +158,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function archive(Article $article): \Illuminate\Http\JsonResponse
+    public function archive(Article $article): JsonResponse
     {
         $this->authorize('delete', $article);
         $article->delete();
