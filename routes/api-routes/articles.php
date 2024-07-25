@@ -7,7 +7,8 @@ Route::group(['prefix' => 'articles'], function () {
     Route::get('', [ArticleController::class, 'index'])->middleware('throttle:60,120');
 
     Route::post('', [ArticleController::class, 'store'])
-        ->middleware('auth:sanctum');
+        ->middleware('auth:sanctum')
+        ->middleware('verified');
 
     Route::get('mine', [ArticleController::class, 'myArticles'])
         ->middleware('auth:sanctum');
@@ -24,8 +25,9 @@ Route::group(['prefix' => 'articles'], function () {
     Route::patch('/slug/{article:slug}', [ArticleController::class, 'update'])
         ->middleware('auth:sanctum');
 
-    Route::delete('/uuid/{article:id}', [ArticleController::class, 'destroy'])
+    Route::delete('/{article:id}', [ArticleController::class, 'destroy'])
         ->middleware('auth:sanctum');
-    Route::delete('/uuid/archive/{article:id}', [ArticleController::class, 'archive'])
+
+    Route::delete('/archive/{article:id}', [ArticleController::class, 'archive'])
         ->middleware('auth:sanctum');
 });

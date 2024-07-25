@@ -24,7 +24,7 @@ class CreateArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['nullable', 'max:255'],
+            'title' => ['required', 'max:255'],
             'slug' => ['nullable', 'max:255', 'unique:articles,slug'],
             'excerpt' => ['nullable', 'min:5', 'max:255'],
             'is_published' => ['nullable', 'boolean'],

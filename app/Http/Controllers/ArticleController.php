@@ -75,7 +75,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function getUniqueSlug(Request $request)
+    public function getUniqueSlug(Request $request): JsonResponse
     {
 
         $request->validate([
@@ -148,11 +148,10 @@ class ArticleController extends Controller
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function destroy(Article $article)
+    public function destroy(string $uuid)
     {
-        $this->authorize('delete', $article);
-
-        $article->forceDeleteQuietly();
+//        $this->authorize('delete', $article);
+        Article::query()->where('id', $uuid)->forceDelete();
 
         return response()->json([
             'message' => 'Deleted successfully',

@@ -47,17 +47,6 @@ class Article extends Model implements ReactableInterface
         return $this->belongsTo(User::class);
     }
 
-    public static function boot()
-    {
-        parent::boot();
-//        static::creating(function ($article) {
-//
-//            if (!$article->slug) {
-//                $article->slug = Str::slug($article->title) . '-' . Str::random(6);
-//            }
-//        });
-    }
-
     /**
      * Define article payload for algolia search
      *

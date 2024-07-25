@@ -54,6 +54,17 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function getPublicUniqueUsername(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $request->validate([
+            'username' => 'required',
+        ]);
+        $slugged_username = Str::slug($request->get('username'));
+        return response()->json([
+            'username' => $this->getUniqueUsernameUtil($slugged_username)
+        ]);
+    }
+
     public function getUniqueUsername(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
