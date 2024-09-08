@@ -13,7 +13,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('login-spark', function () {
         return response()->json([
             'message' => 'login-spark',
-            'user' => auth()->user()
+            'user' => auth()->user(),
         ]);
     })->middleware('auth:sanctum');
 });
@@ -24,8 +24,6 @@ Route::group(['prefix' => 'oauth'], function () {
     Route::post('token', [OAuthController::class, 'grantToken']);
     Route::post('token-by-credential', [OAuthController::class, 'createTokenUsingCredential']);
 });
-
-
 
 Route::group(['prefix' => 'auth/personal-access-tokens'], function () {
 

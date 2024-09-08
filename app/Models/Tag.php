@@ -8,10 +8,9 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
 class Tag extends Model
 {
-    use HasFactory, ReactionableModel, HasMetaData;
+    use HasFactory, HasMetaData, ReactionableModel;
     use HasUuids;
 
     protected $casts = [

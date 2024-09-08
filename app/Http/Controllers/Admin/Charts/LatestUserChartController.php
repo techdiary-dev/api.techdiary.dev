@@ -10,7 +10,7 @@ class LatestUserChartController extends ChartController
 {
     public function setup()
     {
-        $this->chart = new Chart();
+        $this->chart = new Chart;
 
         // MANDATORY. Set the labels for the dataset points
         $this->chart->labels(['6 days ago', '5 days ago', '4 days ago', '3 days ago', '2 days ago', 'Yesterday', 'Today']);

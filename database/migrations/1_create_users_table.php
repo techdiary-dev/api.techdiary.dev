@@ -5,7 +5,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Laravel\Fortify\Fortify;
 
-return new class extends Migration{
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -28,7 +29,6 @@ return new class extends Migration{
             $table->string('location')->nullable();
             $table->json('social_links')->nullable();
 
-
             $table->text('profile_readme')->nullable();
             $table->string('skills')->nullable();
             $table->string('password')->nullable();
@@ -36,11 +36,6 @@ return new class extends Migration{
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
-
-
-
-
-
 
             // -------------- Fortify --------------
             $table->text('two_factor_secret')

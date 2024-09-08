@@ -33,8 +33,8 @@ class FileUploadRequest extends FormRequest
     /**
      * Customize the data returned from the validated method.
      *
-     * @param null $key
-     * @param null $default
+     * @param  null  $key
+     * @param  null  $default
      * @return array
      */
     public function validated($key = null, $default = null)

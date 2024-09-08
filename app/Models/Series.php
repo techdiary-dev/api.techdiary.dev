@@ -8,15 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Series extends Model
 {
-    use HasUuids;
     use HasFactory;
+    use HasUuids;
 
     protected $guarded = ['id'];
+
     protected $casts = [
-        'id' => 'string'
+        'id' => 'string',
     ];
 
     protected $primaryKey = 'id';
+
     protected $keyType = 'string';
 
     public function articles()

@@ -35,7 +35,6 @@ return [
 
     /**
      * Upload Preset From Cloudinary Dashboard
-     *
      */
-    'upload_preset' => 'techdiary-article-assets'
+    'upload_preset' => 'techdiary-article-assets',
 ];

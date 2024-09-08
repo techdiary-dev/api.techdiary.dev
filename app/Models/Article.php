@@ -18,14 +18,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 
-
 class Article extends Model implements ReactableInterface
 {
+    use CanBeScoped, HasComments, HasFactory, HasMetaData, NestableComments, ReactionableModel, VotableModel;
     use HasUuids;
     use SoftDeletes;
-    use HasFactory, CanBeScoped, ReactionableModel, HasComments, NestableComments, HasMetaData, VotableModel;
 
-//    protected $guarded = ['isApproved'];
+    //    protected $guarded = ['isApproved'];
     protected $guarded = ['user_id'];
 
     protected $casts = [
@@ -35,7 +34,6 @@ class Article extends Model implements ReactableInterface
     protected $primaryKey = 'id';
 
     protected $keyType = 'string';
-
 
     public function tags()
     {

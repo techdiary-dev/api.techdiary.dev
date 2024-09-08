@@ -10,21 +10,21 @@ use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 
 /**
  * Class LatestArticlesChartController
- * @package App\Http\Controllers\Admin\Charts
+ *
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
 class LatestArticlesChartController extends ChartController
 {
     public function setup()
     {
-        $this->chart = new Chart();
+        $this->chart = new Chart;
 
         // MANDATORY. Set the labels for the dataset points
         $labels = [];
         for ($days_backwards = 30; $days_backwards >= 0; $days_backwards--) {
             if ($days_backwards == 1) {
             }
-            $labels[] = $days_backwards . ' days ago';
+            $labels[] = $days_backwards.' days ago';
         }
         $this->chart->labels($labels);
 
@@ -61,10 +61,8 @@ class LatestArticlesChartController extends ChartController
             ->color('rgb(96, 92, 168)')
             ->backgroundColor('rgba(96, 92, 168, 0.4)');
 
-
         $this->chart->dataset('Tags', 'line', $tags)
             ->color('rgba(70, 127, 208, 1)')
             ->backgroundColor('rgba(70, 127, 208, 0.4)');
     }
-
 }

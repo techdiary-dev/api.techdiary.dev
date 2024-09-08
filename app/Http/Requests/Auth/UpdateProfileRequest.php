@@ -28,7 +28,7 @@ class UpdateProfileRequest extends FormRequest
             'name' => ['required', 'min:6', 'max:255'],
             'username' => ['required', 'max:255', Rule::unique('users')->ignore(auth()->id())],
             'email' => ['required', 'max:255', Rule::unique('users')->ignore(auth()->id())],
-            'education' => ['nullable','max:255'],
+            'education' => ['nullable', 'max:255'],
             'designation' => ['nullable', 'max:255'],
             'website_url' => ['nullable', 'url', 'max:255'],
             'location' => ['nullable', 'string', 'max:255'],

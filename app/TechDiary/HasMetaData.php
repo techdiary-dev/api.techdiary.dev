@@ -17,7 +17,7 @@ trait HasMetaData
     /**
      * Get meta value by using unique key
      *
-     * @param $key String meta key name
+     * @param  $key  String meta key name
      */
     public function getMetaValue($key)
     {
@@ -35,7 +35,7 @@ trait HasMetaData
     /**
      * Get meta json data by using unique key
      *
-     * @param $key Unique meta key name
+     * @param  $key  Unique meta key name
      */
     public function getMetaJSON($key)
     {
@@ -53,8 +53,8 @@ trait HasMetaData
     /**
      * Set meta value with a key
      *
-     * @param $data
-     * return void
+     * @param  $data
+     *               return void
      */
     public function setMetaValue($key, $data)
     {
@@ -71,12 +71,12 @@ trait HasMetaData
     /**
      * Set meta json payload with a key
      *
-     * @param $data
-     * return void
+     * @param  $data
+     *               return void
      */
     public function setMetaJSON($key, $data)
     {
-        if (!$data) {
+        if (! $data) {
             return null;
         }
 
