@@ -31,18 +31,12 @@ class ArticleFactory extends Factory
     public function definition()
     {
         $title = $this->faker->sentence;
-
-        $body = [
-            ["type" => "paragraph", "data" => ["text" => "টেকডায়েরি  পৃথিবী  শ্রেষ্ঠ ব্লগিং প্লাটফর্ম"]]
-        ];
-
         return [
             'title' => $title,
             'slug' => Str::slug($title) . '-' . Str::random(6),
-            'thumbnail' => $this->faker->imageUrl(700, 450),
-            'body' => $body,
-            'isPublished' => $this->faker->boolean,
-            'isApproved' => true,
+            'body' => '### টেকডায়েরি  পৃথিবী  শ্রেষ্ঠ ব্লগিং প্লাটফর্ম',
+            'is_published' => $this->faker->boolean,
+            'is_approved' => true,
             'user_id' => User::all()->random()->id
         ];
     }

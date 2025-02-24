@@ -20,18 +20,18 @@ class BookmarkController extends Controller
 
     public function getBookmarks(BookmarkListRequest $request)
     {
-//        $userId = $request->user()->id;
-//        $bookmarks = Reaction::where([
-//            'ReactionAble_type' => Article::getModel()->getMorphClass(),
-//            'type' => 'BOOKMARK',
-//            'user_id' => $userId
-//        ])->with('reactable');
+        $userId = $request->user()->id;
+        $bookmarks = Reaction::where([
+            'ReactionAble_type' => Article::getModel()->getMorphClass(),
+            'type' => 'BOOKMARK',
+            'user_id' => $userId
+        ])->with('reactable');
 
-//        return response()->json($bookmarks->paginate(10));
+        return response()->json($bookmarks->paginate(10));
 
-        $bookmark = Reaction::first();
-
-        return response()->json($bookmark->reactionable);
+//        $bookmark = Reaction::first();
+//
+//        return response()->json($bookmark->reactionable);
 
 
 
