@@ -5,7 +5,6 @@ namespace App\TechDiary\Reaction\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-
 class Reaction extends Model
 {
     use HasUuids;
@@ -16,15 +15,12 @@ class Reaction extends Model
         'id' => 'string',
     ];
 
-
     /**
-     * Reactable model relation.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     * ReactionAble model relation.
      */
-    public function ReactionAble()
+    public function ReactionAble(): \Illuminate\Database\Eloquent\Relations\MorphTo
     {
-        return $this->morphTo();
+        return $this->morphTo('ReactionAble');
     }
 
     /**

@@ -42,11 +42,11 @@ class CreateArticleRequest extends FormRequest
         ];
     }
 
-//    public function messages()
-//    {
-//        return [
-//            'title.required' => 'ডায়েরির শিরোনাম দেননি। ',
-//            'body.required'  => 'A message is required',
-//        ];
-//    }
+    //    public function messages()
+    //    {
+    //        return [
+    //            'title.required' => 'ডায়েরির শিরোনাম দেননি। ',
+    //            'body.required'  => 'A message is required',
+    //        ];
+    //    }
 }

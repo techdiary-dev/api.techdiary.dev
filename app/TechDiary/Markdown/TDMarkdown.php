@@ -26,8 +26,6 @@ class TDMarkdown
 
     /**
      * Generate html of given markdown
-     *
-     * @return string
      */
     public function toHTML(): string
     {
@@ -57,25 +55,24 @@ class TDMarkdown
                 'placeholder' => 'Table of contents',
             ],
             'embeds' => [
-                new CodePen(),
-                new YouTube(),
-                new Vimeo(),
+                new CodePen,
+                new YouTube,
+                new Vimeo,
             ],
         ];
         $converter = new CommonMarkConverter($config);
 
-        $converter->getEnvironment()->addExtension(new HeadingPermalinkExtension());
-        $converter->getEnvironment()->addExtension(new TableExtension());
-        $converter->getEnvironment()->addExtension(new ExternalLinkExtension());
-        $converter->getEnvironment()->addExtension(new AutolinkExtension());
-        $converter->getEnvironment()->addExtension(new TaskListExtension());
-        $converter->getEnvironment()->addExtension(new DisallowedRawHtmlExtension());
-        $converter->getEnvironment()->addExtension(new TableOfContentsExtension());
-        $converter->getEnvironment()->addExtension(new EmbedExtension());
+        $converter->getEnvironment()->addExtension(new HeadingPermalinkExtension);
+        $converter->getEnvironment()->addExtension(new TableExtension);
+        $converter->getEnvironment()->addExtension(new ExternalLinkExtension);
+        $converter->getEnvironment()->addExtension(new AutolinkExtension);
+        $converter->getEnvironment()->addExtension(new TaskListExtension);
+        $converter->getEnvironment()->addExtension(new DisallowedRawHtmlExtension);
+        $converter->getEnvironment()->addExtension(new TableOfContentsExtension);
+        $converter->getEnvironment()->addExtension(new EmbedExtension);
 
         return (string) $converter->convert($this->markdown ?: '');
     }
-
 
     public function toPlainText(): string
     {

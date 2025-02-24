@@ -12,12 +12,11 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
-
 class User extends Authenticatable implements ReactorUserInterface
 {
-    use TwoFactorAuthenticatable;
+    use HasApiTokens, HasFactory, Notifiable;
     use HasUuids;
-    use HasFactory, Notifiable, HasApiTokens;
+    use TwoFactorAuthenticatable;
 
     protected $keyType = 'string';
 

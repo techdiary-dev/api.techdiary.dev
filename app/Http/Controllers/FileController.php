@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\File\FileDeleteRequest;
 use App\Http\Requests\File\FileUploadRequest;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
-use Illuminate\Http\Request;
 
 class FileController extends Controller
 {
@@ -19,7 +18,7 @@ class FileController extends Controller
                 'file' => [
                     'key' => $upload->getPublicId(),
                     'provider' => 'cloudinary',
-                ]
+                ],
             ];
         });
 

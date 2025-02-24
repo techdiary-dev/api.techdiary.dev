@@ -31,7 +31,7 @@ class ArticleController extends Controller
     {
         $articles = Article::where([
             'is_published' => true,
-            'is_approved' => true
+            'is_approved' => true,
         ])->with(['tags', 'user', 'reactions'])
             ->withCount('comments')->latest('published_at')->withScopes($this->scopes());
 
@@ -41,7 +41,7 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
      */
     public function store(CreateArticleRequest $request)
@@ -81,6 +81,7 @@ class ArticleController extends Controller
         $request->validate([
             'slug' => 'required',
         ]);
+
         return response()->json(['slug' => $this->getUniqueSlugUtil($request->slug)]);
     }
 
@@ -89,18 +90,15 @@ class ArticleController extends Controller
         $slugged = Str::slug($slug);
         $slugExists = Article::withTrashed()->where('slug', $slugged)->first();
 
-        if (!$slugExists) {
+        if (! $slugExists) {
             return $slugged;
         }
-        return $slugged . '-' . Str::random(5);
-    }
 
+        return $slugged.'-'.Str::random(5);
+    }
 
     /**
      * Display the specified resource.
-     *
-     * @param Article $article
-     * @return ArticleDetails
      */
     public function show(Article $article): ArticleDetails
     {
@@ -110,9 +108,6 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateArticleRequest $request
-     * @param Article $article
-     * @return JsonResponse
      * @throws AuthorizationException
      */
     public function update(UpdateArticleRequest $request, Article $article): JsonResponse
@@ -146,11 +141,10 @@ class ArticleController extends Controller
      * Remove the specified resource from storage.
      *
      * @return JsonResponse
-     *
      */
     public function destroy(string $uuid)
     {
-//        $this->authorize('delete', $article);
+        //        $this->authorize('delete', $article);
         Article::query()->where('id', $uuid)->forceDelete();
 
         return response()->json([
@@ -173,7 +167,6 @@ class ArticleController extends Controller
         $published_count = auth()->user()->articles()->where('is_published', true)->count();
         $draft_count = auth()->user()->articles()->where('is_published', false)->count();
         $my_articles_ids = auth()->user()->articles()->pluck('id');
-
 
         $comments_count = Comment::where([
             'commentable_type' => Article::getModel()->getMorphClass(),
@@ -220,16 +213,16 @@ class ArticleController extends Controller
             ->latest()
             ->withCount('comments')
             ->paginate();
+
         return AuthArticleList::collection($articles);
     }
-
 
     protected function scopes()
     {
         return [
-            'user' => new UserScope(),
-            'tag' => new ArticlesByTagName(),
-            'excludeIds' => new ArticleExcludeIdsScope(),
+            'user' => new UserScope,
+            'tag' => new ArticlesByTagName,
+            'excludeIds' => new ArticleExcludeIdsScope,
         ];
     }
 }

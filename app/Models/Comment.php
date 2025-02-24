@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
 class Comment extends Model
 {
-    use HasUuids;
     use HasFactory, ReactionableModel, VotableModel;
+    use HasUuids;
 
     protected $casts = [
         'id' => 'string',

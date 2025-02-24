@@ -8,13 +8,11 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-
 class ArticleFactory extends Factory
 {
-
     protected $commentCount = 10;
-    protected $commentDeptLevel = 3;
 
+    protected $commentDeptLevel = 3;
 
     /**
      * The name of the factory's corresponding model.
@@ -31,6 +29,7 @@ class ArticleFactory extends Factory
     public function definition()
     {
         $title = $this->faker->sentence;
+<<<<<<< HEAD
         return [
             'title' => $title,
             'slug' => Str::slug($title) . '-' . Str::random(6),
@@ -38,33 +37,48 @@ class ArticleFactory extends Factory
             'is_published' => $this->faker->boolean,
             'is_approved' => true,
             'user_id' => User::all()->random()->id
+=======
+
+        $body = [
+            ['type' => 'paragraph', 'data' => ['text' => 'টেকডায়েরি  পৃথিবী  শ্রেষ্ঠ ব্লগিং প্লাটফর্ম']],
+        ];
+
+        return [
+            'title' => $title,
+            'slug' => Str::slug($title).'-'.Str::random(6),
+            'thumbnail' => $this->faker->imageUrl(700, 450),
+            'body' => $body,
+            'isPublished' => $this->faker->boolean,
+            'isApproved' => true,
+            'user_id' => User::all()->random()->id,
+>>>>>>> e8987d6ccc15ccbd01ebe6308a0933527d3e6361
         ];
     }
 
     /**
      * Generate comment
-     * @param $comment
-     * @param $article
-     * @param int $depth
-     * @param int $currentDepth
+     *
+     * @param  int  $depth
+     * @param  int  $currentDepth
      */
-//    public function configure()
-//    {
-//        return $this->afterCreating(function (Article $article) {
-//            $comments = Comment::factory($this->commentCount)->for(
-//                $article, 'commentable'
-//            )->create()->each(function ($comment) use ($article) {
-//                $comment->replies()->saveMany($this->createComments($comment, $article, $this->commentDeptLevel));
-//            });
-//            $article->comments()->saveMany($comments);
-//        });
-//    }
+    //    public function configure()
+    //    {
+    //        return $this->afterCreating(function (Article $article) {
+    //            $comments = Comment::factory($this->commentCount)->for(
+    //                $article, 'commentable'
+    //            )->create()->each(function ($comment) use ($article) {
+    //                $comment->replies()->saveMany($this->createComments($comment, $article, $this->commentDeptLevel));
+    //            });
+    //            $article->comments()->saveMany($comments);
+    //        });
+    //    }
 
     protected function createComments($comment, $article, $depth = 3, $currentDepth = 0)
     {
         if ($currentDepth === $depth) {
             return;
         }
+
         return $comment->replies()->saveMany(Comment::factory(3)->for(
             $article, 'commentable'
         )->create()->each(function ($reply) use ($depth, $article, $currentDepth) {

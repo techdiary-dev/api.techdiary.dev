@@ -11,16 +11,16 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
  * Class ArticleCrudController
- * @package App\Http\Controllers\Admin
+ *
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
 class ArticleCrudController extends CrudController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -30,7 +30,7 @@ class ArticleCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\Article::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/article');
+        CRUD::setRoute(config('backpack.base.route_prefix').'/article');
         CRUD::setEntityNameStrings('article', 'articles');
     }
 
@@ -38,6 +38,7 @@ class ArticleCrudController extends CrudController
      * Define what happens when the List operation is loaded.
      *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
+     *
      * @return void
      */
     protected function setupListOperation()
@@ -46,7 +47,7 @@ class ArticleCrudController extends CrudController
         $this->crud->addFilter([
             'type' => 'select2',
             'label' => 'Publish status',
-            'name' => 'isPublished'
+            'name' => 'isPublished',
         ], function () {
             return [
                 true => 'Published',
@@ -59,7 +60,7 @@ class ArticleCrudController extends CrudController
         $this->crud->addFilter([
             'type' => 'select2',
             'label' => 'Approval status',
-            'name' => 'isApproved'
+            'name' => 'isApproved',
         ], function () {
             return [
                 true => 'Approved',
@@ -72,7 +73,7 @@ class ArticleCrudController extends CrudController
         $this->crud->addFilter([
             'name' => 'tags',
             'type' => 'select2_multiple',
-            'label' => 'Filter by tags'
+            'label' => 'Filter by tags',
         ], function () { // the options that show up in the select2
             return Tag::all()->pluck('name', 'id')->toArray();
         }, function ($values) { // if the filter is active
@@ -83,7 +84,7 @@ class ArticleCrudController extends CrudController
             }
         });
         $this->crud->addFilter([
-            'label' => "Filter by User",
+            'label' => 'Filter by User',
             'type' => 'select2',
             'name' => 'user_id', // the db column for the foreign key
             'model' => User::class,
@@ -101,9 +102,8 @@ class ArticleCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'user',
             'label' => 'username',
-            'attribute' => 'username'
+            'attribute' => 'username',
         ]);
-
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -111,7 +111,6 @@ class ArticleCrudController extends CrudController
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
     }
-
 
     public function crudOperation()
     {
@@ -121,10 +120,9 @@ class ArticleCrudController extends CrudController
         CRUD::field('tags');
 
         $this->crud->addField([
-            "name" => "body",
-            "type" => "editorjs"
+            'name' => 'body',
+            'type' => 'editorjs',
         ]);
-
 
         CRUD::field('excerpt');
         CRUD::field('isPublished');
@@ -138,6 +136,7 @@ class ArticleCrudController extends CrudController
      * Define what happens when the Create operation is loaded.
      *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
+     *
      * @return void
      */
     protected function setupCreateOperation()
@@ -155,6 +154,7 @@ class ArticleCrudController extends CrudController
      * Define what happens when the Update operation is loaded.
      *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
+     *
      * @return void
      */
     protected function setupUpdateOperation()

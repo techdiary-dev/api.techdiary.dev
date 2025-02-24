@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TokenResource;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -12,15 +11,12 @@ class PersonalAccessTokenController extends Controller
 {
     /**
      * Create personal access token
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function createToken(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
             'name' => ['required', 'min:5'],
-//            'expires_at' => ['required', 'date', 'after_or_equal:today'],
+            //            'expires_at' => ['required', 'date', 'after_or_equal:today'],
         ]);
 
         $token = auth()->user()->createToken($request->name);
@@ -28,7 +24,7 @@ class PersonalAccessTokenController extends Controller
         return response()->json([
             'message' => 'Access token generated',
             'token' => $token->plainTextToken,
-//            'expires_at' => $token->expires_at->toDateTimeString(),
+            //            'expires_at' => $token->expires_at->toDateTimeString(),
         ]);
     }
 

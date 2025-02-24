@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ArticleExcludeIdsScope implements Scope
 {
-
     public function apply(Builder $builder, $value)
     {
 
@@ -15,9 +14,9 @@ class ArticleExcludeIdsScope implements Scope
             return $builder;
         }
 
-        if (!is_array($value)) {
+        if (! is_array($value)) {
             return $builder->whereNotIn('id', [$value]);
-        }else{
+        } else {
             return $builder->whereNotIn('id', $value);
         }
     }

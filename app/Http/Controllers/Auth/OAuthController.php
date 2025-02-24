@@ -8,7 +8,6 @@ use App\Http\Requests\Auth\OAuthTokenGrantRequest;
 use App\Models\User;
 use App\Models\UserSocial;
 use App\TechDiary\TechdiaryToken;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
@@ -64,7 +63,7 @@ class OAuthController extends Controller
                 $user->save();
             }
 
-            if (!$social_user) {
+            if (! $social_user) {
                 $user->socialProviders()->create([
                     'service' => $service,
                     'service_uid' => $socialServiceUser->id,
@@ -88,7 +87,6 @@ class OAuthController extends Controller
             return $this->redirect(env('CLIENT_URL').'?error=1');
         }
     }
-
 
     public function createTokenUsingSecret(GenerateTokenRequest $request)
     {
@@ -134,33 +132,33 @@ class OAuthController extends Controller
     {
         switch ($request->grant_type) {
             case 'password':
-                if(!$request->email || !$request->password) {
+                if (! $request->email || ! $request->password) {
                     abort(403, 'Email and password are required for grant_type password');
                 }
+
                 return response()->json([
                     'message' => "Successfully granted token using grand_type: $request->grant_type",
                     'access_token' => $this->grantTokenUsingPassword($request->email, $request->password),
                 ]);
             case 'refresh_token':
-                throw new NotImplementedException("Refresh token is not implemented");
+                throw new NotImplementedException('Refresh token is not implemented');
             case 'authorization_code':
-                throw new NotImplementedException("Authorization code is not implemented");
+                throw new NotImplementedException('Authorization code is not implemented');
                 break;
         }
     }
-
 
     public function grantTokenUsingPassword(string $email, string $password)
     {
         $user = User::whereEmail($email)->first();
 
-        if (!$user) {
+        if (! $user) {
             abort(403, 'Invalid credentials');
         }
 
         $attempt = auth()->attempt(['email' => $email, 'password' => $password]);
 
-        if(!$attempt){
+        if (! $attempt) {
             // throw UnauthorizedException::withMessage('Invalid credentials');
             abort(403, 'Invalid credentials');
         }

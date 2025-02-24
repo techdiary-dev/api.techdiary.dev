@@ -11,10 +11,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ArticleDetails extends JsonResource
 {
-    function getWordsFromStr($length, $str)
+    public function getWordsFromStr($length, $str)
     {
         $words = explode(' ', $str);
         $s = array_slice($words, 0, $length);
+
         return implode(' ', $s);
     }
 
